@@ -11,7 +11,7 @@ public class ScrollingManagerScript : MonoBehaviour
 {
     public ScrollingObject[] scrollingObj;
     public ScrollingObject lastScrollingObj;
-    public Vector3 star%tPos;
+    public Vector3 startPos;
     // Use this for initialization
     void Start()
     {
