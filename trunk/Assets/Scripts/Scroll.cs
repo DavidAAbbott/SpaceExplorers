@@ -9,10 +9,9 @@ public class ScrollingObject
 }
 public class ScrollingManagerScript : MonoBehaviour
 {
-    //TESTAUSTA
     public ScrollingObject[] scrollingObj;
     public ScrollingObject lastScrollingObj;
-    public Vector3 startPos;
+    public Vector3 star%tPos;
     // Use this for initialization
     void Start()
     {
