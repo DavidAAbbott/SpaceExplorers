@@ -9,7 +9,7 @@ public class ScrollingObject
 }
 public class ScrollingManagerScript : MonoBehaviour
 {
-
+    //TESTAUSTA
     public ScrollingObject[] scrollingObj;
     public ScrollingObject lastScrollingObj;
     public Vector3 startPos;
