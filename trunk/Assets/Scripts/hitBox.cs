@@ -3,16 +3,23 @@ using System.Collections;
 
 public class hitBox : MonoBehaviour {
     private int playerlives = 3;
-    private int pCount = 0;
-    private int sCount = 0;
+    public static int pCount = 1;
+    public static int sCount = 0;
     public GUIText guiL, guiP, guiS;
-    private BoxCollider2D[] box;
+    private BoxCollider2D box;
+    private SpriteRenderer sprite;
+    private GameObject player;
+    private GameObject lieskat;
+    private Vector2 spwn;
 
 	void Start() {
-        box = GetComponents<BoxCollider2D>();
-        box[0].enabled = true;
-        box[1].enabled = true;
-        box[2].enabled = true;
+        player = GameObject.Find("Player");
+        lieskat = GameObject.Find("Lieskat");
+        sprite = player.GetComponent<SpriteRenderer>();
+        lieskat.SetActive(true);
+        box = GetComponent<BoxCollider2D>();
+        box.enabled = true;
+        spwn = player.transform.position;
         guiL.text = "- Lives: " + playerlives.ToString() + " -";
         guiP.text = pCount.ToString();
         guiS.text = sCount.ToString();
@@ -49,12 +56,37 @@ public class hitBox : MonoBehaviour {
     }
     IEnumerator invul()
     {
-        box[0].enabled = false;
-        box[1].enabled = false;
-        box[2].enabled = false;
-        yield return new WaitForSeconds(0.5f);
-        box[0].enabled = true;
-        box[1].enabled = true;
-        box[2].enabled = true;
+        box.enabled = false;
+        sprite.enabled = false;
+        lieskat.SetActive(false);
+        player.transform.position = spwn;
+        yield return new WaitForSeconds(0.1f);
+        sprite.enabled = true;
+        lieskat.SetActive(true);
+        yield return new WaitForSeconds(0.1f);
+        sprite.enabled = false;
+        lieskat.SetActive(false);
+        yield return new WaitForSeconds(0.1f);
+        sprite.enabled = true;
+        lieskat.SetActive(true);
+        yield return new WaitForSeconds(0.1f);
+        sprite.enabled = false;
+        lieskat.SetActive(false);
+        yield return new WaitForSeconds(0.1f);
+        sprite.enabled = true;
+        lieskat.SetActive(true);
+        yield return new WaitForSeconds(0.1f);
+        sprite.enabled = false;
+        lieskat.SetActive(false);
+        yield return new WaitForSeconds(0.1f);
+        sprite.enabled = true;
+        lieskat.SetActive(true);
+        yield return new WaitForSeconds(0.1f);
+        sprite.enabled = false;
+        lieskat.SetActive(false);
+        yield return new WaitForSeconds(0.1f);
+        box.enabled = true;
+        sprite.enabled = true;
+        lieskat.SetActive(true);
     }
 }

@@ -27,12 +27,12 @@ public class Projectile : MonoBehaviour
     {
         if (collider.tag == "Asteroid")
         {
-            Destroy(gameObject, 0.1f);
+            Destroy(gameObject, 0.01f);
         }
 
         if (collider.tag == "Enemy")
         {
-            Destroy(gameObject, 0.1f);
+            Destroy(gameObject, 0.01f);
         }
     }
     void OnTriggerExit2D(Collider2D collider)
