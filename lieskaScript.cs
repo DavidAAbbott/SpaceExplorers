@@ -1,9 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class lieskaScript : MonoBehaviour
-{
-
+public class lieskaScript : MonoBehaviour{
     private Animator anim;
 
     // Use this for initialization

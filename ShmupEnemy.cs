@@ -1,14 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ShmupEnemy : MonoBehaviour
-{
+public class ShmupEnemy : MonoBehaviour {
     public int speed;
     public float FireRate;
     public GameObject explosion;
     public GameObject EnemyBullet;
     public float BulletSpawnX;
     public float BulletSpawnY;
+
     void Start()
     {
         InvokeRepeating("Firing", FireRate, FireRate);
@@ -42,10 +42,12 @@ public class ShmupEnemy : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.tag == "Bullet")
+        if (collider.tag == "pBullet")
         {
             Destroy(gameObject);
             Instantiate(explosion, transform.position, new Quaternion());
+            Score.hit++;
+            Score.timer += 1f;
         }
     }
-    }
+}

@@ -5,7 +5,7 @@ public class PlayerShoot : MonoBehaviour {
     public float fireRate = 0.2f;
     private float timeBetween = 0.0f;
     public AudioClip ShotSound;
-    public GameObject Bullet;
+    public GameObject Bullet, Bullet2, Bullet3;
 
     void Update()
     {
@@ -43,9 +43,26 @@ public class PlayerShoot : MonoBehaviour {
     void Shoot()
     {
         GameObject pNewObject;
-        pNewObject = Instantiate(Bullet) as GameObject;
-        pNewObject.transform.rotation = transform.rotation;
-        Vector2 pos = new Vector2(transform.position.x + 0.5f, transform.position.y - 0.1f);
-        pNewObject.transform.position = pos;
+        if (hitBox.pCount == 2)
+        {
+            pNewObject = Instantiate(Bullet2) as GameObject;
+            pNewObject.transform.rotation = transform.rotation;
+            Vector2 pos = new Vector2(transform.position.x + 0.5f, transform.position.y - 0.1f);
+            pNewObject.transform.position = pos;
+        }
+        if (hitBox.pCount == 3)
+        {
+            pNewObject = Instantiate(Bullet3) as GameObject;
+            pNewObject.transform.rotation = transform.rotation;
+            Vector2 pos = new Vector2(transform.position.x + 0.5f, transform.position.y - 0.1f);
+            pNewObject.transform.position = pos;
+        }
+        else
+        {
+            pNewObject = Instantiate(Bullet) as GameObject;
+            pNewObject.transform.rotation = transform.rotation;
+            Vector2 pos = new Vector2(transform.position.x + 0.5f, transform.position.y - 0.1f);
+            pNewObject.transform.position = pos;
+        }
     }
 }
