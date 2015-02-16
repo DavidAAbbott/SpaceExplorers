@@ -6,11 +6,16 @@ public class PlayerShoot : MonoBehaviour {
     private float timeBetween = 0.0f;
     public AudioClip ShotSound;
     public GameObject Bullet, Bullet2, Bullet3;
+    public float x, y;
     private Score scores;
+    public bool WorldMap = false;
 
     void Start()
     {
-        scores = GameObject.Find("UI").GetComponent<Score>();
+        if (WorldMap == false)
+        {
+            scores = GameObject.Find("UI").GetComponent<Score>();
+        }
     }
     void Update()
     {
@@ -52,21 +57,21 @@ public class PlayerShoot : MonoBehaviour {
         {
             pNewObject = Instantiate(Bullet2) as GameObject;
             pNewObject.transform.rotation = transform.rotation;
-            Vector2 pos = new Vector2(transform.position.x + 0.5f, transform.position.y - 0.1f);
+            Vector2 pos = new Vector2(transform.position.x + x, transform.position.y + y);
             pNewObject.transform.position = pos;
         }
         if (scores.pCount == 3)
         {
             pNewObject = Instantiate(Bullet3) as GameObject;
             pNewObject.transform.rotation = transform.rotation;
-            Vector2 pos = new Vector2(transform.position.x + 0.5f, transform.position.y - 0.1f);
+            Vector2 pos = new Vector2(transform.position.x + x, transform.position.y + y);
             pNewObject.transform.position = pos;
         }
         else
         {
             pNewObject = Instantiate(Bullet) as GameObject;
             pNewObject.transform.rotation = transform.rotation;
-            Vector2 pos = new Vector2(transform.position.x + 0.5f, transform.position.y - 0.1f);
+            Vector2 pos = new Vector2(transform.position.x + x, transform.position.y + y);
             pNewObject.transform.position = pos;
         }
     }
