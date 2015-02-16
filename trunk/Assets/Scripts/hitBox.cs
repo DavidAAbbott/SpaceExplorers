@@ -2,17 +2,15 @@
 using System.Collections;
 
 public class hitBox : MonoBehaviour {
-    private int playerlives = 3;
-    public static int pCount = 1;
-    public static int sCount = 0;
-    public GUIText guiL, guiP, guiS;
     private BoxCollider2D box;
     private SpriteRenderer sprite;
     private GameObject player;
     private GameObject lieskat;
     private Vector2 spwn;
+    private Score scores;
 
 	void Start() {
+        scores = GameObject.Find("UI").GetComponent<Score>();
         player = GameObject.Find("Player");
         lieskat = GameObject.Find("Lieskat");
         sprite = player.GetComponent<SpriteRenderer>();
@@ -20,15 +18,9 @@ public class hitBox : MonoBehaviour {
         box = GetComponent<BoxCollider2D>();
         box.enabled = true;
         spwn = player.transform.position;
-        guiL.text = "- Lives: " + playerlives.ToString() + " -";
-        guiP.text = pCount.ToString();
-        guiS.text = sCount.ToString();
 	}
 	void Update() {
-        guiP.text = pCount.ToString();
-        guiS.text = sCount.ToString();
-        guiL.text = "- LIVES: " + playerlives.ToString() + " -";
-        if (playerlives <= 0)
+        if (scores.playerlives <= 0)
         {
             GameObject.Find("Player").SetActive(false);
         }
@@ -38,20 +30,20 @@ public class hitBox : MonoBehaviour {
         if (collider.tag == "Bullet")
         {
             StartCoroutine("invul");
-            playerlives--;
+            scores.playerlives--;
         }
         if (collider.tag == "pPickup")
         {
-            pCount++;
+            scores.pCount++;
         }
         if (collider.tag == "sPickup")
         {
-            sCount++;
+            scores.sCount++;
         }
         if(collider.tag == "Asteroid")
         {
             StartCoroutine("invul");
-            playerlives--;
+            scores.playerlives--;
         }
     }
     IEnumerator invul()

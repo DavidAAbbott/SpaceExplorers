@@ -8,9 +8,12 @@ public class ShmupEnemy : MonoBehaviour {
     public GameObject EnemyBullet;
     public float BulletSpawnX;
     public float BulletSpawnY;
+    private Score scores;
+    public int points = 50;
 
     void Start()
     {
+        scores = GameObject.Find("UI").GetComponent<Score>();
         InvokeRepeating("Firing", FireRate, FireRate);
     }
 
@@ -46,8 +49,19 @@ public class ShmupEnemy : MonoBehaviour {
         {
             Destroy(gameObject);
             Instantiate(explosion, transform.position, new Quaternion());
-            Score.hit++;
-            Score.timer += 1f;
+            scores.hit++;
+            scores.timer += 0.5f;
+            scores.combo++;
+
+            if (scores.cmb == true)
+            {
+                scores.score += points * scores.combo;
+            }
+            else
+            {
+                scores.combo = 0;
+                scores.score += points;
+            }
         }
     }
 }
