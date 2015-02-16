@@ -3,15 +3,12 @@ using System.Collections;
 
 public class PlayerMouseRotation : MonoBehaviour
 {
+    public float smooth = 2.0f; 
+
     void Update()
     {
-        Vector3 upAxis = new Vector3(0, 0, -1);
-        Vector3 mouseScreenPosition = Input.mousePosition;
-
-        mouseScreenPosition.z = transform.position.z;
-        Vector3 mouseWorldSpace = Camera.main.ScreenToWorldPoint(mouseScreenPosition);
-        transform.LookAt(mouseWorldSpace, upAxis);
-
-        transform.eulerAngles = new Vector3(0, 0, -transform.eulerAngles.z);
+        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Quaternion shiprotate = Quaternion.LookRotation(Vector3.forward, mousePos - transform.position);
+        transform.rotation = Quaternion.Slerp(transform.rotation, shiprotate, Time.deltaTime * smooth);
     }
 }

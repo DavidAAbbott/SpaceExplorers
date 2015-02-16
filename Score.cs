@@ -2,32 +2,45 @@
 using System.Collections;
 
 public class Score : MonoBehaviour {
-    public GUIText guiScore;
-    public int score;
-    public static float timer = 1f;
-    private int combo = 0;
-    public static int hit;
-    public GUIText guiCombo;
+    public int playerlives = 3;
+    public int pCount = 1;
+    public int sCount = 0;
+    public float timer = 0f;
+    public int combo = 0;
+    public int hit, score;
+    public bool cmb;
+    public GUIText guiScore, guiCombo, guiLives, guiPrimary, guiSecondary;
 
-	void Start () {
+    void Start()
+    {
         guiScore.text = "- Score: " + score.ToString() + " -";
         guiCombo.text = "- Combo: " + combo.ToString() + " -";
-	}
-	
-	void Update () {
-        timer -= Time.deltaTime;
+        guiLives.text = "- Lives: " + playerlives.ToString() + " -";
+        guiPrimary.text = pCount.ToString();
+        guiSecondary.text = sCount.ToString();
+    }
+
+    void Update()
+    {
+        if (timer > 0f)
+        {
+            timer -= Time.deltaTime;
+        } 
+        guiPrimary.text = pCount.ToString();
+        guiSecondary.text = sCount.ToString();
+        guiLives.text = "- LIVES: " + playerlives.ToString() + " -";
         guiScore.text = "- SCORE: " + score.ToString() + " -";
-        guiCombo.text = "- COMBO: " + combo.ToString() + " -";
 
         if (timer > 0)
         {
-            combo++;
-            score += hit * combo;
+            cmb = true;
         }
         else
         {
+            cmb = false;
             combo = 0;
-            score += hit;
         }
-	}
+
+        guiCombo.text = "- COMBO: " + combo.ToString() + " -";
+    }
 }
