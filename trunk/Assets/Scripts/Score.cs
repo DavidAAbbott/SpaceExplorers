@@ -9,14 +9,13 @@ public class Score : MonoBehaviour {
     public int combo = 0;
     public int hit, score;
     public bool cmb;
-    public GUIText guiScore, guiCombo, guiLives, guiPrimary, guiSecondary;
+    public GUIText guiScore, guiCombo, guiLives , guiSecondary;
 
     void Start()
     {
         guiScore.text = "- Score: " + score.ToString() + " -";
         guiCombo.text = "- Combo: " + combo.ToString() + " -";
         guiLives.text = "- Lives: " + playerlives.ToString() + " -";
-        guiPrimary.text = pCount.ToString();
         guiSecondary.text = sCount.ToString();
     }
 
@@ -26,7 +25,6 @@ public class Score : MonoBehaviour {
         {
             timer -= Time.deltaTime;
         } 
-        guiPrimary.text = pCount.ToString();
         guiSecondary.text = sCount.ToString();
         guiLives.text = "- LIVES: " + playerlives.ToString() + " -";
         guiScore.text = "- SCORE: " + score.ToString() + " -";

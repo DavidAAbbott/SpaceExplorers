@@ -31,6 +31,7 @@ public class hitBox : MonoBehaviour {
         {
             StartCoroutine("invul");
             scores.playerlives--;
+            scores.pCount = 1;
         }
         if (collider.tag == "pPickup")
         {
@@ -78,6 +79,7 @@ public class hitBox : MonoBehaviour {
         lieskat.SetActive(false);
         yield return new WaitForSeconds(0.1f);
         box.enabled = true;
+        CancelInvoke("flash");
         sprite.enabled = true;
         lieskat.SetActive(true);
     }
