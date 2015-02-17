@@ -17,9 +17,9 @@ public class hitBox : MonoBehaviour {
         lieskat.SetActive(true);
         box = GetComponent<BoxCollider2D>();
         box.enabled = true;
-        spwn = player.transform.position;
 	}
 	void Update() {
+        spwn = GameObject.Find("RespawnPoint").transform.position;
         if (scores.playerlives <= 0)
         {
             GameObject.Find("Player").SetActive(false);
@@ -46,14 +46,23 @@ public class hitBox : MonoBehaviour {
             StartCoroutine("invul");
             scores.playerlives--;
         }
+        if (collider.tag == "Ground")
+        {
+            StartCoroutine("invul");
+            scores.playerlives--;
+        }
     }
     IEnumerator invul()
     {
+        PlayerMov.canMove = false;
+        PlayerShoot.canShoot = false;
         box.enabled = false;
         sprite.enabled = false;
         lieskat.SetActive(false);
         player.transform.position = spwn;
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.5f);
+        PlayerMov.canMove = true;
+        PlayerShoot.canShoot = true;
         sprite.enabled = true;
         lieskat.SetActive(true);
         yield return new WaitForSeconds(0.1f);

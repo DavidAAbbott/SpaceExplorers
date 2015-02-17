@@ -2,7 +2,6 @@
 using System.Collections;
 
 public class EnemySpawner : MonoBehaviour {
-
     public float SpawnRate;
     public GameObject Spawnee;
 
