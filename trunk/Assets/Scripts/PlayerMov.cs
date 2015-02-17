@@ -5,6 +5,7 @@ public class PlayerMov : MonoBehaviour {
     public float speed = 2f;
     private Vector2 move;
     private Animator anim;
+    public static bool canMove = true;
 
 	void Start () {
         anim = GetComponent<Animator>();
@@ -21,6 +22,9 @@ public class PlayerMov : MonoBehaviour {
         move = Vector2.ClampMagnitude(move, speed * Time.deltaTime);
 	}
     void FixedUpdate() {
-        transform.Translate(move);
+        if (canMove)
+        {
+            transform.Translate(move);
+        }
     }
 }
