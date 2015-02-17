@@ -8,6 +8,11 @@ public class CameraScr : MonoBehaviour
     private GameObject player;
     private Transform target;
 
+    private bool onoff;
+    public float ZoomTime = 2f;
+    public int NormalSize = 8;
+    public int ZoomSize = 4;
+
     void Start()
     {
         player = GameObject.Find("Player");
@@ -15,7 +20,31 @@ public class CameraScr : MonoBehaviour
     void Update()
     {
         target = player.transform;
+
+        if (Input.GetButton("RS_1"))
+        {
+            onoff = !onoff;
+
+            if (onoff)
+            {
+                if (ZoomTime > 1)
+                {
+                    ZoomTime -= Time.deltaTime;
+                    Camera.main.orthographicSize = Mathf.Lerp(Camera.main.orthographicSize, NormalSize, Time.deltaTime * ZoomTime);
+                }
+            }
+
+            else
+            {
+                if (ZoomTime > 1)
+                {
+                    ZoomTime -= Time.deltaTime;
+                    Camera.main.orthographicSize = Mathf.Lerp(Camera.main.orthographicSize, ZoomSize, Time.deltaTime * ZoomTime);
+                }
+            }
+        }
     }
+
     void FixedUpdate()
     {
         if (target)
