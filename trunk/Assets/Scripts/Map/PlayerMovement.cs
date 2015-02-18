@@ -37,7 +37,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Movement()
     {
-        if(strafe == true)
+        if (strafe == true)
         {
             horizontal = Input.GetAxis("L_XAxis_1");
             rigidbody2D.AddForce(transform.right * horizontal * ThrustForce * Time.deltaTime);
@@ -52,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
         if (direction.magnitude > radialDeadZone)
         {
             var currentRotation = Quaternion.LookRotation(Vector3.forward, direction);
-            transform.rotation = Quaternion.Lerp(transform.rotation, currentRotation, Time.deltaTime * angularVelocity);
+            transform.rotation = Quaternion.Slerp(transform.rotation, currentRotation, Time.deltaTime * angularVelocity);
         }
     }
 }
