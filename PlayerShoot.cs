@@ -49,42 +49,55 @@ public class PlayerShoot : MonoBehaviour
     }
     void PrimaryShoot()
     {
-        GameObject pNewObject;
-        if (scores.pCount == 2)
+        if (WorldMap == false)
         {
-            Shoot(Bullet2, PrimaryOffsetX, PrimaryOffsetY);
+            GameObject pNewObject;
+
+            if (scores.pCount == 2)
+            {
+                Shoot(Bullet2, PrimaryOffsetX, PrimaryOffsetY);
+            }
+            if (scores.pCount == 3)
+            {
+                Shoot(Bullet3, PrimaryOffsetX, PrimaryOffsetY);
+            }
+            if (scores.pCount == 4)
+            {
+                Shoot(Bullet3, PrimaryOffsetX, PrimaryOffsetY);
+            }
+            if (scores.pCount == 5)
+            {
+                Shoot(Bullet3, PrimaryOffsetX, PrimaryOffsetY);
+            }
+            else
+            {
+                Shoot(Bullet, PrimaryOffsetX, PrimaryOffsetY);
+            }
         }
-        if (scores.pCount == 3)
-        {
-            Shoot(Bullet3, PrimaryOffsetX, PrimaryOffsetY);
-        }
-        if (scores.pCount == 4)
-        {
-            Shoot(Bullet3, PrimaryOffsetX, PrimaryOffsetY);
-        }
-        if (scores.pCount == 5)
-        {
-            Shoot(Bullet3, PrimaryOffsetX, PrimaryOffsetY);
-        }
-        else
+
+        else if (WorldMap == true)
         {
             Shoot(Bullet, PrimaryOffsetX, PrimaryOffsetY);
         }
     }
     void SecondaryShoot()
     {
-        GameObject pNewObject;
-        if (scores.pCount == 2)
+        if (WorldMap == false)
         {
-            Shoot(Bullet2, SecondaryOffsetX, SecondaryOffsetY);
-        }
-        if (scores.pCount == 3)
-        {
-            Shoot(Bullet3, SecondaryOffsetX, SecondaryOffsetY);
-        }
-        else
-        {
-            Shoot(Bullet, SecondaryOffsetX, SecondaryOffsetY);
+            GameObject pNewObject;
+
+            if (scores.pCount == 2)
+            {
+                Shoot(Bullet2, SecondaryOffsetX, SecondaryOffsetY);
+            }
+            if (scores.pCount == 3)
+            {
+                Shoot(Bullet3, SecondaryOffsetX, SecondaryOffsetY);
+            }
+            else
+            {
+                Shoot(Bullet, SecondaryOffsetX, SecondaryOffsetY);
+            }
         }
     }
     void Shoot(GameObject bullet, float offsetx, float offsety)

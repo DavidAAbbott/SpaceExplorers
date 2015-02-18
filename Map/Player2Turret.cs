@@ -50,7 +50,7 @@ public class Player2Turret : MonoBehaviour
         if (direction.magnitude > radialDeadZone)
         {
             var currentRotation = Quaternion.LookRotation(Vector3.forward, direction);
-            transform.rotation = Quaternion.Lerp(transform.rotation, currentRotation, Time.deltaTime * angularVelocity);
+            transform.rotation = Quaternion.Slerp(transform.rotation, currentRotation, Time.deltaTime * angularVelocity);
         }
     }
     void Shoot()
