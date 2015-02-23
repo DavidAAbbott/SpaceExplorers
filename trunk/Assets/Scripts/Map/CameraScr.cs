@@ -9,9 +9,9 @@ public class CameraScr : MonoBehaviour
     private Transform target;
 
     private bool onoff;
-    public float ZoomTime = 2f;
-    public int NormalSize = 8;
     public int ZoomSize = 4;
+    public int NormalSize = 8;
+    public float ZoomTime = 1f;
 
     void Start()
     {
@@ -21,26 +21,18 @@ public class CameraScr : MonoBehaviour
     {
         target = player.transform;
 
-        if (Input.GetButton("RS_1"))
+        //TODO: FIX CAMERA ZOOM
+        if (Input.GetButtonDown("RS_1"))
         {
             onoff = !onoff;
 
             if (onoff)
             {
-                if (ZoomTime > 1)
-                {
-                    ZoomTime -= Time.deltaTime;
-                    Camera.main.orthographicSize = Mathf.Lerp(Camera.main.orthographicSize, NormalSize, Time.deltaTime * ZoomTime);
-                }
+                Camera.main.orthographicSize = Mathf.Lerp(camera.orthographicSize, ZoomSize, Time.deltaTime * ZoomTime);
             }
-
             else
             {
-                if (ZoomTime > 1)
-                {
-                    ZoomTime -= Time.deltaTime;
-                    Camera.main.orthographicSize = Mathf.Lerp(Camera.main.orthographicSize, ZoomSize, Time.deltaTime * ZoomTime);
-                }
+                Camera.main.orthographicSize = Mathf.Lerp(camera.orthographicSize, NormalSize, Time.deltaTime * ZoomTime);
             }
         }
     }
