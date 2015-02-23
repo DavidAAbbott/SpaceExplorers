@@ -5,9 +5,7 @@ public class EnemyAI : MonoBehaviour
 {
     public GameObject explosion;
     public int SpawnRange;
-    public float PatrolSpeed;
-    public float AttackSpeed;
-    public float RotationSpeed;
+    public float PatrolSpeed, AttackSpeed, RotationSpeed;
     public bool randSpawn;
     private bool patrol = true;
 
@@ -73,9 +71,15 @@ public class EnemyAI : MonoBehaviour
 
     void OnCollisionStay2D(Collision2D collider)
     {
-        if (collider.gameObject.tag == "Boundary")
+        if (collider.gameObject.tag == "WorldBoundary")
         {
             RandomRotation();
+        }
+
+        if (collider.gameObject.tag == "Player")
+        {
+            Destroy(gameObject);
+            Instantiate(explosion, transform.position, new Quaternion());
         }
     }
 

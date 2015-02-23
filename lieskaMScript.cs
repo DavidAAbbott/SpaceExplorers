@@ -13,18 +13,37 @@ public class lieskaMScript : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetAxis("L_XAxis_1") > 0)
+        if (PlayerMov.KBcontrols)
         {
-            anim.SetBool("x+", true);
-        }
-        else if (Input.GetAxis("L_XAxis_1") < 0) 
-        {
-            anim.SetBool("x-", true);
+            if (Input.GetAxis("Horizontal") > 0)
+            {
+                anim.SetBool("x+", true);
+            }
+            else if (Input.GetAxis("Horizontal") < 0)
+            {
+                anim.SetBool("x-", true);
+            }
+            else
+            {
+                anim.SetBool("x+", false);
+                anim.SetBool("x-", false);
+            }
         }
         else
         {
-            anim.SetBool("x+", false);
-            anim.SetBool("x-", false);
+            if (Input.GetAxis("L_XAxis_1") > 0)
+            {
+                anim.SetBool("x+", true);
+            }
+            else if (Input.GetAxis("L_XAxis_1") < 0)
+            {
+                anim.SetBool("x-", true);
+            }
+            else
+            {
+                anim.SetBool("x+", false);
+                anim.SetBool("x-", false);
+            }
         }
     }
 }
