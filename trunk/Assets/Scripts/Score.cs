@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class Score : MonoBehaviour {
     public int playerlives = 3;
@@ -9,13 +10,13 @@ public class Score : MonoBehaviour {
     public int combo = 0;
     public int hit, score;
     public bool cmb;
-    public GUIText guiScore, guiCombo, guiLives , guiSecondary;
+    public Text guiScore, guiCombo, guiLives , guiSecondary;
 
     void Start()
     {
-        guiScore.text = "- Score: " + score.ToString() + " -";
-        guiCombo.text = "- Combo: " + combo.ToString() + " -";
-        guiLives.text = "- Lives: " + playerlives.ToString() + " -";
+        guiScore.text = "Score: " + score.ToString();
+        guiCombo.text = "Combo: " + combo.ToString();
+        guiLives.text = "Lives: " + playerlives.ToString();
         guiSecondary.text = sCount.ToString();
     }
 
@@ -26,8 +27,8 @@ public class Score : MonoBehaviour {
             timer -= Time.deltaTime;
         } 
         guiSecondary.text = sCount.ToString();
-        guiLives.text = "- LIVES: " + playerlives.ToString() + " -";
-        guiScore.text = "- SCORE: " + score.ToString() + " -";
+        guiLives.text = "LIVES: " + playerlives.ToString();
+        guiScore.text = "SCORE: " + score.ToString();
 
         if (timer > 0)
         {
@@ -39,6 +40,6 @@ public class Score : MonoBehaviour {
             combo = 0;
         }
 
-        guiCombo.text = "- COMBO: " + combo.ToString() + " -";
+        guiCombo.text = "COMBO: " + combo.ToString();
     }
 }
