@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Player2Turret : MonoBehaviour
+public class PlayerTurret : MonoBehaviour
 {
     public Vector2 rightStick = new Vector2(0, 0);
-    public float angularVelocity = 12.0f;
+    public float RotationSpeed = 12.0f;
     public float radialDeadZone = 0.25f;
 
     public float fireRate = 0.2f;
@@ -17,12 +17,12 @@ public class Player2Turret : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        rightStick = new Vector2(Input.GetAxis("R_XAxis_2"), Input.GetAxis("R_YAxis_2"));
+        rightStick = new Vector2(Input.GetAxis("R_XAxis_1"), Input.GetAxis("R_YAxis_1"));
         UpdatePlayerRotation();
 
-        Vector2 inputs = new Vector2(Input.GetAxis("TriggersR_2"), Input.GetAxis("TriggersR_2"));
+        //Vector2 inputs = new Vector2(Input.GetAxis("TriggersR_1"), Input.GetAxis("TriggersR_1"));
 
-        if (inputs.sqrMagnitude < 0.1f)
+        if (rightStick.sqrMagnitude < 0.1f)
         {
             //Reset
             timeBetween = 0.0f;
@@ -50,7 +50,7 @@ public class Player2Turret : MonoBehaviour
         if (direction.magnitude > radialDeadZone)
         {
             var currentRotation = Quaternion.LookRotation(Vector3.forward, direction);
-            transform.rotation = Quaternion.Slerp(transform.rotation, currentRotation, Time.deltaTime * angularVelocity);
+            transform.rotation = Quaternion.Slerp(transform.rotation, currentRotation, Time.deltaTime * RotationSpeed);
         }
     }
     void Shoot()

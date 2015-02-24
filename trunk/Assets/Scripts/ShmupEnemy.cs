@@ -13,7 +13,7 @@ public class ShmupEnemy : MonoBehaviour {
 
     void Start()
     {
-        scores = GameObject.Find("UI").GetComponent<Score>();
+        scores = GameObject.Find("Canvas").GetComponent<Score>();
         InvokeRepeating("Firing", FireRate, FireRate);
     }
 

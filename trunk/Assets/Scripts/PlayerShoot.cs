@@ -17,7 +17,7 @@ public class PlayerShoot : MonoBehaviour
     {
         if (WorldMap == false)
         {
-            scores = GameObject.Find("UI").GetComponent<Score>();
+            scores = GameObject.Find("Canvas").GetComponent<Score>();
         }
     }
     void Update()

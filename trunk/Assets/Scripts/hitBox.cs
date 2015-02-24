@@ -10,7 +10,7 @@ public class hitBox : MonoBehaviour {
     private Score scores;
 
 	void Start() {
-        scores = GameObject.Find("UI").GetComponent<Score>();
+        scores = GameObject.Find("Canvas").GetComponent<Score>();
         player = GameObject.Find("Player");
         lieskat = GameObject.Find("Lieskat");
         sprite = player.GetComponent<SpriteRenderer>();
