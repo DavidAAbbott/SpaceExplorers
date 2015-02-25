@@ -27,13 +27,16 @@ public class PlayerShoot : MonoBehaviour
             Vector2 inputs = Vector2.zero;
             if (PlayerMov.KBcontrols)
             {
-                inputs = new Vector2(Input.GetAxis("KBShoot"), Input.GetAxis("KBShoot"));
+                if (Input.GetKey(KeyCode.Z))
+                {
+                    inputs = new Vector2(Input.GetAxis("KBShoot"), Input.GetAxis("KBShoot"));
+                }
             }
             else
             {
                 inputs = new Vector2(Input.GetAxis("TriggersR_1"), Input.GetAxis("TriggersR_1"));
             }
-            if (inputs.sqrMagnitude < 0.1f)
+            if (inputs.sqrMagnitude <= 0.1f)
             {
                 //Reset
                 timeBetween = 0.0f;

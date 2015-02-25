@@ -1,20 +1,23 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 public class PlayerMovement : MonoBehaviour
 {
     public GameObject explosion;
     public Vector2 leftStick = new Vector2(0, 0);
-    public float ThrustForce, ThrustMin, ThrustMax, BoostForce, RotationSpeed;
+    public float ThrustForce,angularVelocity;
     public float radialDeadZone = 0.25f;
-    public int health;
     private float vertical, horizontal;
-    private bool onoff;
-
+    public int health;
+    //private bool minimap = false;
 
 
     void Update()
     {
+        leftStick = new Vector2(Input.GetAxis("L_XAxis_1"), Input.GetAxis("L_YAxis_1"));
+        UpdatePlayerRotation();
+
+        //Death
         if (health <= 0)
         {
             Destroy(gameObject);
@@ -24,37 +27,23 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        leftStick = new Vector2(Input.GetAxis("L_XAxis_1"), Input.GetAxis("L_YAxis_1"));
-
-        //Vector2 input = new Vector2(Input.GetAxis("TriggersR_1"), Input.GetAxis("TriggersR_1"));
-
-        if (Input.GetButtonDown("X_1") && ThrustForce < ThrustMax)
-        {
-            ThrustForce += BoostForce;
-        }
-
-        else if (Input.GetButtonUp("X_1") && ThrustForce > ThrustMin)
-        {
-            ThrustForce -= BoostForce;
-        }
-
         Movement();
     }
 
     void Movement()
     {
-        Vector3 direction = new Vector3(leftStick.x, -leftStick.y, 0);
-        Vector2 direction2D = new Vector2(direction.x, direction.y);
-        direction2D.x = transform.up.x;
-        direction2D.y = transform.up.y;
+        vertical = Input.GetAxis("TriggersL_1");
+        rigidbody2D.AddForce(transform.up * vertical * ThrustForce * Time.deltaTime);
+    }
 
+    void UpdatePlayerRotation()
+    {
+        Vector3 direction = new Vector3(leftStick.x, -leftStick.y, 0);
         if (direction.magnitude > radialDeadZone)
         {
             Quaternion currentRotation = Quaternion.LookRotation(Vector3.forward, direction);
-            transform.rotation = Quaternion.Lerp(transform.rotation, currentRotation, Time.deltaTime * RotationSpeed);
-
-            rigidbody2D.AddForce(direction2D * ThrustForce * Time.deltaTime);
-        } 
+            transform.rotation = Quaternion.Slerp(transform.rotation, currentRotation, Time.deltaTime * angularVelocity);           
+        }
     }
 
     void OnCollisionStay2D(Collision2D collider)
