@@ -4,10 +4,9 @@ using System.Collections;
 public class EnemyAI : MonoBehaviour
 {
     public GameObject explosion;
-    public GameObject enemy;
-    public int SpawnRange, EnemySpawn;
-    public float PatrolSpeed, AttackSpeed, RotationSpeed, ShipHealth, MothershipHealth;
-    public bool randSpawn, IsMothership;
+    public int SpawnRange;
+    public float PatrolSpeed, AttackSpeed, RotationSpeed;
+    public bool randSpawn;
     private bool patrol = true;
 
     Transform target;
@@ -31,61 +30,33 @@ public class EnemyAI : MonoBehaviour
         RandomRotation();
     }
 
-    void Update()
-    {
-        if (ShipHealth <= 0 && IsMothership == false)
-        {
-            Destroy(gameObject);
-            Instantiate(explosion, transform.position, new Quaternion());
-        }
-
-        if (MothershipHealth <= 0 && IsMothership == true)
-        {
-            Destroy(gameObject);
-            Instantiate(explosion, transform.position, new Quaternion());
-        }
-    }
- 
+    // Update is called once per frame
     void FixedUpdate()
     {
         if (patrol == true)
         {
             transform.position -= -transform.up * PatrolSpeed * Time.deltaTime;
         }
-        else if (patrol == false && IsMothership == false)
+        else if (patrol == false)
         {
             Quaternion rot = Quaternion.LookRotation(target.position - myTransform.position, Vector3.forward * RotationSpeed);
             myTransform.rotation = rot;
 
             transform.position = Vector2.MoveTowards(transform.position, target.position, AttackSpeed * Time.deltaTime);
-        } 
+        }
     }
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.tag == "Bullet" && IsMothership == false)
+        if (collider.tag == "Bullet")
         {
-            ShipHealth = ShipHealth - 10;
+            Destroy(gameObject);
+            Instantiate(explosion, transform.position, new Quaternion());
         }
 
-        if (collider.tag == "Bullet" && IsMothership == true)
-        {
-            MothershipHealth = MothershipHealth - 10;
-        }
-
-        if (collider.tag == "DetectRadius" && IsMothership == false)
+        if (collider.tag == "DetectRadius")
         {
             patrol = false;
-        }
-
-        if (collider.tag == "DetectRadius" && IsMothership == true)
-        {
-            patrol = false;
-
-            for (int i = 0; i < EnemySpawn; i++)
-            {
-                Instantiate(enemy, transform.position, new Quaternion());
-            }
         }
     }
 
@@ -105,7 +76,7 @@ public class EnemyAI : MonoBehaviour
             RandomRotation();
         }
 
-        if (collider.gameObject.tag == "Player" && IsMothership == false)
+        if (collider.gameObject.tag == "Player")
         {
             Destroy(gameObject);
             Instantiate(explosion, transform.position, new Quaternion());

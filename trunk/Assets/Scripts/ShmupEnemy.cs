@@ -4,6 +4,7 @@ using System.Collections;
 public class ShmupEnemy : MonoBehaviour {
     public int speed;
     public float FireRate;
+    public float startWait = 2f;
     public GameObject explosion;
     public GameObject EnemyBullet;
     public float BulletSpawnX;
@@ -14,7 +15,7 @@ public class ShmupEnemy : MonoBehaviour {
     void Start()
     {
         scores = GameObject.Find("Canvas").GetComponent<Score>();
-        InvokeRepeating("Firing", FireRate, FireRate);
+        InvokeRepeating("Firing", startWait, FireRate);
     }
 
     void Update()
@@ -35,13 +36,13 @@ public class ShmupEnemy : MonoBehaviour {
         Instantiate(EnemyBullet, position, Quaternion.Euler(0, 0, 180));
     }
 
-    void OnTriggerExit2D(Collider2D collider)
+    /*void OnTriggerExit2D(Collider2D collider)
     {
-        if (collider.tag == "Boundary")
+        if (collider.tag == "LevelBoundary")
         {
             Destroy(gameObject);
         }
-    }
+    }*/
 
     void OnTriggerEnter2D(Collider2D collider)
     {
