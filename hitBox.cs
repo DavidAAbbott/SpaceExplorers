@@ -4,15 +4,13 @@ using System.Collections;
 public class hitBox : MonoBehaviour {
     private BoxCollider2D box;
     private SpriteRenderer sprite;
-    private GameObject player;
-    private GameObject lieskat;
+    public GameObject player;
+    public GameObject lieskat;
     private Vector2 spwn;
     private Score scores;
 
 	void Start() {
         scores = GameObject.Find("Canvas").GetComponent<Score>();
-        player = GameObject.Find("Player");
-        lieskat = GameObject.Find("Lieskat");
         sprite = player.GetComponent<SpriteRenderer>();
         lieskat.SetActive(true);
         box = GetComponent<BoxCollider2D>();
@@ -22,7 +20,7 @@ public class hitBox : MonoBehaviour {
         spwn = GameObject.Find("RespawnPoint").transform.position;
         if (scores.playerlives <= 0)
         {
-            GameObject.Find("Player").SetActive(false);
+            player.SetActive(false);
         }
 	}
     void OnTriggerEnter2D(Collider2D collider)

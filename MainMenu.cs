@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
     public float volume = 1;
+    public static bool player2 = false;
 
     //Start Game
     public void ChangeToScene(int sceneToChangeTo)
@@ -27,4 +29,9 @@ public class MainMenu : MonoBehaviour
         volume = newVolume;
         AudioListener.volume = volume;
     }
+
+    public void NumberOfPlayers(bool p2)
+    {
+        player2 = p2;
     }
+}

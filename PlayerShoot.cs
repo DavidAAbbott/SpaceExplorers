@@ -12,6 +12,7 @@ public class PlayerShoot : MonoBehaviour
     private Score scores;
     public bool WorldMap = false;
     public static bool canShoot = true;
+    public bool p2 = false;
 
     void Start()
     {
@@ -25,16 +26,33 @@ public class PlayerShoot : MonoBehaviour
         if (canShoot)
         {
             Vector2 inputs = Vector2.zero;
-            if (PlayerMov.KBcontrols)
+            if (p2)
             {
-                if (Input.GetKey(KeyCode.Z))
+                if (PlayerMov.KBcontrols)
                 {
-                    inputs = new Vector2(Input.GetAxis("KBShoot"), Input.GetAxis("KBShoot"));
+                    if (Input.GetKey(KeyCode.G))
+                    {
+                        inputs = new Vector2(Input.GetAxis("KBShoot2"), Input.GetAxis("KBShoot2"));
+                    }
+                }
+                else
+                {
+                    inputs = new Vector2(Input.GetAxis("TriggersR_2"), Input.GetAxis("TriggersR_2"));
                 }
             }
             else
             {
-                inputs = new Vector2(Input.GetAxis("TriggersR_1"), Input.GetAxis("TriggersR_1"));
+                if (PlayerMov.KBcontrols)
+                {
+                    if (Input.GetKey(KeyCode.Comma))
+                    {
+                        inputs = new Vector2(Input.GetAxis("KBShoot"), Input.GetAxis("KBShoot"));
+                    }
+                }
+                else
+                {
+                    inputs = new Vector2(Input.GetAxis("TriggersR_1"), Input.GetAxis("TriggersR_1"));
+                }
             }
             if (inputs.sqrMagnitude <= 0.1f)
             {

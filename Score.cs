@@ -18,6 +18,14 @@ public class Score : MonoBehaviour {
         guiCombo.text = "Combo: " + combo.ToString();
         guiLives.text = "Lives: " + playerlives.ToString();
         guiSecondary.text = sCount.ToString();
+        if(MainMenu.player2)
+        {
+            GameObject.Find("Player2").SetActive(true);
+        }
+        else
+        {
+            GameObject.Find("Player2").SetActive(false);
+        }
     }
 
     void Update()
