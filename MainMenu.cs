@@ -15,7 +15,6 @@ public class MainMenu : MonoBehaviour
         KBcontrols2 = Player2Turret.KBcontrols;
     }
 
-
     //Start Game
     public void ChangeToScene(int sceneToChangeTo)
     {
