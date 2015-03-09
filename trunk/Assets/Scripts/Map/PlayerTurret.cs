@@ -1,14 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerTurret : MonoBehaviour
+public class Player2Turret : MonoBehaviour
 {
     public Vector2 rightStick = new Vector2(0, 0);
-    public float RotationSpeed = 12.0f;
+    public float angularVelocity = 12.0f;
     public float radialDeadZone = 0.25f;
 
     public float fireRate = 0.2f;
     private float timeBetween = 0.0f;
+
+    public static bool KBcontrols = false;
+    public float smooth = 2.0f;
+
     public AudioClip ShotSound;
     public GameObject Bullet;
 
@@ -17,16 +21,50 @@ public class PlayerTurret : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        rightStick = new Vector2(Input.GetAxis("R_XAxis_1"), Input.GetAxis("R_YAxis_1"));
-        UpdatePlayerRotation();
-
-        //Vector2 inputs = new Vector2(Input.GetAxis("TriggersR_1"), Input.GetAxis("TriggersR_1"));
-
-        if (rightStick.sqrMagnitude < 0.1f)
+        if (KBcontrols == false)
         {
-            //Reset
-            timeBetween = 0.0f;
-            return;
+            if (MainMenu.player2 == false)
+            {
+                rightStick = new Vector2(Input.GetAxis("R_XAxis_1"), Input.GetAxis("R_YAxis_1"));
+                UpdatePlayerRotation();
+                Vector2 inputs = new Vector2(Input.GetAxis("TriggersR_1"), Input.GetAxis("TriggersR_1"));
+
+                if (inputs.sqrMagnitude < 0.1f)
+                {
+                    //Reset
+                    timeBetween = 0.0f;
+                    return;
+                }
+            }
+            else if (MainMenu.player2 == true)
+            {
+                rightStick = new Vector2(Input.GetAxis("R_XAxis_2"), Input.GetAxis("R_YAxis_2"));
+                UpdatePlayerRotation();
+                Vector2 inputs = new Vector2(Input.GetAxis("TriggersR_2"), Input.GetAxis("TriggersR_2"));
+
+                if (inputs.sqrMagnitude < 0.1f)
+                {
+                    //Reset
+                    timeBetween = 0.0f;
+                    return;
+                }
+            }
+        }
+
+        else if (KBcontrols == true)
+        {
+                Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                Quaternion shiprotate = Quaternion.LookRotation(Vector3.forward, mousePos - transform.position);
+                transform.rotation = Quaternion.Slerp(transform.rotation, shiprotate, Time.deltaTime * smooth);
+
+                Vector2 inputs = new Vector2(Input.GetAxis("MapShoot"), Input.GetAxis("MapShoot"));
+
+                if (inputs.sqrMagnitude < 0.1f)
+                {
+                    //Reset
+                    timeBetween = 0.0f;
+                    return;
+                }
         }
 
         timeBetween += Time.deltaTime;
@@ -50,7 +88,7 @@ public class PlayerTurret : MonoBehaviour
         if (direction.magnitude > radialDeadZone)
         {
             var currentRotation = Quaternion.LookRotation(Vector3.forward, direction);
-            transform.rotation = Quaternion.Slerp(transform.rotation, currentRotation, Time.deltaTime * RotationSpeed);
+            transform.rotation = Quaternion.Slerp(transform.rotation, currentRotation, Time.deltaTime * angularVelocity);
         }
     }
     void Shoot()
