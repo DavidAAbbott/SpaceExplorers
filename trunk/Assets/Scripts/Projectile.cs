@@ -4,6 +4,7 @@ using System.Collections;
 public class Projectile : MonoBehaviour
 {
     public float speed = 0.5f;
+    public float damage;
     public bool mapMode;
 
     public void Init(float ProjectileSpeed)
