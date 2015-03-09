@@ -4,13 +4,17 @@ using UnityEngine.UI;
 
 public class Score : MonoBehaviour {
     public int playerlives = 3;
+    public int playerlives2 = 3;
     public int pCount = 1;
-    public int sCount = 0;
-    public float timer = 0f;
-    public int combo = 0;
-    public int hit, score;
-    public bool cmb;
+    public int pCount2 = 1;
+    public int sCount, sCount2;
+    public float timer, timer2;
+    public int hit, hit2, score, score2, combo, combo2;
+    public bool cmb, cmb2;
     public Text guiScore, guiCombo, guiLives , guiSecondary;
+    public Text guiScore2, guiCombo2, guiLives2, guiSecondary2;
+    public GameObject p2UI;
+    public GameObject player2;
 
     void Start()
     {
@@ -20,11 +24,17 @@ public class Score : MonoBehaviour {
         guiSecondary.text = sCount.ToString();
         if(MainMenu.player2)
         {
-            GameObject.Find("Player2").SetActive(true);
+            player2.SetActive(true);
+            p2UI.SetActive(true);
+            guiScore2.text = "Score: " + score2.ToString();
+            guiCombo2.text = "Combo: " + combo2.ToString();
+            guiLives2.text = "Lives: " + playerlives2.ToString();
+            guiSecondary2.text = sCount2.ToString();
         }
         else
         {
-            GameObject.Find("Player2").SetActive(false);
+            p2UI.SetActive(false);
+            player2.SetActive(false);
         }
     }
 
@@ -49,5 +59,28 @@ public class Score : MonoBehaviour {
         }
 
         guiCombo.text = "COMBO: " + combo.ToString();
+
+        if (MainMenu.player2)
+        {
+            if (timer2 > 0f)
+            {
+                timer2 -= Time.deltaTime;
+            }
+            guiSecondary2.text = sCount2.ToString();
+            guiLives2.text = "LIVES: " + playerlives2.ToString();
+            guiScore2.text = "SCORE: " + score2.ToString();
+
+            if (timer2 > 0)
+            {
+                cmb2 = true;
+            }
+            else
+            {
+                cmb2 = false;
+                combo2 = 0;
+            }
+
+            guiCombo2.text = "COMBO: " + combo2.ToString();
+        }
     }
 }

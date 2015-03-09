@@ -8,6 +8,7 @@ public class hitBox : MonoBehaviour {
     public GameObject lieskat;
     private Vector2 spwn;
     private Score scores;
+    public bool p2 = false;
 
 	void Start() {
         scores = GameObject.Find("Canvas").GetComponent<Score>();
@@ -25,29 +26,59 @@ public class hitBox : MonoBehaviour {
 	}
     void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.tag == "Bullet")
+        if(p2)
         {
-            StartCoroutine("invul");
-            scores.playerlives--;
-            scores.pCount = 1;
+            if (collider.tag == "Bullet")
+            {
+                StartCoroutine("invul");
+                scores.playerlives2--;
+                scores.pCount2 = 1;
+            }
+            if (collider.tag == "pPickup")
+            {
+                scores.pCount2++;
+            }
+            if (collider.tag == "sPickup")
+            {
+                scores.sCount2++;
+            }
+            if (collider.tag == "Asteroid")
+            {
+                StartCoroutine("invul");
+                scores.playerlives2--;
+            }
+            if (collider.tag == "Ground")
+            {
+                StartCoroutine("invul");
+                scores.playerlives2--;
+            }
         }
-        if (collider.tag == "pPickup")
+        else
         {
-            scores.pCount++;
-        }
-        if (collider.tag == "sPickup")
-        {
-            scores.sCount++;
-        }
-        if(collider.tag == "Asteroid")
-        {
-            StartCoroutine("invul");
-            scores.playerlives--;
-        }
-        if (collider.tag == "Ground")
-        {
-            StartCoroutine("invul");
-            scores.playerlives--;
+            if (collider.tag == "Bullet")
+            {
+                StartCoroutine("invul");
+                scores.playerlives--;
+                scores.pCount = 1;
+            }
+            if (collider.tag == "pPickup")
+            {
+                scores.pCount++;
+            }
+            if (collider.tag == "sPickup")
+            {
+                scores.sCount++;
+            }
+            if (collider.tag == "Asteroid")
+            {
+                StartCoroutine("invul");
+                scores.playerlives--;
+            }
+            if (collider.tag == "Ground")
+            {
+                StartCoroutine("invul");
+                scores.playerlives--;
+            }
         }
     }
     IEnumerator invul()
