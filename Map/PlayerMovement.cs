@@ -7,14 +7,22 @@ public class PlayerMovement : MonoBehaviour
     public Vector2 leftStick = new Vector2(0, 0);
     public float ThrustForce,angularVelocity;
     public float radialDeadZone = 0.25f;
-    private float vertical, horizontal;
+    private float horizontal, vertical, KBvertical;
     public int health;
-    //private bool minimap = false;
-
+    public static bool KBcontrols = false;
+  
 
     void Update()
     {
-        leftStick = new Vector2(Input.GetAxis("L_XAxis_1"), Input.GetAxis("L_YAxis_1"));
+        if (KBcontrols == false)
+        {
+            leftStick = new Vector2(Input.GetAxis("L_XAxis_1"), Input.GetAxis("L_YAxis_1"));
+        }
+        else
+        {
+            leftStick = new Vector2(Input.GetAxis("MapHorizontal"), Input.GetAxis("MapVertical"));
+        }
+      
         UpdatePlayerRotation();
 
         //Death
@@ -32,8 +40,17 @@ public class PlayerMovement : MonoBehaviour
 
     void Movement()
     {
-        vertical = Input.GetAxis("TriggersL_1");
-        rigidbody2D.AddForce(transform.up * vertical * ThrustForce * Time.deltaTime);
+        if(KBcontrols == false)
+        {
+            vertical = Input.GetAxis("TriggersL_1");
+            rigidbody2D.AddForce(transform.up * vertical * ThrustForce * Time.deltaTime);
+        }
+        else
+        {
+            KBvertical = Input.GetAxis("MapMovement");
+            rigidbody2D.AddForce(transform.up * KBvertical * ThrustForce * Time.deltaTime);
+        }
+
     }
 
     void UpdatePlayerRotation()

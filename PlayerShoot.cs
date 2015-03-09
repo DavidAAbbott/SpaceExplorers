@@ -6,7 +6,7 @@ public class PlayerShoot : MonoBehaviour
     public float fireRate = 0.2f;
     private float timeBetween = 0.0f;
     public AudioClip ShotSound;
-    public GameObject Bullet, Bullet2, Bullet3;
+    public GameObject Bullet, BulletP2, Bullet2, Bullet2P2, Bullet3, Bullet3P2;
     public float PrimaryOffsetX, PrimaryOffsetY;
     public float SecondaryOffsetX, SecondaryOffsetY;
     private Score scores;
@@ -82,25 +82,51 @@ public class PlayerShoot : MonoBehaviour
         {
             GameObject pNewObject;
 
-            if (scores.pCount == 2)
+            if (p2)
             {
-                Shoot(Bullet2, PrimaryOffsetX, PrimaryOffsetY);
-            }
-            if (scores.pCount == 3)
-            {
-                Shoot(Bullet3, PrimaryOffsetX, PrimaryOffsetY);
-            }
-            if (scores.pCount == 4)
-            {
-                Shoot(Bullet3, PrimaryOffsetX, PrimaryOffsetY);
-            }
-            if (scores.pCount == 5)
-            {
-                Shoot(Bullet3, PrimaryOffsetX, PrimaryOffsetY);
+                if (scores.pCount == 2)
+                {
+                    Shoot(Bullet2P2, PrimaryOffsetX, PrimaryOffsetY);
+                }
+                if (scores.pCount == 3)
+                {
+                    Shoot(Bullet3P2, PrimaryOffsetX, PrimaryOffsetY);
+                }
+                if (scores.pCount == 4)
+                {
+                    Shoot(Bullet3P2, PrimaryOffsetX, PrimaryOffsetY);
+                }
+                if (scores.pCount == 5)
+                {
+                    Shoot(Bullet3P2, PrimaryOffsetX, PrimaryOffsetY);
+                }
+                else
+                {
+                    Shoot(BulletP2 , PrimaryOffsetX, PrimaryOffsetY);
+                }
             }
             else
             {
-                Shoot(Bullet, PrimaryOffsetX, PrimaryOffsetY);
+                if (scores.pCount == 2)
+                {
+                    Shoot(Bullet2, PrimaryOffsetX, PrimaryOffsetY);
+                }
+                if (scores.pCount == 3)
+                {
+                    Shoot(Bullet3, PrimaryOffsetX, PrimaryOffsetY);
+                }
+                if (scores.pCount == 4)
+                {
+                    Shoot(Bullet3, PrimaryOffsetX, PrimaryOffsetY);
+                }
+                if (scores.pCount == 5)
+                {
+                    Shoot(Bullet3, PrimaryOffsetX, PrimaryOffsetY);
+                }
+                else
+                {
+                    Shoot(Bullet, PrimaryOffsetX, PrimaryOffsetY);
+                }
             }
         }
 

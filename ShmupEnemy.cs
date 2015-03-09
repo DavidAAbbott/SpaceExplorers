@@ -64,5 +64,23 @@ public class ShmupEnemy : MonoBehaviour {
                 scores.score += points;
             }
         }
+        if (collider.tag == "pBullet2")
+        {
+            Destroy(gameObject);
+            Instantiate(explosion, transform.position, new Quaternion());
+            scores.hit2++;
+            scores.timer2 += 0.5f;
+            scores.combo2++;
+
+            if (scores.cmb2 == true)
+            {
+                scores.score2 += points * scores.combo2;
+            }
+            else
+            {
+                scores.combo2 = 0;
+                scores.score2 += points;
+            }
+        }
     }
 }
