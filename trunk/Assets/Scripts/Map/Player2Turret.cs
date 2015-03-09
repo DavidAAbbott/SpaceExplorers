@@ -9,6 +9,10 @@ public class Player2Turret : MonoBehaviour
 
     public float fireRate = 0.2f;
     private float timeBetween = 0.0f;
+
+    public static bool KBcontrols = false;
+    public float smooth = 2.0f;
+
     public AudioClip ShotSound;
     public GameObject Bullet;
 
@@ -17,17 +21,38 @@ public class Player2Turret : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        rightStick = new Vector2(Input.GetAxis("R_XAxis_2"), Input.GetAxis("R_YAxis_2"));
-        UpdatePlayerRotation();
-
-        Vector2 inputs = new Vector2(Input.GetAxis("TriggersR_2"), Input.GetAxis("TriggersR_2"));
-
-        if (inputs.sqrMagnitude < 0.1f)
+        if (KBcontrols == false)
         {
-            //Reset
-            timeBetween = 0.0f;
-            return;
+            rightStick = new Vector2(Input.GetAxis("R_XAxis_2"), Input.GetAxis("R_YAxis_2"));
+            UpdatePlayerRotation();
+            Vector2 inputs = new Vector2(Input.GetAxis("TriggersR_2"), Input.GetAxis("TriggersR_2"));
+
+            if (inputs.sqrMagnitude < 0.1f)
+            {
+                //Reset
+                timeBetween = 0.0f;
+                return;
+            }
         }
+        else
+        {
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Quaternion shiprotate = Quaternion.LookRotation(Vector3.forward, mousePos - transform.position);
+            transform.rotation = Quaternion.Slerp(transform.rotation, shiprotate, Time.deltaTime * smooth);
+
+            Vector2 inputs = new Vector2(Input.GetAxis("MapShoot"), Input.GetAxis("MapShoot"));
+
+            if (inputs.sqrMagnitude < 0.1f)
+            {
+                //Reset
+                timeBetween = 0.0f;
+                return;
+            }
+        }
+
+
+
+
 
         timeBetween += Time.deltaTime;
         int shotsFired = (int)(timeBetween / fireRate);
