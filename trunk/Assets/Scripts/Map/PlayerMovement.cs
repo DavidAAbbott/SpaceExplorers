@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     private float horizontal, vertical, KBvertical, ThrustMin;
     public int health = 100;
     public static bool KBcontrols = false;
+    public static bool KBcontrols2 = false;
 
     void Start()
     {
@@ -41,7 +42,7 @@ public class PlayerMovement : MonoBehaviour
         //Death
         if (health <= 0)
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
             Instantiate(explosion, transform.position, new Quaternion());
         }
     }
@@ -71,7 +72,7 @@ public class PlayerMovement : MonoBehaviour
             else if (KBcontrols == true)
             {
                 KBvertical = Input.GetAxis("MapMovement");
-                rigidbody2D.AddForce(transform.up * KBvertical * ThrustForce * Time.deltaTime);
+                rigidbody2D.AddForce(direction2D * ThrustForce * Time.deltaTime);
             }
         }
     }

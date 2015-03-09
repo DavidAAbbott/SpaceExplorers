@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Player2Turret : MonoBehaviour
+public class PlayerTurret : MonoBehaviour
 {
     public Vector2 rightStick = new Vector2(0, 0);
     public float angularVelocity = 12.0f;
@@ -11,6 +11,7 @@ public class Player2Turret : MonoBehaviour
     private float timeBetween = 0.0f;
 
     public static bool KBcontrols = false;
+    public static bool KBcontrols2 = false;
     public float smooth = 2.0f;
 
     public AudioClip ShotSound;
