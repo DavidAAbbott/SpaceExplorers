@@ -4,7 +4,7 @@ using System.Collections;
 public class EnemyAI : MonoBehaviour
 {
     public GameObject explosion;
-    public GameObject enemy;
+    public GameObject EnemyToSpawn;
     public int SpawnRange, EnemySpawn;
     public float PatrolSpeed, AttackSpeed, RotationSpeed, ShipHealth, MothershipHealth;
     public bool randSpawn, IsMothership;
@@ -84,7 +84,7 @@ public class EnemyAI : MonoBehaviour
 
             for (int i = 0; i < EnemySpawn; i++)
             {
-                Instantiate(enemy, transform.position, new Quaternion());
+                Instantiate(EnemyToSpawn, transform.position, new Quaternion());
             }
         }
     }
