@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
     public Vector2 leftStick = new Vector2(0, 0);
     public float ThrustForce, ThrustMax, BoostForce, RotationSpeed;
     public float radialDeadZone = 0.25f;
-    private float horizontal, vertical, KBvertical, ThrustMin;
+    private float horizontal, ThrustMin, vertical, KBvertical;
     public int health = 100;
     public static bool KBcontrols = false;
     public static bool KBcontrols2 = false;
@@ -29,15 +29,15 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //Boost
-        if (Input.GetButtonDown("X_1") && ThrustForce < ThrustMax)
-        {
-            ThrustForce += BoostForce;
-        }
+            if (Input.GetButtonDown("X_1") && ThrustForce < ThrustMax)
+            {
+                ThrustForce += BoostForce;
+            }
 
-        else if (Input.GetButtonUp("X_1") && ThrustForce > ThrustMin)
-        {
-            ThrustForce -= BoostForce;
-        }
+            else if (Input.GetButtonUp("X_1") && ThrustForce > ThrustMin)
+            {
+                ThrustForce -= BoostForce;
+            }
 
         //Death
         if (health <= 0)
