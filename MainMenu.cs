@@ -6,14 +6,6 @@ public class MainMenu : MonoBehaviour
 {
     public float volume = 1;
     public static bool player2 = false;
-    private bool KBcontrols1;
-    private bool KBcontrols2;
-
-    void Start()
-    {
-        KBcontrols1 = PlayerMovement.KBcontrols;
-        KBcontrols2 = Player2Turret.KBcontrols;
-    }
 
     //Start Game
     public void ChangeToScene(int sceneToChangeTo)
@@ -47,19 +39,36 @@ public class MainMenu : MonoBehaviour
     //Choose controls
     public void Keyboard(bool isOn)
     {
-        if (isOn == true)
+        if (isOn)
         {
-            KBcontrols1 = true;
-            KBcontrols2 = true;
+            PlayerMovement.KBcontrols = true;
+            PlayerTurret.KBcontrols = true;
         }
     }
 
     public void Controller(bool isOn)
     {
-        if (isOn == true)
+        if (isOn)
         {
-            KBcontrols1 = false;
-            KBcontrols2 = false;
+            PlayerMovement.KBcontrols = false;
+            PlayerTurret.KBcontrols = false;
+        }
+    }
+    public void Keyboard2(bool isOn)
+    {
+        if (isOn)
+        {
+            PlayerMovement.KBcontrols2 = true;
+            PlayerTurret.KBcontrols2 = true;
+        }
+    }
+
+    public void Controller2(bool isOn)
+    {
+        if (isOn)
+        {
+            PlayerMovement.KBcontrols2 = false;
+            PlayerTurret.KBcontrols2 = false;
         }
     }
 }
