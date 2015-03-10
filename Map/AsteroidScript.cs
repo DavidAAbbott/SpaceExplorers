@@ -1,19 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class AsteroidScript : MonoBehaviour {
+public class AsteroidScript : MonoBehaviour
+{
     public float ForceMin, ForceMax, TorqueMin, TorqueMax, xvalue, yvalue;
-    public GameObject explosion;
-    public GameObject asteroidbits1;
-    public GameObject asteroidbits2;
-    public int NumberOfPieces;
-    public int SpawnRange;
-    public bool randSpawn;
-    public bool isBig;
+    public GameObject explosion, asteroidbits1, asteroidbits2;
+    public AudioClip HitSound;
+    public int NumberOfPieces, SpawnRange, Health;
+    public bool randSpawn, isBig;
 
     void Start()
     {
-        if(randSpawn)
+        if (randSpawn)
         {
             transform.position = Random.insideUnitCircle * SpawnRange;
         }
@@ -28,9 +26,11 @@ public class AsteroidScript : MonoBehaviour {
     }
     void OnTriggerEnter2D(Collider2D collider)
     {
-        if(collider.tag == "Bullet" || collider.tag == "pBullet")
+        if (collider.tag == "Bullet" || collider.tag == "pBullet" && Health > 0)
         {
-            Destroy(gameObject);
+            Destroy(gameObject, 1f);
+            Instantiate(explosion, transform.position, new Quaternion());
+
             if (isBig == true)
             {
                 for (int i = 0; i < NumberOfPieces; i++)
@@ -39,7 +39,6 @@ public class AsteroidScript : MonoBehaviour {
                     Instantiate(asteroidbits2, transform.position, Quaternion.identity);
                 }
             }
-            Instantiate(explosion, transform.position, new Quaternion());
         }
     }
 }

@@ -12,17 +12,9 @@ public class ShmupEnemyBullet : MonoBehaviour
         position.x -= speed * Time.deltaTime;
         transform.position = position;
     }
-
-    void OnTriggerExit2D(Collider2D collider)
-    {
-        if (collider.tag == "Boundary")
-        {
-            Destroy(gameObject);
-        }
-    }
      void OnTriggerEnter2D(Collider2D collider)
     {
-     if (collider.tag == "Player")
+        if (collider.tag == "Player" || collider.tag == "pBoundary")
         {
             Destroy(gameObject);
         }

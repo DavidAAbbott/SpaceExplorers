@@ -8,6 +8,6 @@ public class ExplosionScript : MonoBehaviour {
     void Start()
     {
         audio.PlayOneShot(explosion, 1F);
-        Destroy(gameObject, 2f);
+        Destroy(gameObject, 0.7f);
     }
 }

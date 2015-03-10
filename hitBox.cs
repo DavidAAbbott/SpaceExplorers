@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class hitBox : MonoBehaviour {
+public class hitBox : MonoBehaviour
+{
     private BoxCollider2D box;
     private SpriteRenderer sprite;
     public GameObject player;
@@ -9,28 +10,35 @@ public class hitBox : MonoBehaviour {
     private Vector2 spwn;
     private Score scores;
     public bool p2 = false;
+    public GameObject explosion;
 
-	void Start() {
+    void Start()
+    {
         scores = GameObject.Find("Canvas").GetComponent<Score>();
         sprite = player.GetComponent<SpriteRenderer>();
         lieskat.SetActive(true);
         box = GetComponent<BoxCollider2D>();
         box.enabled = true;
-	}
-	void Update() {
+    }
+    void Update()
+    {
         spwn = GameObject.Find("RespawnPoint").transform.position;
-        if (scores.playerlives <= 0)
+        if (scores.playerlives <= 0 && !p2)
         {
             player.SetActive(false);
         }
-	}
+        if (scores.playerlives2 <= 0 && p2)
+        {
+            player.SetActive(false);
+        }
+    }
     void OnTriggerEnter2D(Collider2D collider)
     {
-        if(p2)
+        if (p2)
         {
-            if (collider.tag == "Bullet")
+            if (collider.tag == "Bullet" || collider.tag == "Ground" || collider.tag == "Asteroid" || collider.tag == "Enemy")
             {
-                StartCoroutine("invul");
+                StartCoroutine("invul", 2);
                 scores.playerlives2--;
                 scores.pCount2 = 1;
             }
@@ -42,22 +50,12 @@ public class hitBox : MonoBehaviour {
             {
                 scores.sCount2++;
             }
-            if (collider.tag == "Asteroid")
-            {
-                StartCoroutine("invul");
-                scores.playerlives2--;
-            }
-            if (collider.tag == "Ground")
-            {
-                StartCoroutine("invul");
-                scores.playerlives2--;
-            }
         }
         else
         {
-            if (collider.tag == "Bullet")
+            if (collider.tag == "Bullet" || collider.tag == "Ground" || collider.tag == "Asteroid" || collider.tag == "Enemy")
             {
-                StartCoroutine("invul");
+                StartCoroutine("invul", 1);
                 scores.playerlives--;
                 scores.pCount = 1;
             }
@@ -69,29 +67,36 @@ public class hitBox : MonoBehaviour {
             {
                 scores.sCount++;
             }
-            if (collider.tag == "Asteroid")
-            {
-                StartCoroutine("invul");
-                scores.playerlives--;
-            }
-            if (collider.tag == "Ground")
-            {
-                StartCoroutine("invul");
-                scores.playerlives--;
-            }
         }
     }
-    IEnumerator invul()
+    IEnumerator invul(int playerN)
     {
-        PlayerMov.canMove = false;
-        PlayerShoot.canShoot = false;
+        Instantiate(explosion, transform.position, new Quaternion());
+        if(playerN == 1)
+        {
+            PlayerMov.canMove = false;
+            PlayerShoot.canShoot = false;
+        }
+        else if(playerN == 2)
+        {
+            PlayerMov.canMove2 = false;
+            PlayerShoot.canShoot2 = false;
+        }
         box.enabled = false;
         sprite.enabled = false;
         lieskat.SetActive(false);
         player.transform.position = spwn;
         yield return new WaitForSeconds(0.5f);
-        PlayerMov.canMove = true;
-        PlayerShoot.canShoot = true;
+        if (playerN == 1)
+        {
+            PlayerMov.canMove = true;
+            PlayerShoot.canShoot = true;
+        }
+        else if (playerN == 2)
+        {
+            PlayerMov.canMove2 = true;
+            PlayerShoot.canShoot2 = true;
+        }
         sprite.enabled = true;
         yield return new WaitForSeconds(0.1f);
         sprite.enabled = false;

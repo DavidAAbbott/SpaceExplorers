@@ -35,6 +35,10 @@ public class Projectile : MonoBehaviour
         {
             Destroy(gameObject, 0.01f);
         }
+        if (collider.tag == "pBoundary")
+        {
+            Destroy(gameObject);
+        }
     }
     void OnTriggerExit2D(Collider2D collider)
     {
