@@ -53,11 +53,16 @@ public class PlayerTurretShot : MonoBehaviour
 
         else if (KBcontrols == true)
         {
+            Vector2 inputs = Vector2.zero;
+
                 Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 Quaternion shiprotate = Quaternion.LookRotation(Vector3.forward, mousePos - transform.position);
                 transform.rotation = Quaternion.Slerp(transform.rotation, shiprotate, Time.deltaTime * smooth);
 
-                Vector2 inputs = new Vector2(Input.GetAxis("MapShoot"), Input.GetAxis("MapShoot"));
+                if (Input.GetMouseButton(0))
+                {
+                    inputs = new Vector2(Input.GetAxis("MapShoot"), Input.GetAxis("MapShoot"));
+                }
 
                 if (inputs.sqrMagnitude < 0.1f)
                 {
