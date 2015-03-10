@@ -1,21 +1,23 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ShmupEnemy : MonoBehaviour {
+public class ShmupEnemy : MonoBehaviour
+{
     public int speed;
-    public float FireRate;
-    public float startWait = 2f;
+    public float FireRate = 0.3f;
     public GameObject explosion;
     public GameObject EnemyBullet;
     public float BulletSpawnX;
     public float BulletSpawnY;
     private Score scores;
     public int points = 50;
+    public int numberOfShots = 3;
+    public float waitTime = 0.5f;
 
     void Start()
     {
         scores = GameObject.Find("Canvas").GetComponent<Score>();
-        InvokeRepeating("Firing", startWait, FireRate);
+        StartCoroutine(Firing());
     }
 
     void Update()
@@ -28,21 +30,13 @@ public class ShmupEnemy : MonoBehaviour {
         transform.Translate(Vector3.left * speed * Time.deltaTime);
     }
 
-    void Firing()
+    void Fire()
     {
         Vector3 position = transform.position;
         position.x += BulletSpawnX;
         position.y += BulletSpawnY;
         Instantiate(EnemyBullet, position, Quaternion.Euler(0, 0, 180));
     }
-
-    /*void OnTriggerExit2D(Collider2D collider)
-    {
-        if (collider.tag == "LevelBoundary")
-        {
-            Destroy(gameObject);
-        }
-    }*/
 
     void OnTriggerEnter2D(Collider2D collider)
     {
@@ -81,6 +75,19 @@ public class ShmupEnemy : MonoBehaviour {
                 scores.combo2 = 0;
                 scores.score2 += points;
             }
+        }
+        if (collider.tag == "pBoundary")
+        {
+            Destroy(gameObject);
+        }
+    }
+    IEnumerator Firing()
+    {
+        yield return new WaitForSeconds(waitTime);
+        for (int i = 0; i < numberOfShots; i++)
+        {
+            Fire();
+            yield return new WaitForSeconds(FireRate);
         }
     }
 }

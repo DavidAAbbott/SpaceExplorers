@@ -12,6 +12,7 @@ public class PlayerShoot : MonoBehaviour
     private Score scores;
     public bool WorldMap = false;
     public static bool canShoot = true;
+    public static bool canShoot2 = true;
     public bool p2 = false;
 
     void Start()
@@ -23,58 +24,55 @@ public class PlayerShoot : MonoBehaviour
     }
     void Update()
     {
-        if (canShoot)
+        Vector2 inputs = Vector2.zero;
+        if (p2 && canShoot2)
         {
-            Vector2 inputs = Vector2.zero;
-            if (p2)
+            if (PlayerMov.KBcontrols)
             {
-                if (PlayerMov.KBcontrols)
+                if (Input.GetKey(KeyCode.G))
                 {
-                    if (Input.GetKey(KeyCode.G))
-                    {
-                        inputs = new Vector2(Input.GetAxis("KBShoot2"), Input.GetAxis("KBShoot2"));
-                    }
-                }
-                else
-                {
-                    inputs = new Vector2(Input.GetAxis("TriggersR_2"), Input.GetAxis("TriggersR_2"));
+                    inputs = new Vector2(Input.GetAxis("KBShoot2"), Input.GetAxis("KBShoot2"));
                 }
             }
             else
             {
-                if (PlayerMov.KBcontrols)
-                {
-                    if (Input.GetKey(KeyCode.Comma))
-                    {
-                        inputs = new Vector2(Input.GetAxis("KBShoot"), Input.GetAxis("KBShoot"));
-                    }
-                }
-                else
-                {
-                    inputs = new Vector2(Input.GetAxis("TriggersR_1"), Input.GetAxis("TriggersR_1"));
-                }
+                inputs = new Vector2(Input.GetAxis("TriggersR_2"), Input.GetAxis("TriggersR_2"));
             }
-            if (inputs.sqrMagnitude <= 0.1f)
-            {
-                //Reset
-                timeBetween = 0.0f;
-                return;
-            }
-
-            timeBetween += Time.deltaTime;
-            int shotsFired = (int)(timeBetween / fireRate);
-
-            for (int i = 0; i < shotsFired; ++i)
-            {
-                PrimaryShoot();
-            }
-            if (shotsFired > 0)
-            {
-                audio.PlayOneShot(ShotSound, 1F);
-            }
-
-            timeBetween %= fireRate;
         }
+        else if (!p2 && canShoot)
+        {
+            if (PlayerMov.KBcontrols)
+            {
+                if (Input.GetKey(KeyCode.Comma))
+                {
+                    inputs = new Vector2(Input.GetAxis("KBShoot"), Input.GetAxis("KBShoot"));
+                }
+            }
+            else
+            {
+                inputs = new Vector2(Input.GetAxis("TriggersR_1"), Input.GetAxis("TriggersR_1"));
+            }
+        }
+        if (inputs.sqrMagnitude <= 0.1f)
+        {
+            //Reset
+            timeBetween = 0.0f;
+            return;
+        }
+
+        timeBetween += Time.deltaTime;
+        int shotsFired = (int)(timeBetween / fireRate);
+
+        for (int i = 0; i < shotsFired; ++i)
+        {
+            PrimaryShoot();
+        }
+        if (shotsFired > 0)
+        {
+            audio.PlayOneShot(ShotSound, 1F);
+        }
+
+        timeBetween %= fireRate;
     }
     void PrimaryShoot()
     {
@@ -92,17 +90,9 @@ public class PlayerShoot : MonoBehaviour
                 {
                     Shoot(Bullet3P2, PrimaryOffsetX, PrimaryOffsetY);
                 }
-                if (scores.pCount == 4)
-                {
-                    Shoot(Bullet3P2, PrimaryOffsetX, PrimaryOffsetY);
-                }
-                if (scores.pCount == 5)
-                {
-                    Shoot(Bullet3P2, PrimaryOffsetX, PrimaryOffsetY);
-                }
                 else
                 {
-                    Shoot(BulletP2 , PrimaryOffsetX, PrimaryOffsetY);
+                    Shoot(BulletP2, PrimaryOffsetX, PrimaryOffsetY);
                 }
             }
             else
@@ -112,14 +102,6 @@ public class PlayerShoot : MonoBehaviour
                     Shoot(Bullet2, PrimaryOffsetX, PrimaryOffsetY);
                 }
                 if (scores.pCount == 3)
-                {
-                    Shoot(Bullet3, PrimaryOffsetX, PrimaryOffsetY);
-                }
-                if (scores.pCount == 4)
-                {
-                    Shoot(Bullet3, PrimaryOffsetX, PrimaryOffsetY);
-                }
-                if (scores.pCount == 5)
                 {
                     Shoot(Bullet3, PrimaryOffsetX, PrimaryOffsetY);
                 }

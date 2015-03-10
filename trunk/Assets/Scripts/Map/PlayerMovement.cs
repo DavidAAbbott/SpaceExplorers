@@ -10,7 +10,6 @@ public class PlayerMovement : MonoBehaviour
     private float horizontal, ThrustMin, vertical, KBvertical;
     public int health = 100;
     public static bool KBcontrols = false;
-    public static bool KBcontrols2 = false;
 
     void Start()
     {

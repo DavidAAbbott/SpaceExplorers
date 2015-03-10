@@ -2,23 +2,27 @@
 using System.Collections;
 
 
-public class PlayerMov : MonoBehaviour {
+public class PlayerMov : MonoBehaviour
+{
     public float speed = 2f;
     private Vector2 move;
     private Animator anim;
     public static bool canMove = true;
+    public static bool canMove2 = true;
     public static bool KBcontrols = false;
     public bool KBcontrols1 = false;
     public bool p2 = false;
 
-	void Start () {
+    void Start()
+    {
         anim = GetComponent<Animator>();
-	}
-	void Update () {
+    }
+    void Update()
+    {
         float inputX, inputY, tilt;
         KBcontrols = KBcontrols1;
 
-        if(p2)
+        if (p2)
         {
             if (KBcontrols)
             {
@@ -48,14 +52,19 @@ public class PlayerMov : MonoBehaviour {
                 tilt = Input.GetAxis("L_YAxis_1");
             }
         }
-        
+
         anim.SetFloat("dir", -tilt);
 
         move = new Vector2(inputX, -inputY);
         move = Vector2.ClampMagnitude(move, speed * Time.deltaTime);
-	}
-    void FixedUpdate() {
-        if (canMove)
+    }
+    void FixedUpdate()
+    {
+        if (canMove && !p2)
+        {
+            transform.Translate(move);
+        }
+        else if (canMove2 && p2)
         {
             transform.Translate(move);
         }

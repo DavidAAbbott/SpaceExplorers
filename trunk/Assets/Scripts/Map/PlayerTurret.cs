@@ -12,6 +12,7 @@ public class PlayerTurret : MonoBehaviour
 
     public static bool KBcontrols = false;
     public static bool KBcontrols2 = false;
+
     public float smooth = 2.0f;
 
     public AudioClip ShotSound;
@@ -39,33 +40,55 @@ public class PlayerTurret : MonoBehaviour
             }
             else if (MainMenu.player2 == true)
             {
-                rightStick = new Vector2(Input.GetAxis("R_XAxis_2"), Input.GetAxis("R_YAxis_2"));
-                UpdatePlayerRotation();
-                Vector2 inputs = new Vector2(Input.GetAxis("TriggersR_2"), Input.GetAxis("TriggersR_2"));
-
-                if (inputs.sqrMagnitude < 0.1f)
+                if (KBcontrols2)
                 {
-                    //Reset
-                    timeBetween = 0.0f;
-                    return;
+                    Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                    Quaternion shiprotate = Quaternion.LookRotation(Vector3.forward, mousePos - transform.position);
+                    transform.rotation = Quaternion.Slerp(transform.rotation, shiprotate, Time.deltaTime * smooth);
+
+                    Vector2 inputs = new Vector2(Input.GetAxis("MapShoot"), Input.GetAxis("MapShoot"));
+
+                    if (inputs.sqrMagnitude < 0.1f)
+                    {
+                        //Reset
+                        timeBetween = 0.0f;
+                        return;
+                    }
+                }
+                else
+                {
+                    rightStick = new Vector2(Input.GetAxis("R_XAxis_2"), Input.GetAxis("R_YAxis_2"));
+                    UpdatePlayerRotation();
+                    Vector2 inputs = new Vector2(Input.GetAxis("TriggersR_2"), Input.GetAxis("TriggersR_2"));
+
+                    if (inputs.sqrMagnitude < 0.1f)
+                    {
+                        //Reset
+                        timeBetween = 0.0f;
+                        return;
+                    }
                 }
             }
         }
 
         else if (KBcontrols == true)
         {
-                Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                Quaternion shiprotate = Quaternion.LookRotation(Vector3.forward, mousePos - transform.position);
-                transform.rotation = Quaternion.Slerp(transform.rotation, shiprotate, Time.deltaTime * smooth);
+            Vector2 inputs = Vector2.zero;
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Quaternion shiprotate = Quaternion.LookRotation(Vector3.forward, mousePos - transform.position);
+            transform.rotation = Quaternion.Slerp(transform.rotation, shiprotate, Time.deltaTime * smooth);
 
-                Vector2 inputs = new Vector2(Input.GetAxis("MapShoot"), Input.GetAxis("MapShoot"));
+            if (Input.GetMouseButton(0))
+            {
+                inputs = new Vector2(Input.GetAxis("MapShoot"), Input.GetAxis("MapShoot"));
+            }
 
-                if (inputs.sqrMagnitude < 0.1f)
-                {
-                    //Reset
-                    timeBetween = 0.0f;
-                    return;
-                }
+            if (inputs.sqrMagnitude < 0.1f)
+            {
+                //Reset
+                timeBetween = 0.0f;
+                return;
+            }
         }
 
         timeBetween += Time.deltaTime;
