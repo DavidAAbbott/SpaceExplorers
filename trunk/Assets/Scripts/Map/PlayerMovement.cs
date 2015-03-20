@@ -66,12 +66,12 @@ public class PlayerMovement : MonoBehaviour
             if (KBcontrols == false)
             {
                 vertical = Input.GetAxis("L_YAxis_1");
-                rigidbody2D.AddForce(direction2D * ThrustForce * Time.deltaTime);
+                GetComponent<Rigidbody2D>().AddForce(direction2D * ThrustForce * Time.deltaTime);
             }
             else if (KBcontrols == true)
             {
                 KBvertical = Input.GetAxis("MapMovement");
-                rigidbody2D.AddForce(direction2D * ThrustForce * Time.deltaTime);
+                GetComponent<Rigidbody2D>().AddForce(direction2D * ThrustForce * Time.deltaTime);
             }
         }
     }

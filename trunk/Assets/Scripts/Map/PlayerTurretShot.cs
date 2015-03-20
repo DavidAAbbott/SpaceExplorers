@@ -55,21 +55,21 @@ public class PlayerTurretShot : MonoBehaviour
         {
             Vector2 inputs = Vector2.zero;
 
-                Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                Quaternion shiprotate = Quaternion.LookRotation(Vector3.forward, mousePos - transform.position);
-                transform.rotation = Quaternion.Slerp(transform.rotation, shiprotate, Time.deltaTime * smooth);
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Quaternion shiprotate = Quaternion.LookRotation(Vector3.forward, mousePos - transform.position);
+            transform.rotation = Quaternion.Slerp(transform.rotation, shiprotate, Time.deltaTime * smooth);
 
-                if (Input.GetMouseButton(0))
-                {
-                    inputs = new Vector2(Input.GetAxis("MapShoot"), Input.GetAxis("MapShoot"));
-                }
+            if (Input.GetMouseButton(0))
+            {
+                inputs = new Vector2(Input.GetAxis("MapShoot"), Input.GetAxis("MapShoot"));
+            }
 
-                if (inputs.sqrMagnitude < 0.1f)
-                {
-                    //Reset
-                    timeBetween = 0.0f;
-                    return;
-                }
+            if (inputs.sqrMagnitude < 0.1f)
+            {
+                //Reset
+                timeBetween = 0.0f;
+                return;
+            }
         }
 
         timeBetween += Time.deltaTime;
@@ -82,7 +82,7 @@ public class PlayerTurretShot : MonoBehaviour
 
         if (shotsFired > 0)
         {
-            audio.PlayOneShot(ShotSound, 1F);
+            GetComponent<AudioSource>().PlayOneShot(ShotSound, 1F);
         }
 
         timeBetween %= fireRate;

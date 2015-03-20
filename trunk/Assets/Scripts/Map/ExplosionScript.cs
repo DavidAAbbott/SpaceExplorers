@@ -7,7 +7,7 @@ public class ExplosionScript : MonoBehaviour {
 
     void Start()
     {
-        audio.PlayOneShot(explosion, 1F);
+        GetComponent<AudioSource>().PlayOneShot(explosion, 1F);
         Destroy(gameObject, 0.7f);
     }
 }

@@ -69,7 +69,7 @@ public class PlayerShoot : MonoBehaviour
         }
         if (shotsFired > 0)
         {
-            audio.PlayOneShot(ShotSound, 1F);
+            GetComponent<AudioSource>().PlayOneShot(ShotSound, 1F);
         }
 
         timeBetween %= fireRate;

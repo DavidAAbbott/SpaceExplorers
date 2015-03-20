@@ -43,6 +43,7 @@ public class MainMenu : MonoBehaviour
         {
             PlayerMovement.KBcontrols = true;
             PlayerTurret.KBcontrols = true;
+            PlayerTurretShot.KBcontrols = true;
         }
     }
 
@@ -52,6 +53,7 @@ public class MainMenu : MonoBehaviour
         {
             PlayerMovement.KBcontrols = false;
             PlayerTurret.KBcontrols = false;
+            PlayerTurretShot.KBcontrols = false;
         }
     }
     public void Keyboard2(bool isOn)
@@ -59,6 +61,7 @@ public class MainMenu : MonoBehaviour
         if (isOn)
         {
             PlayerTurret.KBcontrols2 = true;
+            PlayerTurretShot.KBcontrols2 = true;
         }
     }
 
@@ -67,6 +70,7 @@ public class MainMenu : MonoBehaviour
         if (isOn)
         {
             PlayerTurret.KBcontrols2 = false;
+            PlayerTurretShot.KBcontrols = false;
         }
     }
 }
