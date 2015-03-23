@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class GroundCannon : MonoBehaviour {
-    public GameObject enemybullet, BulletSpawnPoint;
+    public GameObject cannonBullet, BulletSpawnPoint;
     public GameObject player1, player2;
     public float speed = 10f;
     private int rng = 0;
@@ -52,7 +52,7 @@ public class GroundCannon : MonoBehaviour {
     void Shot(GameObject player)
     {
         GameObject pNewObject;
-        pNewObject = Instantiate(enemybullet) as GameObject;
+        pNewObject = Instantiate(cannonBullet) as GameObject;
         pNewObject.transform.rotation = transform.rotation;
         Vector2 pos = new Vector2(BulletSpawnPoint.transform.position.x, BulletSpawnPoint.transform.position.y);
         pNewObject.transform.position = pos;

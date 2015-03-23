@@ -13,11 +13,15 @@ public class BossScript : MonoBehaviour {
     public float BulletSpawnY = 1f;
     public GameObject bomb;
     public GameObject explosion;
+    private int bossHP = 20;
+    private BoxCollider2D box;
 
 	void Start () {
         StartCoroutine("Pattern");
         origpos = transform.position;
         speed = (2 * Mathf.PI) / seconds;
+        box = GetComponent<BoxCollider2D>();
+        box.enabled = false;
 	}
 	
 	void Update () {
@@ -26,8 +30,19 @@ public class BossScript : MonoBehaviour {
         pos.y = Mathf.Sin(angle)*radius + origpos.y;
 
         transform.position = pos;
+
+        if (bossHP <= 0)
+        {
+            Destroy(gameObject);
+            Instantiate(explosion, transform.position, new Quaternion());
+        }
+
+        if(ShieldHitBox.shieldHP <= 0)
+        {
+            box.enabled = true;
+        }
 	}
-    void Shoot(float pitch, float time)
+    void Shoot(float pitch)
     {
         GameObject pNewObject;
         pNewObject = Instantiate(bomb) as GameObject;
@@ -37,26 +52,26 @@ public class BossScript : MonoBehaviour {
         pos.y += BulletSpawnY;
         pNewObject.transform.position = pos;
         pNewObject.GetComponent<Rigidbody2D>().velocity = new Vector2(18f, -16f) * -bulletSpeed / pitch;
-        Destroy(pNewObject, time);
-        StartCoroutine("timer", time);
     }
     IEnumerator Pattern()
     {
         yield return null;
         while (true)
         {
-            Shoot(1.1f, 0.8f);
+            Shoot(1.1f);
             yield return new WaitForSeconds(0.7f);
-            Shoot(0.8f, 1f);
+            Shoot(0.8f);
             yield return new WaitForSeconds(0.7f);
-            Shoot(0.7f, 1.2f);
+            Shoot(0.7f);
             yield return new WaitForSeconds(1.2f);
         }
     }
-    IEnumerator timer(float time)
+    void OnTriggerEnter2D(Collider2D collider)
     {
-        yield return new WaitForSeconds(time);
-        GameObject pNewObject;
-        pNewObject = Instantiate(explosion) as GameObject;
+        if (collider.tag == "pBullet" || collider.tag == "pBullet2")
+        {
+            bossHP--;
+            print("bosshp");
+        }
     }
 }

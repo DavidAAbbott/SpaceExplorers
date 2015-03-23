@@ -4,9 +4,15 @@ using System.Collections;
 public class ShmupEnemyBullet : MonoBehaviour
 {
     public bool shmupenemy = false;
+    public bool bossbomb = false;
+    public GameObject explosion;
 
     void Start()
     {
+        if (bossbomb)
+        {
+            StartCoroutine("timer");
+        }
     }
     void Update()
     {
@@ -23,5 +29,14 @@ public class ShmupEnemyBullet : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+    IEnumerator timer()
+    {
+        float time = Random.RandomRange(0.8f, 1.15f);
+        yield return new WaitForSeconds(time);
+        GameObject pNewObject;
+        pNewObject = Instantiate(explosion, transform.position, new Quaternion()) as GameObject;
+        pNewObject.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+        Destroy(gameObject);
     }
 }
