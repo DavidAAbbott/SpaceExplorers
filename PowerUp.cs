@@ -9,9 +9,9 @@ public class PowerUp : MonoBehaviour {
     {
         if(collider.tag == "Player")
         {
-            audio.PlayOneShot(PickUp);
-            gameObject.renderer.enabled = false;
-            gameObject.collider2D.enabled = false;
+            GetComponent<AudioSource>().PlayOneShot(PickUp);
+            gameObject.GetComponent<Renderer>().enabled = false;
+            gameObject.GetComponent<Collider2D>().enabled = false;
             Destroy(gameObject, 1f);
         }
     }

@@ -13,11 +13,15 @@ public class ShmupEnemy : MonoBehaviour
     public int points = 50;
     public int numberOfShots = 3;
     public float waitTime = 0.5f;
+    public bool canFire = true;
 
     void Start()
     {
         scores = GameObject.Find("Canvas").GetComponent<Score>();
-        StartCoroutine(Firing());
+        if (canFire)
+        {
+            StartCoroutine(Firing());
+        }
     }
 
     void Update()

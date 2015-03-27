@@ -13,11 +13,11 @@ public class HideMinimap : MonoBehaviour {
 
             if (onoff)
             {
-                camera.enabled = true;
+                GetComponent<Camera>().enabled = true;
             }
             else
             {
-                camera.enabled = false;
+                GetComponent<Camera>().enabled = false;
             }
         }
     }

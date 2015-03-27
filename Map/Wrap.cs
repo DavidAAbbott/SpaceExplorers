@@ -9,7 +9,7 @@ public class Wrap : MonoBehaviour
     void Start()
     {
         renderers = GetComponentsInChildren<Renderer>();
-        rigidbody2D.AddForce(30f * new Vector2(-1, 0));
+        GetComponent<Rigidbody2D>().AddForce(30f * new Vector2(-1, 0));
     }
 
     void FixedUpdate()

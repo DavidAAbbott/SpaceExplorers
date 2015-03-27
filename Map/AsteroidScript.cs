@@ -19,10 +19,10 @@ public class AsteroidScript : MonoBehaviour
         float force = Random.Range(ForceMin, ForceMax);
         float x = Random.Range(xvalue, yvalue);
         float y = Random.Range(xvalue, yvalue);
-        rigidbody2D.AddForce(force * new Vector2(x, y));
+        GetComponent<Rigidbody2D>().AddForce(force * new Vector2(x, y));
 
         float torque = Random.Range(TorqueMin, TorqueMax);
-        rigidbody2D.AddTorque(torque);
+        GetComponent<Rigidbody2D>().AddTorque(torque);
     }
     void OnTriggerEnter2D(Collider2D collider)
     {

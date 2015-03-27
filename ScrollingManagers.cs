@@ -29,7 +29,7 @@ public class ScrollingManagers : MonoBehaviour
         {
             if (scrollingObj[i].obj.transform.position.x <= -14.4f)
             {
-                scrollingObj[i].obj.transform.position = new Vector3(lastScrollingObj.obj.transform.position.x + lastScrollingObj.obj.renderer.bounds.size.x, scrollingObj[i].obj.transform.position.y);
+                scrollingObj[i].obj.transform.position = new Vector3(lastScrollingObj.obj.transform.position.x + lastScrollingObj.obj.GetComponent<Renderer>().bounds.size.x, scrollingObj[i].obj.transform.position.y);
                 lastScrollingObj = scrollingObj[i];
             }
         }

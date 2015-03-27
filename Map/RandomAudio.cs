@@ -8,20 +8,20 @@ public class RandomAudio : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        if (!audio.playOnAwake)
+        if (!GetComponent<AudioSource>().playOnAwake)
         {
-            audio.clip = soundtrack[Random.Range(0, soundtrack.Length)];
-            audio.Play();
+            GetComponent<AudioSource>().clip = soundtrack[Random.Range(0, soundtrack.Length)];
+            GetComponent<AudioSource>().Play();
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!audio.isPlaying)
+        if (!GetComponent<AudioSource>().isPlaying)
         {
-            audio.clip = soundtrack[Random.Range(0, soundtrack.Length)];
-            audio.Play();
+            GetComponent<AudioSource>().clip = soundtrack[Random.Range(0, soundtrack.Length)];
+            GetComponent<AudioSource>().Play();
         }
     }
 }

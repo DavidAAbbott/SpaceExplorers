@@ -28,7 +28,7 @@ public class EnemyAI : MonoBehaviour
             transform.position = Random.insideUnitCircle * SpawnRange;
         }
 
-        RandomRotation();
+        Rotation360();
     }
 
     void Update()
@@ -93,7 +93,7 @@ public class EnemyAI : MonoBehaviour
     {
         if (collider.tag == "DetectRadius")
         {
-            RandomRotation();
+            Rotation360();
             patrol = true;
         }
     }
@@ -102,7 +102,7 @@ public class EnemyAI : MonoBehaviour
     {
         if (collider.gameObject.tag == "WorldBoundary")
         {
-            RandomRotation();
+            Rotation360();
         }
 
         if (collider.gameObject.tag == "Player" && IsMothership == false)
@@ -112,10 +112,10 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-    void RandomRotation()
+    void Rotation360()
     {
         Vector3 euler = transform.eulerAngles;
-        euler.z = Random.Range(0f, 360f);
+        euler.z = 360f;
         transform.eulerAngles = euler;
     }
 }
