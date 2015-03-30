@@ -3,10 +3,11 @@ using System.Collections;
 
 public class MoveForward : MonoBehaviour {
     public float speed = 2f;
-    public bool stop = false;
+    public static bool stop = false;
+    public GameObject slowtrigger;
 
 	void Start () {
-	
+	    
 	}
 	
 	void Update () {
@@ -24,5 +25,12 @@ public class MoveForward : MonoBehaviour {
         transform.position += Vector3.right * speed * -Time.deltaTime;
         yield return new WaitForSeconds(0.3f);
         transform.position = transform.position;
+    }
+    void OnTriggerEnter2D(Collider2D collider)
+    {
+        if(collider.tag == "SlowTrigger")
+        {
+            stop = true;
+        }
     }
 }
