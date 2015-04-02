@@ -4,7 +4,6 @@ using System.Collections;
 public class MoveForward : MonoBehaviour {
     public float speed = 2f;
     public static bool stop = false;
-    public GameObject slowtrigger;
 
 	void Start () {
 	    
@@ -17,20 +16,12 @@ public class MoveForward : MonoBehaviour {
         }
         else
         {
-            StartCoroutine("slowdown");
+            //StartCoroutine("slowdown");
         }
 	}
     IEnumerator slowdown()
     {
-        transform.position += Vector3.right * speed * -Time.deltaTime;
+        transform.position += Vector3.right * speed/2 * Time.deltaTime;
         yield return new WaitForSeconds(0.3f);
-        transform.position = transform.position;
-    }
-    void OnTriggerEnter2D(Collider2D collider)
-    {
-        if(collider.tag == "SlowTrigger")
-        {
-            stop = true;
-        }
     }
 }

@@ -34,10 +34,18 @@ public class LaserScript : MonoBehaviour {
 	}
     IEnumerator timer()
     {
-        laserStartCast.SetActive(true);
-        yield return new WaitForSeconds(0.9f);
-        laser.SetActive(true);
-        shake = 0.5f;
+        yield return new WaitForSeconds(2f);
+        while (true)
+        {
+            float rng = Random.Range(0.5f, 2f);
+            laserStartCast.SetActive(true);
+            yield return new WaitForSeconds(0.9f);
+            laser.SetActive(true);
+            shake = 0.5f;
+            yield return new WaitForSeconds(rng);
+            laser.SetActive(false);
+            laserStartCast.SetActive(false);
+        }
         //laserStartCast.SetActive(false);
     }
 }
