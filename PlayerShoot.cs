@@ -6,7 +6,7 @@ public class PlayerShoot : MonoBehaviour
     public float fireRate = 0.2f;
     private float timeBetween = 0.0f;
     public AudioClip ShotSound;
-    public GameObject Bullet, BulletP2, Bullet2, Bullet2P2, Bullet3, Bullet3P2;
+    public GameObject Bullet, BulletP2, Bullet2, Bullet2P2, Bullet3, Bullet3P2, Bomb, BombP2;
     public float PrimaryOffsetX, PrimaryOffsetY;
     public float SecondaryOffsetX, SecondaryOffsetY;
     private Score scores;
@@ -14,6 +14,8 @@ public class PlayerShoot : MonoBehaviour
     public static bool canShoot = true;
     public static bool canShoot2 = true;
     public bool p2 = false;
+    private float holdTime = 4f;
+    private float holdTimeP2 = 4f;
 
     void Start()
     {
@@ -33,10 +35,33 @@ public class PlayerShoot : MonoBehaviour
                 {
                     inputs = new Vector2(Input.GetAxis("KBShoot2"), Input.GetAxis("KBShoot2"));
                 }
+                if (Input.GetKey(KeyCode.H))
+                {
+                    if (holdTimeP2 <= 15f)
+                    {
+                        holdTimeP2 += Time.deltaTime * 8f;
+                    }
+                }
+                else if (Input.GetKeyUp(KeyCode.H) && holdTimeP2 > 0)
+                {
+                    SecondaryShoot();
+                }
             }
             else
             {
                 inputs = new Vector2(Input.GetAxis("TriggersR_2"), Input.GetAxis("TriggersR_2"));
+
+                if (Input.GetButton("LB_2"))
+                {
+                    if (holdTimeP2 <= 15f)
+                    {
+                        holdTimeP2 += Time.deltaTime * 8f;
+                    }
+                }
+                else if (Input.GetButtonUp("LB_2") && holdTimeP2 > 0)
+                {
+                    SecondaryShoot();
+                }
             }
         }
         else if (!p2 && canShoot)
@@ -47,10 +72,33 @@ public class PlayerShoot : MonoBehaviour
                 {
                     inputs = new Vector2(Input.GetAxis("KBShoot"), Input.GetAxis("KBShoot"));
                 }
+                if (Input.GetKey(KeyCode.Period))
+                {
+                    if (holdTime <= 15f)
+                    {
+                        holdTime += Time.deltaTime * 8f;
+                    }
+                }
+                else if(Input.GetKeyUp(KeyCode.Period) && holdTime > 0)
+                {
+                    SecondaryShoot();
+                }
             }
             else
             {
                 inputs = new Vector2(Input.GetAxis("TriggersR_1"), Input.GetAxis("TriggersR_1"));
+
+                if (Input.GetButton("LB_1"))
+                {
+                    if (holdTime <= 15f)
+                    {
+                        holdTime += Time.deltaTime * 8f;
+                    }
+                }
+                else if (Input.GetButtonUp("LB_1") && holdTime > 0)
+                {
+                    SecondaryShoot();
+                }
             }
         }
         if (inputs.sqrMagnitude <= 0.1f)
@@ -78,71 +126,79 @@ public class PlayerShoot : MonoBehaviour
     {
         if (WorldMap == false)
         {
-            GameObject pNewObject;
 
             if (p2)
             {
                 if (scores.pCount == 2)
                 {
-                    Shoot(Bullet2P2, PrimaryOffsetX, PrimaryOffsetY);
+                    Shoot(Bullet2P2, PrimaryOffsetX, PrimaryOffsetY, false, holdTimeP2);
                 }
                 if (scores.pCount == 3)
                 {
-                    Shoot(Bullet3P2, PrimaryOffsetX, PrimaryOffsetY);
+                    Shoot(Bullet3P2, PrimaryOffsetX, PrimaryOffsetY, false, holdTimeP2);
                 }
                 else
                 {
-                    Shoot(BulletP2, PrimaryOffsetX, PrimaryOffsetY);
+                    Shoot(BulletP2, PrimaryOffsetX, PrimaryOffsetY, false, holdTimeP2);
                 }
             }
             else
             {
                 if (scores.pCount == 2)
                 {
-                    Shoot(Bullet2, PrimaryOffsetX, PrimaryOffsetY);
+                    Shoot(Bullet2, PrimaryOffsetX, PrimaryOffsetY, false, holdTime);
                 }
                 if (scores.pCount == 3)
                 {
-                    Shoot(Bullet3, PrimaryOffsetX, PrimaryOffsetY);
+                    Shoot(Bullet3, PrimaryOffsetX, PrimaryOffsetY, false, holdTime);
                 }
                 else
                 {
-                    Shoot(Bullet, PrimaryOffsetX, PrimaryOffsetY);
+                    Shoot(Bullet, PrimaryOffsetX, PrimaryOffsetY, false, holdTime);
                 }
             }
         }
 
         else if (WorldMap == true)
         {
-            Shoot(Bullet, PrimaryOffsetX, PrimaryOffsetY);
+            Shoot(Bullet, PrimaryOffsetX, PrimaryOffsetY, false, holdTime);
         }
     }
     void SecondaryShoot()
     {
         if (WorldMap == false)
         {
-            GameObject pNewObject;
-
-            if (scores.pCount == 2)
+            if (p2)
             {
-                Shoot(Bullet2, SecondaryOffsetX, SecondaryOffsetY);
-            }
-            if (scores.pCount == 3)
-            {
-                Shoot(Bullet3, SecondaryOffsetX, SecondaryOffsetY);
+                if (scores.sCount2 > 0)
+                {
+                    Shoot(BombP2, SecondaryOffsetX, SecondaryOffsetY, true, holdTimeP2);
+                    holdTimeP2 = 4f;
+                    scores.sCount2--;
+                }
             }
             else
             {
-                Shoot(Bullet, SecondaryOffsetX, SecondaryOffsetY);
+                if (scores.sCount > 0)
+                {
+                    Shoot(Bomb, SecondaryOffsetX, SecondaryOffsetY, true, holdTime);
+                    holdTime = 4f;
+                    scores.sCount--;
+                }
+
             }
         }
     }
-    void Shoot(GameObject bullet, float offsetx, float offsety)
+    void Shoot(GameObject bullet, float offsetx, float offsety, bool addforce, float holdTimen)
     {
         GameObject pNewObject;
         pNewObject = Instantiate(bullet) as GameObject;
         pNewObject.transform.rotation = transform.rotation;
         Vector2 pos = new Vector2(transform.position.x + offsetx, transform.position.y + offsety);
         pNewObject.transform.position = pos;
+        if (addforce)
+        {
+            pNewObject.GetComponent<Rigidbody2D>().velocity = new Vector2(holdTimen, 0);
+        }
     }
 }

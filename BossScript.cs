@@ -13,7 +13,7 @@ public class BossScript : MonoBehaviour {
     public float BulletSpawnY = 1f;
     public GameObject bomb;
     public GameObject explosion;
-    private int bossHP = 20;
+    public int bossHP = 20;
     private BoxCollider2D box;
 
 	void Start () {
@@ -35,6 +35,7 @@ public class BossScript : MonoBehaviour {
         {
             Destroy(gameObject);
             Instantiate(explosion, transform.position, new Quaternion());
+            MoveForward.stop = false;
         }
 
         if(ShieldHitBox.shieldHP <= 0)
@@ -58,6 +59,7 @@ public class BossScript : MonoBehaviour {
         yield return null;
         while (true)
         {
+            yield return new WaitForSeconds(2f);
             Shoot(1.1f);
             yield return new WaitForSeconds(0.7f);
             Shoot(0.8f);
@@ -71,7 +73,6 @@ public class BossScript : MonoBehaviour {
         if (collider.tag == "pBullet" || collider.tag == "pBullet2")
         {
             bossHP--;
-            print("bosshp");
         }
     }
 }

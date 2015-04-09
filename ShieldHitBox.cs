@@ -21,7 +21,6 @@ public class ShieldHitBox : MonoBehaviour {
         if (collider.tag == "pBullet" || collider.tag == "pBullet2")
         {
             shieldHP--;
-            print("shieldhp");
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections;
 
 public class TriggerScript : MonoBehaviour {
     public GameObject[] enemies;
+    public bool slowTrigger = false;
 
     void Start()
     {
@@ -18,11 +19,15 @@ public class TriggerScript : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.tag == "Player")
+        if (collider.tag == "Respawn")
         {
             for (int i = 0; i < enemies.Length; i++)
             {
                 enemies[i].SetActive(true);
+            }
+            if(slowTrigger)
+            {
+                MoveForward.stop = true;
             }
         }
     }

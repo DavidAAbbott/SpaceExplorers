@@ -3,10 +3,10 @@ using System.Collections;
 
 public class MoveForward : MonoBehaviour {
     public float speed = 2f;
-    public bool stop = false;
+    public static bool stop = false;
 
 	void Start () {
-	
+	    
 	}
 	
 	void Update () {
@@ -16,13 +16,12 @@ public class MoveForward : MonoBehaviour {
         }
         else
         {
-            StartCoroutine("slowdown");
+            //StartCoroutine("slowdown");
         }
 	}
     IEnumerator slowdown()
     {
-        transform.position += Vector3.right * speed * -Time.deltaTime;
+        transform.position += Vector3.right * speed/2 * Time.deltaTime;
         yield return new WaitForSeconds(0.3f);
-        transform.position = transform.position;
     }
 }
