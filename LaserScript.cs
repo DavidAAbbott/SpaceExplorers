@@ -8,10 +8,11 @@ public class LaserScript : MonoBehaviour {
     public float shake = 0f;
     public float shakeAmount = 0.7f;
     public float decrease = 1f;
+    private GameObject camPos;
     Vector3 camOrigPos = Vector3.zero;
 
 	void Start () {
-        camOrigPos = Camera.transform.position;
+        camPos = GameObject.Find("Cameraposition");
         laser = GameObject.Find("Laser");
         laserStartCast = GameObject.Find("LaserStartCast");
         laser.SetActive(false);
@@ -21,16 +22,18 @@ public class LaserScript : MonoBehaviour {
 	}
 	
 	void Update () {
-        /*if (shake > 0)
+        camOrigPos = camPos.transform.position;
+        if (shake > 0f)
         {
-            Camera.transform.localPosition = Random.insideUnitSphere * shakeAmount;
+            Vector2 rndShake = Random.insideUnitCircle * shakeAmount;
+            Camera.transform.localPosition = new Vector3(rndShake.x, rndShake.y, camOrigPos.z);
             shake -= Time.deltaTime * decrease;
         }
         else
         {
             shake = 0.0f;
             Camera.transform.position = camOrigPos;
-        }*/
+        }
 	}
     IEnumerator timer()
     {
@@ -43,9 +46,9 @@ public class LaserScript : MonoBehaviour {
             laser.SetActive(true);
             shake = 0.5f;
             yield return new WaitForSeconds(rng);
+            shake = 0.0f;
             laser.SetActive(false);
             laserStartCast.SetActive(false);
         }
-        //laserStartCast.SetActive(false);
     }
 }
