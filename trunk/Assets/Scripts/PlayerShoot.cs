@@ -126,7 +126,6 @@ public class PlayerShoot : MonoBehaviour
     {
         if (WorldMap == false)
         {
-
             if (p2)
             {
                 if (scores.pCount == 2)

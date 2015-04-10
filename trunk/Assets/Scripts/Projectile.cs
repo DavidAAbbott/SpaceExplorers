@@ -4,9 +4,13 @@ using System.Collections;
 public class Projectile : MonoBehaviour
 {
     public float speed = 0.5f;
-    public float damage;
     public bool mapMode;
     public bool bomb = false;
+    public GameObject hitExplosion;
+    public static int bullet1Dmg = 1;
+    public static int bullet2Dmg = 3;
+    public static int bullet3Dmg = 5;
+    public static int bombDmg = 10;
 
     public void Init(float ProjectileSpeed)
     {
@@ -38,8 +42,13 @@ public class Projectile : MonoBehaviour
         if (collider.tag == "Enemy")
         {
             Destroy(gameObject, 0.01f);
+            Instantiate(hitExplosion, transform.position, new Quaternion());
         }
         if (collider.tag == "pBoundary")
+        {
+            Destroy(gameObject);
+        }
+        if (collider.tag == "Ground")
         {
             Destroy(gameObject);
         }

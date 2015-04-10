@@ -31,13 +31,13 @@ public class BackgroundScroll : MonoBehaviour
         if (!moving && top)
         {
             Vector2 scroll = rendererBG.material.mainTextureOffset;
-            scroll += new Vector2((scrollspeed / 2) * (velocity / 2) * Time.deltaTime, 0);
+            scroll += new Vector2((scrollspeed / 2) * velocity * Time.deltaTime, 0);
             rendererBG.material.mainTextureOffset = scroll;
         }
         if (!moving && !top)
         {
             Vector2 scroll = rendererBG.material.mainTextureOffset;
-            scroll += new Vector2((scrollspeed / 2) * (velocity / 2) * Time.deltaTime, 0);
+            scroll += new Vector2((scrollspeed / 2) * velocity * Time.deltaTime, 0);
             rendererBG.material.mainTextureOffset = scroll;
         }
     }

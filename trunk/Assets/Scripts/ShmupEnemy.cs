@@ -44,7 +44,7 @@ public class ShmupEnemy : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.tag == "pBullet")
+        if (collider.tag == "p1Bullet" || collider.tag == "p1Bullet2" || collider.tag == "p1Bullet3" || collider.tag == "p1Bomb")
         {
             Destroy(gameObject);
             Instantiate(explosion, transform.position, new Quaternion());
@@ -62,7 +62,7 @@ public class ShmupEnemy : MonoBehaviour
                 scores.score += points;
             }
         }
-        if (collider.tag == "pBullet2")
+        if (collider.tag == "p2Bullet" || collider.tag == "p2Bullet2" || collider.tag == "p2Bullet3" || collider.tag == "p2Bomb")
         {
             Destroy(gameObject);
             Instantiate(explosion, transform.position, new Quaternion());

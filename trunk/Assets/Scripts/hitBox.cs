@@ -65,7 +65,7 @@ public class hitBox : MonoBehaviour
             }
             if (collider.tag == "sPickup")
             {
-                scores.sCount++;
+                scores.sCount += 10;
             }
         }
     }
