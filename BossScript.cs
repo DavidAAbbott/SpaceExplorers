@@ -36,6 +36,7 @@ public class BossScript : MonoBehaviour {
             Destroy(gameObject);
             Instantiate(explosion, transform.position, new Quaternion());
             MoveForward.stop = false;
+            BackgroundScroll.moving = true;
         }
 
         if(ShieldHitBox.shieldHP <= 0)
