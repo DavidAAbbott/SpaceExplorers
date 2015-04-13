@@ -8,8 +8,8 @@ public class Projectile : MonoBehaviour
     public bool bomb = false;
     public GameObject hitExplosion;
     public static int bullet1Dmg = 1;
-    public static int bullet2Dmg = 3;
-    public static int bullet3Dmg = 5;
+    public static int bullet2Dmg = 2;
+    public static int bullet3Dmg = 3;
     public static int bombDmg = 10;
 
     public void Init(float ProjectileSpeed)
@@ -41,7 +41,7 @@ public class Projectile : MonoBehaviour
 
         if (collider.tag == "Enemy")
         {
-            Destroy(gameObject, 0.01f);
+            Destroy(gameObject);
             Instantiate(hitExplosion, transform.position, new Quaternion());
         }
         if (collider.tag == "pBoundary")
@@ -51,6 +51,17 @@ public class Projectile : MonoBehaviour
         if (collider.tag == "Ground")
         {
             Destroy(gameObject);
+            if(bomb)
+            {
+                Instantiate(hitExplosion, transform.position, new Quaternion());
+                Vector2 place = transform.position;
+                place.x += 0.2f;
+                place.y += 0.2f;
+                Instantiate(hitExplosion, place, new Quaternion());
+                place.x -= 0.4f;
+                place.y -= 0.4f;
+                Instantiate(hitExplosion, place, new Quaternion());
+            }
         }
     }
     void OnTriggerExit2D(Collider2D collider)

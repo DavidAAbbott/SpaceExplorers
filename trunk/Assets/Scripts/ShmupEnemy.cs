@@ -3,7 +3,7 @@ using System.Collections;
 
 public class ShmupEnemy : MonoBehaviour
 {
-    public int speed;
+    public float speed;
     public float FireRate = 0.3f;
     public GameObject explosion;
     public GameObject EnemyBullet;
@@ -14,6 +14,7 @@ public class ShmupEnemy : MonoBehaviour
     public int numberOfShots = 3;
     public float waitTime = 0.5f;
     public bool canFire = true;
+    public int HP = 5;
 
     void Start()
     {
@@ -27,6 +28,12 @@ public class ShmupEnemy : MonoBehaviour
     void Update()
     {
         Movement();
+        if(HP <= 0)
+        {
+            Destroy(gameObject);
+            Instantiate(explosion, transform.position, new Quaternion());
+            EnemyWave.numOfEnemies++;
+        }
     }
 
     void Movement()
@@ -46,8 +53,6 @@ public class ShmupEnemy : MonoBehaviour
     {
         if (collider.tag == "p1Bullet" || collider.tag == "p1Bullet2" || collider.tag == "p1Bullet3" || collider.tag == "p1Bomb")
         {
-            Destroy(gameObject);
-            Instantiate(explosion, transform.position, new Quaternion());
             scores.hit++;
             scores.timer += 0.5f;
             scores.combo++;
@@ -64,8 +69,6 @@ public class ShmupEnemy : MonoBehaviour
         }
         if (collider.tag == "p2Bullet" || collider.tag == "p2Bullet2" || collider.tag == "p2Bullet3" || collider.tag == "p2Bomb")
         {
-            Destroy(gameObject);
-            Instantiate(explosion, transform.position, new Quaternion());
             scores.hit2++;
             scores.timer2 += 0.5f;
             scores.combo2++;
@@ -79,6 +82,22 @@ public class ShmupEnemy : MonoBehaviour
                 scores.combo2 = 0;
                 scores.score2 += points;
             }
+        }
+        if (collider.tag == "p1Bullet" || collider.tag == "p2Bullet")
+        {
+            HP -= Projectile.bullet1Dmg;
+        }
+        if (collider.tag == "p1Bullet3" || collider.tag == "p2Bullet2")
+        {
+            HP -= Projectile.bullet2Dmg;
+        }
+        if (collider.tag == "p1Bullet3" || collider.tag == "p2Bullet3")
+        {
+            HP -= Projectile.bullet3Dmg;
+        }
+        if (collider.tag == "p1Bomb" || collider.tag == "p2Bomb")
+        {
+            HP -= Projectile.bombDmg;
         }
         if (collider.tag == "pBoundary")
         {

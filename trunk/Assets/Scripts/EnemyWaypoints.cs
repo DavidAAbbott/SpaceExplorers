@@ -19,9 +19,8 @@ public class EnemyWaypoints : MonoBehaviour
     }
     void Move()
     {
-        if (waypoint) //if waypoint exists
+        if (waypoint)
         {
-            //var newRotation = transform.LookAt(waypoint.position, Vector3.up);
             var newRotation = Quaternion.LookRotation(transform.position - waypoint.position);
             newRotation.x = 0;
             //newRotation.z = 0;

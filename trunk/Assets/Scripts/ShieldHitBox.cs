@@ -3,10 +3,8 @@ using System.Collections;
 
 public class ShieldHitBox : MonoBehaviour {
     public static int shieldHP = 50;
-    private CircleCollider2D box;
 
 	void Start () {
-        box = GetComponent<CircleCollider2D>();
 	}
 	
 	void Update () {

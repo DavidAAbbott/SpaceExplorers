@@ -2,12 +2,10 @@
 using System.Collections;
 
 public class GroundCannonHitbox : MonoBehaviour {
-    public static int cannonHP = 10;
-    private BoxCollider2D box;
+    public int cannonHP = 10;
     public GameObject explosion;
 
 	void Start () {
-        box = GetComponent<BoxCollider2D>();
 	}
 	
 	void Update () {
