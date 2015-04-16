@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class lieskaScript : MonoBehaviour{
+public class lieskaScript : MonoBehaviour
+{
     private Animator anim;
+    public bool middle = false;
 
     // Use this for initialization
     void Start()
@@ -15,24 +17,62 @@ public class lieskaScript : MonoBehaviour{
     {
         if (PlayerMov.KBcontrols)
         {
-            if (Input.GetAxis("Horizontal") < 0)
+            if (!middle)
             {
-                anim.SetBool("x-", true);
+                if (Input.GetAxis("Horizontal") < 0)
+                {
+                    anim.SetBool("x-", true);
+                }
+                else
+                {
+                    anim.SetBool("x-", false);
+                }
             }
             else
             {
-                anim.SetBool("x-", false);
+                if (Input.GetAxis("Horizontal") > 0)
+                {
+                    anim.SetBool("x+", true);
+                }
+                else if (Input.GetAxis("Horizontal") < 0)
+                {
+                    anim.SetBool("x-", true);
+                }
+                else
+                {
+                    anim.SetBool("x+", false);
+                    anim.SetBool("x-", false);
+                }
             }
         }
         else
         {
-            if (Input.GetAxis("L_XAxis_1") < 0)
+            if (!middle)
             {
-                anim.SetBool("x-", true);
+                if (Input.GetAxis("L_XAxis_1") < 0)
+                {
+                    anim.SetBool("x-", true);
+                }
+                else
+                {
+                    anim.SetBool("x-", false);
+                }
             }
             else
             {
-                anim.SetBool("x-", false);
+                if (Input.GetAxis("L_XAxis_1") > 0)
+                {
+                    anim.SetBool("x+", true);
+                }
+                else if (Input.GetAxis("L_XAxis_1") < 0)
+                {
+                    anim.SetBool("x-", true);
+                }
+                else
+                {
+                    anim.SetBool("x+", false);
+                    anim.SetBool("x-", false);
+                }
             }
         }
     }

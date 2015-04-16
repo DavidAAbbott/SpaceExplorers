@@ -16,12 +16,7 @@ public class MoveForward : MonoBehaviour {
         }
         else
         {
-            //StartCoroutine("slowdown");
+            transform.position += (Vector3.right * speed * Time.deltaTime) / 4;
         }
 	}
-    IEnumerator slowdown()
-    {
-        transform.position += Vector3.right * speed/2 * Time.deltaTime;
-        yield return new WaitForSeconds(0.3f);
-    }
 }

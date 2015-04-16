@@ -71,9 +71,21 @@ public class BossScript : MonoBehaviour {
     }
     void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.tag == "pBullet" || collider.tag == "pBullet2")
+        if (collider.tag == "p1Bullet" || collider.tag == "p2Bullet")
         {
-            bossHP--;
+            bossHP -= Projectile.bullet1Dmg;
+        }
+        if (collider.tag == "p1Bullet3" || collider.tag == "p2Bullet2")
+        {
+            bossHP -= Projectile.bullet2Dmg;
+        }
+        if (collider.tag == "p1Bullet3" || collider.tag == "p2Bullet3")
+        {
+            bossHP -= Projectile.bullet3Dmg;
+        }
+        if (collider.tag == "p1Bomb" || collider.tag == "p2Bomb")
+        {
+            bossHP -= Projectile.bombDmg;
         }
     }
 }

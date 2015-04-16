@@ -65,7 +65,7 @@ public class hitBox : MonoBehaviour
             }
             if (collider.tag == "sPickup")
             {
-                scores.sCount++;
+                scores.sCount += 10;
             }
         }
     }
@@ -76,6 +76,7 @@ public class hitBox : MonoBehaviour
         {
             PlayerMov.canMove = false;
             PlayerShoot.canShoot = false;
+            PlayerShoot.shoot = false;
         }
         else if(playerN == 2)
         {
