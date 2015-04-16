@@ -30,9 +30,8 @@ public class ShmupEnemy : MonoBehaviour
         Movement();
         if(HP <= 0)
         {
-            Destroy(gameObject);
             Instantiate(explosion, transform.position, new Quaternion());
-            EnemyWave.numOfEnemies++;
+            Destroy(gameObject);
         }
     }
 
@@ -46,11 +45,15 @@ public class ShmupEnemy : MonoBehaviour
         Vector3 position = transform.position;
         position.x += BulletSpawnX;
         position.y += BulletSpawnY;
-        Instantiate(EnemyBullet, position, Quaternion.Euler(0, 0, 180));
+        Instantiate(EnemyBullet, position, Quaternion.Euler(0, 0, 0));
     }
 
     void OnTriggerEnter2D(Collider2D collider)
     {
+        if(collider.tag == "Player")
+        {
+            Destroy(gameObject);
+        }
         if (collider.tag == "p1Bullet" || collider.tag == "p1Bullet2" || collider.tag == "p1Bullet3" || collider.tag == "p1Bomb")
         {
             scores.hit++;

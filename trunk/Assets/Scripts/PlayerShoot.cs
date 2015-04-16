@@ -105,10 +105,7 @@ public class PlayerShoot : MonoBehaviour
                 if (Input.GetButtonDown("X_1"))
                 {
                     shoot = true;
-                }
-                if (Input.GetButtonUp("X_1"))
-                {
-                    shoot = false;
+                    PrimaryShoot();
                 }
                 if (Input.GetButton("LB_1"))
                 {
