@@ -20,7 +20,7 @@ public class PlayerMov : MonoBehaviour
     void Update()
     {
         float inputX, inputY, tilt;
-        KBcontrols = KBcontrols1;
+        //KBcontrols = KBcontrols1;
 
         if (p2)
         {

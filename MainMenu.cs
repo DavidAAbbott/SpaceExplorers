@@ -42,6 +42,7 @@ public class MainMenu : MonoBehaviour
         if (isOn)
         {
             PlayerMovement.KBcontrols = true;
+            PlayerMov.KBcontrols = true;
             PlayerTurret.KBcontrols = true;
             PlayerTurretShot.KBcontrols = true;
         }
@@ -52,6 +53,7 @@ public class MainMenu : MonoBehaviour
         if (isOn)
         {
             PlayerMovement.KBcontrols = false;
+            PlayerMov.KBcontrols = false;
             PlayerTurret.KBcontrols = false;
             PlayerTurretShot.KBcontrols = false;
         }
