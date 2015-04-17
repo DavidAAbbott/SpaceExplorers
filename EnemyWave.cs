@@ -2,19 +2,21 @@
 using System.Collections;
 
 public class EnemyWave : MonoBehaviour {
-    //public GameObject[] enemies;
-    public GameObject pickup, lastEnemy;
-    public static int numOfEnemies = 0;
+    public GameObject pickup;
+    private GameObject pickupSpawn;
+    public bool powerup = false;
 
 	void Start () {
-
+        pickupSpawn = transform.Find("PickupSpawn").gameObject;
 	}
 	void Update () {
-	    if(numOfEnemies == 4)
+        if (powerup)
         {
-            Instantiate(pickup, lastEnemy.transform.position, new Quaternion());
-            numOfEnemies = 0;
-            Destroy(gameObject);
+            if (transform.childCount == 1)
+            {
+                Instantiate(pickup, pickupSpawn.transform.position, new Quaternion());
+                Destroy(gameObject);
+            }
         }
 	}
 }
