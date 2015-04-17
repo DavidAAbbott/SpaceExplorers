@@ -38,6 +38,23 @@ public class PlayerShoot : MonoBehaviour
                 if (Input.GetKey(KeyCode.G))
                 {
                     inputs = new Vector2(Input.GetAxis("KBShoot2"), Input.GetAxis("KBShoot2"));
+
+                    if (inputs.sqrMagnitude >= 0.1f)
+                    {
+                        shoot = true;
+                    }
+                    else
+                    {
+                        shoot = false;
+                    }
+                }
+                if (Input.GetKeyDown(KeyCode.G))
+                {
+                    PrimaryShoot();
+                }
+                if (Input.GetKeyUp(KeyCode.G))
+                {
+                    shoot = false;
                 }
                 if (Input.GetKey(KeyCode.H))
                 {
@@ -55,14 +72,23 @@ public class PlayerShoot : MonoBehaviour
             {
                 inputs = new Vector2(Input.GetAxis("TriggersR_2"), Input.GetAxis("TriggersR_2"));
 
-                if (Input.GetButton("LB_2"))
+                if (inputs.sqrMagnitude >= 0.1f)
+                {
+                    shoot = true;
+                }
+                else
+                {
+                    shoot = false;
+                }
+
+                if (Input.GetButton("LB_2") || Input.GetButton("B_2"))
                 {
                     if (holdTimeP2 <= 15f)
                     {
                         holdTimeP2 += Time.deltaTime * holdTimeModifier;
                     }
                 }
-                else if (Input.GetButtonUp("LB_2") && holdTimeP2 > 0)
+                else if (Input.GetButtonUp("LB_2") && holdTimeP2 > 0 || Input.GetButtonUp("B_2") && holdTimeP2 > 0)
                 {
                     SecondaryShoot();
                 }
@@ -75,6 +101,23 @@ public class PlayerShoot : MonoBehaviour
                 if (Input.GetKey(KeyCode.Comma))
                 {
                     inputs = new Vector2(Input.GetAxis("KBShoot"), Input.GetAxis("KBShoot"));
+
+                    if (inputs.sqrMagnitude >= 0.1f)
+                    {
+                        shoot = true;
+                    }
+                    else
+                    {
+                        shoot = false;
+                    }
+                }
+                if (Input.GetKeyDown(KeyCode.Comma))
+                {
+                    PrimaryShoot();
+                }
+                if (Input.GetKeyUp(KeyCode.Comma))
+                {
+                    shoot = false;
                 }
                 if (Input.GetKey(KeyCode.Period))
                 {
@@ -100,21 +143,20 @@ public class PlayerShoot : MonoBehaviour
                 {
                     shoot = false;
                 }
-
-
                 if (Input.GetButtonDown("X_1"))
                 {
                     shoot = true;
                     PrimaryShoot();
                 }
-                if (Input.GetButton("LB_1"))
+
+                if (Input.GetButton("LB_1") || Input.GetButton("B_1"))
                 {
                     if (holdTime <= 15f)
                     {
                         holdTime += Time.deltaTime * holdTimeModifier;
                     }
                 }
-                else if (Input.GetButtonUp("LB_1") && holdTime > 0)
+                else if (Input.GetButtonUp("LB_1") && holdTime > 0 || Input.GetButtonUp("B_1") && holdTime > 0)
                 {
                     SecondaryShoot();
                 }
@@ -144,9 +186,9 @@ public class PlayerShoot : MonoBehaviour
         if (shotsFired > 0)
         {
             GetComponent<AudioSource>().PlayOneShot(ShotSound, 1F);
-        }*/
+        }
 
-        timeBetween %= fireRate;
+        timeBetween %= fireRate;*/
     }
     void PrimaryShoot()
     {
@@ -160,13 +202,13 @@ public class PlayerShoot : MonoBehaviour
                     {
                         Shoot(Bullet2P2, PrimaryOffsetX, PrimaryOffsetY, false, holdTimeP2);
                     }
-                    if (scores.pCount == 3)
+                    if(scores.pCount == 1)
                     {
-                        Shoot(Bullet3P2, PrimaryOffsetX, PrimaryOffsetY, false, holdTimeP2);
+                        Shoot(BulletP2, PrimaryOffsetX, PrimaryOffsetY, false, holdTimeP2);
                     }
                     else
                     {
-                        Shoot(BulletP2, PrimaryOffsetX, PrimaryOffsetY, false, holdTimeP2);
+                        Shoot(Bullet3P2, PrimaryOffsetX, PrimaryOffsetY, false, holdTimeP2);
                     }
                 }
                 else
@@ -175,13 +217,13 @@ public class PlayerShoot : MonoBehaviour
                     {
                         Shoot(Bullet2, PrimaryOffsetX, PrimaryOffsetY, false, holdTime);
                     }
-                    if (scores.pCount == 3)
+                    if (scores.pCount == 1)
                     {
-                        Shoot(Bullet3, PrimaryOffsetX, PrimaryOffsetY, false, holdTime);
+                        Shoot(Bullet, PrimaryOffsetX, PrimaryOffsetY, false, holdTime);
                     }
                     else
                     {
-                        Shoot(Bullet, PrimaryOffsetX, PrimaryOffsetY, false, holdTime);
+                        Shoot(Bullet3, PrimaryOffsetX, PrimaryOffsetY, false, holdTime);
                     }
                 }
             }
@@ -213,7 +255,6 @@ public class PlayerShoot : MonoBehaviour
                     holdTime = 4f;
                     scores.sCount--;
                 }
-
             }
         }
     }

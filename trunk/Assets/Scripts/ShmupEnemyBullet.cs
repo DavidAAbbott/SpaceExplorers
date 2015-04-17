@@ -5,6 +5,7 @@ public class ShmupEnemyBullet : MonoBehaviour
 {
     public bool shmupenemy = false;
     public bool bossbomb = false;
+    public float turnspeed = 10f;
     public GameObject explosion;
 
     void Start()
@@ -21,6 +22,10 @@ public class ShmupEnemyBullet : MonoBehaviour
             Vector3 position = transform.position;
             position.x -= 8f * Time.deltaTime;
             transform.position = position;
+        }
+        if (!shmupenemy && !bossbomb)
+        {
+            transform.Rotate(Vector3.forward * -90, turnspeed * Time.deltaTime * 30f);
         }
     }
     void OnTriggerEnter2D(Collider2D collider)

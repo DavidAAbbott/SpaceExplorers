@@ -6,42 +6,61 @@ public class EnemyWaypoints : MonoBehaviour
     public Transform[] waypoints;
     private int currentWaypoint;
     private Transform waypoint;
+    private bool blastoff = false;
+    private Animator liekkiAnim, enemyAnim;
+    public GameObject lieska;
 
     public float speed = 1f;
-    private float currentSpeed = 0f;
+    public float speedIncrease = 4f;
+    private float timer = 0f;
 
     void Start(){
+        liekkiAnim = lieska.GetComponent<Animator>();
+        enemyAnim = this.GetComponent<Animator>();
+        liekkiAnim.SetBool("x-", true);
+        enemyAnim.SetBool("blastoff", false);
     }
     void Update()
     {
         Move();
         waypoint = waypoints[currentWaypoint];
+
+        timer += Time.deltaTime;
     }
     void Move()
     {
-        if (waypoint)
+        if(waypoint && !blastoff)
         {
-            var newRotation = Quaternion.LookRotation(transform.position - waypoint.position);
+            transform.position = Vector2.MoveTowards(transform.position, waypoint.transform.position, speed * Time.deltaTime * timer * 3f);
+            /*var newRotation = Quaternion.LookRotation(transform.position - waypoint.position);
             newRotation.x = 0;
             //newRotation.z = 0;
             newRotation.y = 0;
             float rotationDamp = Time.deltaTime * 15;
-            transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, rotationDamp);
+            transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, rotationDamp);*/
         }
-        currentSpeed = speed * Time.deltaTime;
-        transform.Translate(0, 0, Time.deltaTime * currentSpeed);
+        if(blastoff)
+        {
+            enemyAnim.SetBool("blastoff", true);
+            liekkiAnim.SetBool("x+", true);
+            transform.Translate(-Vector2.right * (speed * speedIncrease) * Time.deltaTime);
+        }
+        //currentSpeed = speed * Time.deltaTime;
+        //transform.Translate(0, 0, Time.deltaTime * currentSpeed);
     }
 
     void OnTriggerEnter2D(Collider2D collider)
     {
         if (collider.tag == "Waypoint")
         {
-            currentWaypoint++;
+            liekkiAnim.SetBool("x-", false);
+            blastoff = true;
 
-            if (currentWaypoint >= waypoints.Length)
+            /*if (currentWaypoint >= waypoints.Length)
             {
                 currentWaypoint = 0;
-            }
+                blastoff = true;
+            }*/
         }
     }
 }
