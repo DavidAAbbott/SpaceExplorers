@@ -28,6 +28,8 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //Boost
+        if (KBcontrols == false)
+        {
             if (Input.GetButtonDown("X_1") && ThrustForce < ThrustMax)
             {
                 ThrustForce += BoostForce;
@@ -37,6 +39,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 ThrustForce -= BoostForce;
             }
+        }
 
         //Death
         if (health <= 0)

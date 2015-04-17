@@ -13,7 +13,7 @@ public class EnterPlanet : MonoBehaviour {
     {
         if (Input.GetButton("X_1") && intrigger == true)
         {
-            Application.LoadLevel(1);
+            Application.LoadLevel(2);
         }
     }
     void OnTriggerEnter2D(Collider2D collider)

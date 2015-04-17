@@ -28,7 +28,7 @@ public class AsteroidScript : MonoBehaviour
     {
         if (collider.tag == "Bullet" || collider.tag == "pBullet" && Health > 0)
         {
-            Destroy(gameObject, 1f);
+            Destroy(gameObject);
             Instantiate(explosion, transform.position, new Quaternion());
 
             if (isBig == true)

@@ -87,6 +87,12 @@ public class EnemyAI : MonoBehaviour
                 Instantiate(EnemyToSpawn, transform.position, new Quaternion());
             }
         }
+
+        if (collider.gameObject.tag == "Player" && IsMothership == false)
+        {
+            Destroy(gameObject);
+            Instantiate(explosion, transform.position, new Quaternion());
+        }
     }
 
     void OnTriggerExit2D(Collider2D collider)
@@ -103,12 +109,6 @@ public class EnemyAI : MonoBehaviour
         if (collider.gameObject.tag == "WorldBoundary")
         {
             Rotation360();
-        }
-
-        if (collider.gameObject.tag == "Player" && IsMothership == false)
-        {
-            Destroy(gameObject);
-            Instantiate(explosion, transform.position, new Quaternion());
         }
     }
 
