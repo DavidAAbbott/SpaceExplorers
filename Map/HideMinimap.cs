@@ -7,7 +7,7 @@ public class HideMinimap : MonoBehaviour {
 
     void Update()
     {
-        if (Input.GetButtonDown("A_1"))
+        if (Input.GetButtonDown("Y_1"))
         {
             onoff = !onoff;
 

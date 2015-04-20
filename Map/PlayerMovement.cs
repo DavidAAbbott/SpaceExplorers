@@ -40,6 +40,18 @@ public class PlayerMovement : MonoBehaviour
                 ThrustForce -= BoostForce;
             }
         }
+        else
+        {
+            if (Input.GetButtonDown("X_1") && ThrustForce < ThrustMax)
+            {
+                ThrustForce += BoostForce;
+            }
+
+            else if (Input.GetButtonUp("X_1") && ThrustForce > ThrustMin)
+            {
+                ThrustForce -= BoostForce;
+            }
+        }
 
         //Death
         if (health <= 0)
