@@ -198,15 +198,15 @@ public class PlayerShoot : MonoBehaviour
             {
                 if (p2)
                 {
-                    if (scores.pCount == 2)
+                    if (scores.pCount2 == 2)
                     {
                         Shoot(Bullet2P2, PrimaryOffsetX, PrimaryOffsetY, false, holdTimeP2);
                     }
-                    if(scores.pCount == 1)
+                    if(scores.pCount2 == 1)
                     {
                         Shoot(BulletP2, PrimaryOffsetX, PrimaryOffsetY, false, holdTimeP2);
                     }
-                    else
+                    if (scores.pCount2 >= 3)
                     {
                         Shoot(Bullet3P2, PrimaryOffsetX, PrimaryOffsetY, false, holdTimeP2);
                     }
@@ -221,7 +221,7 @@ public class PlayerShoot : MonoBehaviour
                     {
                         Shoot(Bullet, PrimaryOffsetX, PrimaryOffsetY, false, holdTime);
                     }
-                    else
+                    if (scores.pCount >= 3)
                     {
                         Shoot(Bullet3, PrimaryOffsetX, PrimaryOffsetY, false, holdTime);
                     }

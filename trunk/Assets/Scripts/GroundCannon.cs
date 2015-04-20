@@ -7,6 +7,8 @@ public class GroundCannon : MonoBehaviour {
     public float speed = 10f;
     private int rng = 0;
     private bool inrange = false;
+    public float range = 10f;
+    public float bulletRotation = 0f;
 
 	// Use this for initialization
 	void Start () {
@@ -16,7 +18,7 @@ public class GroundCannon : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         float distance = Vector2.Distance(player1.transform.position, transform.position);
-        if(distance < 10)
+        if(distance < range)
         {
             inrange = true;
             Vector2 dir = player1.transform.position - transform.position;
@@ -25,7 +27,7 @@ public class GroundCannon : MonoBehaviour {
             Quaternion qto2 = Quaternion.Euler (qto.eulerAngles.x, qto.eulerAngles.y, qto.eulerAngles.z + 90);
             transform.rotation = Quaternion.Slerp(transform.rotation, qto2, 5f * Time.deltaTime);
         }
-        if(distance > 10)
+        if(distance > range)
         {
             inrange = false;
         }
@@ -53,7 +55,9 @@ public class GroundCannon : MonoBehaviour {
     {
         GameObject pNewObject;
         pNewObject = Instantiate(cannonBullet) as GameObject;
-        pNewObject.transform.rotation = transform.rotation;
+        var trot = transform.rotation;
+        trot.x -= bulletRotation;
+        pNewObject.transform.rotation = trot;
         Vector2 pos = new Vector2(BulletSpawnPoint.transform.position.x, BulletSpawnPoint.transform.position.y);
         pNewObject.transform.position = pos;
         pNewObject.GetComponent<Rigidbody2D>().velocity = (player.transform.position - transform.position).normalized * (speed*50);

@@ -6,6 +6,7 @@ public class ShmupEnemyBullet : MonoBehaviour
     public bool shmupenemy = false;
     public bool bossbomb = false;
     public float turnspeed = 10f;
+    public float bulletspeed = 8f;
     public GameObject explosion;
 
     void Start()
@@ -20,7 +21,7 @@ public class ShmupEnemyBullet : MonoBehaviour
         if (shmupenemy)
         {
             Vector3 position = transform.position;
-            position.x -= 8f * Time.deltaTime;
+            position.x -= bulletspeed * Time.deltaTime;
             transform.position = position;
         }
         if (!shmupenemy && !bossbomb)
