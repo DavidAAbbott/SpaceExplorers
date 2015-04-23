@@ -15,6 +15,9 @@ public class BossScript : MonoBehaviour {
     public GameObject explosion;
     public int bossHP = 20;
     private BoxCollider2D box;
+    private Score scores;
+    public int points = 250;
+    public GameObject stopTrigger;
 
 	void Start () {
         StartCoroutine("Pattern");
@@ -22,6 +25,7 @@ public class BossScript : MonoBehaviour {
         speed = (2 * Mathf.PI) / seconds;
         box = GetComponent<BoxCollider2D>();
         box.enabled = false;
+        scores = GameObject.Find("Canvas").GetComponent<Score>();
 	}
 	
 	void Update () {
@@ -36,7 +40,9 @@ public class BossScript : MonoBehaviour {
             Destroy(gameObject);
             Instantiate(explosion, transform.position, new Quaternion());
             MoveForward.stop = false;
+            MoveForward.slow = false;
             BackgroundScroll.moving = true;
+            Destroy(stopTrigger);
         }
 
         if(ShieldHitBox.shieldHP <= 0)
@@ -66,11 +72,43 @@ public class BossScript : MonoBehaviour {
             Shoot(0.8f);
             yield return new WaitForSeconds(0.7f);
             Shoot(0.7f);
-            yield return new WaitForSeconds(1.2f);
+            yield return new WaitForSeconds(1f);
         }
     }
     void OnTriggerEnter2D(Collider2D collider)
     {
+        if (collider.tag == "p1Bullet" || collider.tag == "p1Bullet2" || collider.tag == "p1Bullet3" || collider.tag == "p1Bomb")
+        {
+            scores.hit++;
+            scores.timer += 0.5f;
+            scores.combo++;
+
+            if (scores.cmb == true)
+            {
+                scores.score += points * scores.combo;
+            }
+            else
+            {
+                scores.combo = 0;
+                scores.score += points;
+            }
+        }
+        if (collider.tag == "p2Bullet" || collider.tag == "p2Bullet2" || collider.tag == "p2Bullet3" || collider.tag == "p2Bomb")
+        {
+            scores.hit2++;
+            scores.timer2 += 0.5f;
+            scores.combo2++;
+
+            if (scores.cmb2 == true)
+            {
+                scores.score2 += points * scores.combo2;
+            }
+            else
+            {
+                scores.combo2 = 0;
+                scores.score2 += points;
+            }
+        }
         if (collider.tag == "p1Bullet" || collider.tag == "p2Bullet")
         {
             bossHP -= Projectile.bullet1Dmg;

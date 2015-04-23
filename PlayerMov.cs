@@ -10,7 +10,6 @@ public class PlayerMov : MonoBehaviour
     public static bool canMove = true;
     public static bool canMove2 = true;
     public static bool KBcontrols = false;
-    public bool KBcontrols1 = false;
     public bool p2 = false;
 
     void Start()
@@ -20,7 +19,11 @@ public class PlayerMov : MonoBehaviour
     void Update()
     {
         float inputX, inputY, tilt;
-        //KBcontrols = KBcontrols1;
+
+        if(Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            KBcontrols = !KBcontrols;
+        }
 
         if (p2)
         {
@@ -57,9 +60,7 @@ public class PlayerMov : MonoBehaviour
 
         move = new Vector2(inputX, -inputY);
         move = Vector2.ClampMagnitude(move, speed * Time.deltaTime);
-    }
-    void FixedUpdate()
-    {
+
         if (canMove && !p2)
         {
             transform.Translate(move);

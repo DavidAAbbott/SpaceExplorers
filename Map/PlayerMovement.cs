@@ -53,12 +53,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        //Death
-        if (health <= 0)
-        {
-            gameObject.SetActive(false);
-            Instantiate(explosion, transform.position, new Quaternion());
-        }
+        PlayerDeath();
     }
 
     void FixedUpdate()
@@ -91,7 +86,18 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void OnCollisionStay2D(Collision2D collider)
+    IEnumerator PlayerDeath()
+    {
+        if (health <= 0)
+        {
+            gameObject.SetActive(false);
+            Instantiate(explosion, transform.position, new Quaternion());
+            yield return new WaitForSeconds(3);
+            Application.LoadLevel(1);
+        }
+    }
+
+    void OnCollisionEnter2D(Collision2D collider)
     {
         if (collider.gameObject.tag == "Enemy")
         {

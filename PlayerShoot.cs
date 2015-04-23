@@ -4,9 +4,8 @@ using System.Collections;
 public class PlayerShoot : MonoBehaviour
 {
     public float fireRate = 0.2f;
-    private float timeBetween = 0.0f;
     public AudioClip ShotSound;
-    public GameObject Bullet, BulletP2, Bullet2, Bullet2P2, Bullet3, Bullet3P2, Bomb, BombP2;
+    public GameObject Bullet, BulletP2, Bullet2, Bullet2P2, Bullet3, Bullet3P2, Bullet4, Bullet4P2, Bomb, BombP2;
     public float PrimaryOffsetX, PrimaryOffsetY;
     public float SecondaryOffsetX, SecondaryOffsetY;
     private Score scores;
@@ -29,7 +28,11 @@ public class PlayerShoot : MonoBehaviour
         }
     }
     void Update()
-    {
+    {   
+        if(Input.GetKeyUp(KeyCode.Alpha2))
+        {
+            scores.pCount++;
+        }
         Vector2 inputs = Vector2.zero;
         if (p2 && canShoot2)
         {
@@ -198,39 +201,51 @@ public class PlayerShoot : MonoBehaviour
             {
                 if (p2)
                 {
-                    if (scores.pCount == 2)
+                    if (scores.pCount2 == 2)
                     {
-                        Shoot(Bullet2P2, PrimaryOffsetX, PrimaryOffsetY, false, holdTimeP2);
+                        Shoot(Bullet2P2, PrimaryOffsetX, PrimaryOffsetY, false, holdTimeP2, transform.rotation.z);
                     }
-                    if(scores.pCount == 1)
+                    if(scores.pCount2 == 1)
                     {
-                        Shoot(BulletP2, PrimaryOffsetX, PrimaryOffsetY, false, holdTimeP2);
+                        Shoot(BulletP2, PrimaryOffsetX, PrimaryOffsetY, false, holdTimeP2, transform.rotation.z);
                     }
-                    else
+                    if (scores.pCount2 == 3)
                     {
-                        Shoot(Bullet3P2, PrimaryOffsetX, PrimaryOffsetY, false, holdTimeP2);
+                        Shoot(Bullet3P2, PrimaryOffsetX, PrimaryOffsetY, false, holdTimeP2, transform.rotation.z);
+                    }
+                    if (scores.pCount2 >= 4)
+                    {
+                        Shoot(Bullet4P2, PrimaryOffsetX, PrimaryOffsetY, false, holdTime, 0.1f);
+                        Shoot(Bullet4P2, PrimaryOffsetX, PrimaryOffsetY, false, holdTime, transform.rotation.z);
+                        Shoot(Bullet4P2, PrimaryOffsetX, PrimaryOffsetY, false, holdTime, -0.1f);
                     }
                 }
                 else
                 {
                     if (scores.pCount == 2)
                     {
-                        Shoot(Bullet2, PrimaryOffsetX, PrimaryOffsetY, false, holdTime);
+                        Shoot(Bullet2, PrimaryOffsetX, PrimaryOffsetY, false, holdTime, transform.rotation.z);
                     }
                     if (scores.pCount == 1)
                     {
-                        Shoot(Bullet, PrimaryOffsetX, PrimaryOffsetY, false, holdTime);
+                        Shoot(Bullet, PrimaryOffsetX, PrimaryOffsetY, false, holdTime, transform.rotation.z);
                     }
-                    else
+                    if (scores.pCount == 3)
                     {
-                        Shoot(Bullet3, PrimaryOffsetX, PrimaryOffsetY, false, holdTime);
+                        Shoot(Bullet3, PrimaryOffsetX, PrimaryOffsetY, false, holdTime, transform.rotation.z);
+                    }
+                    if (scores.pCount >= 4)
+                    {
+                        Shoot(Bullet4, PrimaryOffsetX, PrimaryOffsetY, false, holdTime, 0.1f);
+                        Shoot(Bullet4, PrimaryOffsetX, PrimaryOffsetY, false, holdTime, transform.rotation.z);
+                        Shoot(Bullet4, PrimaryOffsetX, PrimaryOffsetY, false, holdTime, -0.1f);
                     }
                 }
             }
 
             else if (WorldMap == true)
             {
-                Shoot(Bullet, PrimaryOffsetX, PrimaryOffsetY, false, holdTime);
+                Shoot(Bullet, PrimaryOffsetX, PrimaryOffsetY, false, holdTime, transform.rotation.z);
             }
         }
     }
@@ -242,7 +257,7 @@ public class PlayerShoot : MonoBehaviour
             {
                 if (scores.sCount2 > 0)
                 {
-                    Shoot(BombP2, SecondaryOffsetX, SecondaryOffsetY, true, holdTimeP2);
+                    Shoot(BombP2, SecondaryOffsetX, SecondaryOffsetY, true, holdTimeP2, transform.rotation.z);
                     holdTimeP2 = 4f;
                     scores.sCount2--;
                 }
@@ -251,18 +266,20 @@ public class PlayerShoot : MonoBehaviour
             {
                 if (scores.sCount > 0)
                 {
-                    Shoot(Bomb, SecondaryOffsetX, SecondaryOffsetY, true, holdTime);
+                    Shoot(Bomb, SecondaryOffsetX, SecondaryOffsetY, true, holdTime, transform.rotation.z);
                     holdTime = 4f;
                     scores.sCount--;
                 }
             }
         }
     }
-    void Shoot(GameObject bullet, float offsetx, float offsety, bool addforce, float holdTimen)
+    void Shoot(GameObject bullet, float offsetx, float offsety, bool addforce, float holdTimen, float rotation)
     {
         GameObject pNewObject;
         pNewObject = Instantiate(bullet) as GameObject;
-        pNewObject.transform.rotation = transform.rotation;
+        Quaternion rot = transform.rotation;
+        rot = Quaternion.EulerAngles(0, 0, rotation);
+        pNewObject.transform.rotation = rot;
         Vector2 pos = new Vector2(transform.position.x + offsetx, transform.position.y + offsety);
         pNewObject.transform.position = pos;
         if (addforce)

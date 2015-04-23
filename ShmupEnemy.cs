@@ -14,6 +14,7 @@ public class ShmupEnemy : MonoBehaviour
     public int numberOfShots = 3;
     public float waitTime = 0.5f;
     public bool canFire = true;
+    public bool dropping = false;
     public int HP = 5;
 
     void Start()
@@ -27,7 +28,10 @@ public class ShmupEnemy : MonoBehaviour
 
     void Update()
     {
-        Movement();
+        if (!dropping)
+        {
+            Movement();
+        }
         if(HP <= 0)
         {
             Instantiate(explosion, transform.position, new Quaternion());
@@ -90,7 +94,7 @@ public class ShmupEnemy : MonoBehaviour
         {
             HP -= Projectile.bullet1Dmg;
         }
-        if (collider.tag == "p1Bullet3" || collider.tag == "p2Bullet2")
+        if (collider.tag == "p1Bullet2" || collider.tag == "p2Bullet2")
         {
             HP -= Projectile.bullet2Dmg;
         }
