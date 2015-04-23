@@ -9,10 +9,11 @@ public class GroundCannon : MonoBehaviour {
     private bool inrange = false;
     public float range = 10f;
     public float bulletRotation = 0f;
+    public float shootInterval = 2f;
 
 	// Use this for initialization
 	void Start () {
-        InvokeRepeating("Shoot", 0, 2f);
+        InvokeRepeating("Shoot", 0, shootInterval);
 	}
 	
 	// Update is called once per frame

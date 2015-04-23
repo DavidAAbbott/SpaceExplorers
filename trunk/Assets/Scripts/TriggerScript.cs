@@ -4,6 +4,8 @@ using System.Collections;
 public class TriggerScript : MonoBehaviour {
     public GameObject[] enemies;
     public bool slowTrigger = false;
+    public bool backTrigger = false;
+    public bool stopTrigger = false;
 
     void Start()
     {
@@ -24,10 +26,21 @@ public class TriggerScript : MonoBehaviour {
             {
                 enemies[i].SetActive(true);
             }
-            if(slowTrigger)
+            if(slowTrigger && !backTrigger && !stopTrigger)
+            {
+                MoveForward.slow = true;
+                BackgroundScroll.moving = false;
+            }
+            if(!slowTrigger && backTrigger && !stopTrigger)
+            {
+                BackgroundScroll.moving = false;
+                MoveForward.back = true;
+            }
+            if (!slowTrigger && !backTrigger && stopTrigger)
             {
                 MoveForward.stop = true;
                 BackgroundScroll.moving = false;
+                MoveForward.back = false;
             }
         }
     }

@@ -38,7 +38,7 @@ public class ShmupEnemyBullet : MonoBehaviour
     }
     IEnumerator timer()
     {
-        float time = Random.Range(0.8f, 1.15f);
+        float time = Random.Range(0.8f, 1.3f);
         yield return new WaitForSeconds(time);
         GameObject pNewObject;
         pNewObject = Instantiate(explosion, transform.position, new Quaternion()) as GameObject;

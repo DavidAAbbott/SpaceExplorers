@@ -39,7 +39,7 @@ public class LaserScript : MonoBehaviour {
 	}
     IEnumerator timer()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(4f);
         while (true)
         {
             float rng = Random.Range(0.5f, 2f);
