@@ -43,6 +43,14 @@ public class BossScript : MonoBehaviour {
             MoveForward.slow = false;
             BackgroundScroll.moving = true;
             Destroy(stopTrigger);
+            if (scores.cmb == true)
+            {
+                scores.score += points * scores.combo;
+            }
+            if (scores.cmb2 == true)
+            {
+                scores.score2 += points * scores.combo2;
+            }
         }
 
         if(ShieldHitBox.shieldHP <= 0)
@@ -83,11 +91,7 @@ public class BossScript : MonoBehaviour {
             scores.timer += 0.5f;
             scores.combo++;
 
-            if (scores.cmb == true)
-            {
-                scores.score += points * scores.combo;
-            }
-            else
+            if(scores.cmb == false)
             {
                 scores.combo = 0;
                 scores.score += points;
@@ -99,11 +103,7 @@ public class BossScript : MonoBehaviour {
             scores.timer2 += 0.5f;
             scores.combo2++;
 
-            if (scores.cmb2 == true)
-            {
-                scores.score2 += points * scores.combo2;
-            }
-            else
+            if (scores.cmb2 == false)
             {
                 scores.combo2 = 0;
                 scores.score2 += points;
@@ -113,7 +113,7 @@ public class BossScript : MonoBehaviour {
         {
             bossHP -= Projectile.bullet1Dmg;
         }
-        if (collider.tag == "p1Bullet3" || collider.tag == "p2Bullet2")
+        if (collider.tag == "p1Bullet2" || collider.tag == "p2Bullet2")
         {
             bossHP -= Projectile.bullet2Dmg;
         }

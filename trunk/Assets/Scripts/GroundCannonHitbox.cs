@@ -57,7 +57,7 @@ public class GroundCannonHitbox : MonoBehaviour {
         {
             cannonHP -= Projectile.bullet1Dmg;
         }
-        if (collider.tag == "p1Bullet3" || collider.tag == "p2Bullet2")
+        if (collider.tag == "p1Bullet2" || collider.tag == "p2Bullet2")
         {
             cannonHP -= Projectile.bullet2Dmg;
         }

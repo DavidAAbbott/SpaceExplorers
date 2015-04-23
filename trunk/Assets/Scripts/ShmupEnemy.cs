@@ -15,7 +15,10 @@ public class ShmupEnemy : MonoBehaviour
     public float waitTime = 0.5f;
     public bool canFire = true;
     public bool dropping = false;
+    public bool zigzag = false;
     public int HP = 5;
+    public float waveHeight = 5f;
+    public float waveSpeed = 2f;
 
     void Start()
     {
@@ -41,7 +44,17 @@ public class ShmupEnemy : MonoBehaviour
 
     void Movement()
     {
-        transform.Translate(Vector3.left * speed * Time.deltaTime);
+        if(zigzag)
+        {
+            float xPos = 0f;
+            float yPos = Mathf.Sin(Time.time * waveSpeed) * waveHeight / 6;
+            xPos -= Time.deltaTime * speed * 10f;
+            transform.Translate(new Vector3(xPos, yPos, 0) * Time.deltaTime);
+        }
+        else
+        {
+            transform.Translate(Vector3.left * speed * Time.deltaTime);
+        }
     }
 
     void Fire()
