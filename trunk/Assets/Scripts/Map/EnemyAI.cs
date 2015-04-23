@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using System.Collections.Generic;
 public class EnemyAI : MonoBehaviour
 {
     public GameObject explosion;
@@ -9,6 +9,11 @@ public class EnemyAI : MonoBehaviour
     public float PatrolSpeed, AttackSpeed, RotationSpeed, ShipHealth, MothershipHealth;
     public bool randSpawn, IsMothership;
     private bool patrol = true;
+
+    private int[] TransformDirection;
+    private int RandomDirectionX;
+    private int RandomDirectionY;
+    private int DirectionIndex;
 
     Transform target;
     Transform myTransform;
@@ -23,12 +28,21 @@ public class EnemyAI : MonoBehaviour
     {
         target = GameObject.FindWithTag("Player").transform;
 
-        if (randSpawn)
+        if (randSpawn == true)
         {
             transform.position = Random.insideUnitCircle * SpawnRange;
         }
 
-        Rotation360();
+        if (IsMothership == false)
+        {
+            Rotation360();
+        }
+
+        TransformDirection = new int[] {0,1,-1};
+
+        DirectionIndex = Random.Range(0, TransformDirection.Length);
+        RandomDirectionX = TransformDirection[DirectionIndex];
+        RandomDirectionY = TransformDirection[DirectionIndex];
     }
 
     void Update()
@@ -48,17 +62,33 @@ public class EnemyAI : MonoBehaviour
  
     void FixedUpdate()
     {
-        if (patrol == true)
+        if (patrol == true && IsMothership == false)
         {
             transform.position -= -transform.up * PatrolSpeed * Time.deltaTime;
         }
-        else if (patrol == false && IsMothership == false)
+
+        else if (patrol == true && IsMothership == true)
         {
-            Quaternion rot = Quaternion.LookRotation(target.position - myTransform.position, Vector3.forward * RotationSpeed);
+            transform.position -= new Vector3(RandomDirectionX, RandomDirectionY, 0) * PatrolSpeed * Time.deltaTime;
+        }
+
+        else if (patrol == false)
+        {
+            Quaternion rot;
+
+            if (IsMothership == true)
+            {
+                rot = Quaternion.LookRotation(target.position - myTransform.position, Vector3.up * RotationSpeed);
+            }
+            else
+            {
+                rot = Quaternion.LookRotation(target.position - myTransform.position, Vector3.forward * RotationSpeed);
+            }
+
             myTransform.rotation = rot;
 
             transform.position = Vector2.MoveTowards(transform.position, target.position, AttackSpeed * Time.deltaTime);
-        } 
+        }
     }
 
     void OnTriggerEnter2D(Collider2D collider)

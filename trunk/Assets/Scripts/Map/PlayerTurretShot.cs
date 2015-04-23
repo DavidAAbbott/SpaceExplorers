@@ -55,10 +55,6 @@ public class PlayerTurretShot : MonoBehaviour
         {
             Vector2 inputs = Vector2.zero;
 
-            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Quaternion shiprotate = Quaternion.LookRotation(Vector3.forward, mousePos - transform.position);
-            transform.rotation = Quaternion.Slerp(transform.rotation, shiprotate, Time.deltaTime * smooth);
-
             if (Input.GetMouseButton(0))
             {
                 inputs = new Vector2(Input.GetAxis("MapShoot"), Input.GetAxis("MapShoot"));

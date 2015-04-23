@@ -55,7 +55,7 @@ public class EnterPlanet : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter2D(Collider2D collider)
+    void OnTriggerStay2D(Collider2D collider)
     {
         if (collider.tag == "Player")
         {
