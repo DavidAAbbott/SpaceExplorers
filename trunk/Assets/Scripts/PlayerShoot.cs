@@ -17,19 +17,21 @@ public class PlayerShoot : MonoBehaviour
     private float holdTimeP2 = 4f;
     public float holdTimeModifier = 10f;
     public int button;
-    public static bool shoot = false;
+    private float timer = 0f;
+    private float timer2 = 0f;
+    public float fireRateFirst = 0.2f;
+    private float fireRate1, fireRateFirst1;
 
     void Start()
     {
-        InvokeRepeating("PrimaryShoot", 0f, fireRate);
         if (WorldMap == false)
         {
             scores = GameObject.Find("Canvas").GetComponent<Score>();
         }
     }
     void Update()
-    {   
-        if(Input.GetKeyUp(KeyCode.Alpha2))
+    {
+        if (Input.GetKeyUp(KeyCode.Alpha2))
         {
             scores.pCount++;
         }
@@ -41,23 +43,14 @@ public class PlayerShoot : MonoBehaviour
                 if (Input.GetKey(KeyCode.G))
                 {
                     inputs = new Vector2(Input.GetAxis("KBShoot2"), Input.GetAxis("KBShoot2"));
-
-                    if (inputs.sqrMagnitude >= 0.1f)
-                    {
-                        shoot = true;
-                    }
-                    else
-                    {
-                        shoot = false;
-                    }
                 }
                 if (Input.GetKeyDown(KeyCode.G))
                 {
-                    PrimaryShoot();
-                }
-                if (Input.GetKeyUp(KeyCode.G))
-                {
-                    shoot = false;
+                    if (timer2 >= fireRateFirst1)
+                    {
+                        PrimaryShoot();
+                        timer2 = 0f;
+                    }
                 }
                 if (Input.GetKey(KeyCode.H))
                 {
@@ -75,13 +68,13 @@ public class PlayerShoot : MonoBehaviour
             {
                 inputs = new Vector2(Input.GetAxis("TriggersR_2"), Input.GetAxis("TriggersR_2"));
 
-                if (inputs.sqrMagnitude >= 0.1f)
+                if (Input.GetButtonDown("X_2"))
                 {
-                    shoot = true;
-                }
-                else
-                {
-                    shoot = false;
+                    if (timer2 >= fireRateFirst1)
+                    {
+                        PrimaryShoot();
+                        timer2 = 0f;
+                    }
                 }
 
                 if (Input.GetButton("LB_2") || Input.GetButton("B_2"))
@@ -104,23 +97,14 @@ public class PlayerShoot : MonoBehaviour
                 if (Input.GetKey(KeyCode.Comma))
                 {
                     inputs = new Vector2(Input.GetAxis("KBShoot"), Input.GetAxis("KBShoot"));
-
-                    if (inputs.sqrMagnitude >= 0.1f)
-                    {
-                        shoot = true;
-                    }
-                    else
-                    {
-                        shoot = false;
-                    }
                 }
                 if (Input.GetKeyDown(KeyCode.Comma))
                 {
-                    PrimaryShoot();
-                }
-                if (Input.GetKeyUp(KeyCode.Comma))
-                {
-                    shoot = false;
+                    if (timer2 >= fireRateFirst1)
+                    {
+                        PrimaryShoot();
+                        timer2 = 0f;
+                    }
                 }
                 if (Input.GetKey(KeyCode.Period))
                 {
@@ -138,18 +122,13 @@ public class PlayerShoot : MonoBehaviour
             {
                 inputs = new Vector2(Input.GetAxis("TriggersR_1"), Input.GetAxis("TriggersR_1"));
 
-                if (inputs.sqrMagnitude >= 0.1f)
-                {
-                    shoot = true;
-                }
-                else
-                {
-                    shoot = false;
-                }
                 if (Input.GetButtonDown("X_1"))
                 {
-                    shoot = true;
-                    PrimaryShoot();
+                    if (timer2 >= fireRateFirst1)
+                    {
+                        PrimaryShoot();
+                        timer2 = 0f;
+                    }
                 }
 
                 if (Input.GetButton("LB_1") || Input.GetButton("B_1"))
@@ -164,89 +143,89 @@ public class PlayerShoot : MonoBehaviour
                     SecondaryShoot();
                 }
             }
-        }
-        
-        /*if (inputs.sqrMagnitude <= 0.5f)
-        {
-            //Reset
-            timeBetween = 0.0f;
-            return;
-        }
-        if (inputs.sqrMagnitude >= 0.1f)
-        {
-            button++;
-            print(button);
-            PrimaryShoot();
-        }
 
-        timeBetween += Time.deltaTime;
-        int shotsFired = (int)(timeBetween / fireRate);
+            timer += Time.deltaTime;
+            timer2 += Time.deltaTime;
 
-        for (int i = 0; i < shotsFired; ++i)
-        {
-            PrimaryShoot();
+            if (inputs.sqrMagnitude >= 0.1f)
+            {
+                if (timer >= fireRate1)
+                {
+                    PrimaryShoot();
+                    timer = timer - fireRate1;
+                }
+            }
+            if (inputs.sqrMagnitude <= 0.1f)
+            {
+                timer = 0f;
+            }
         }
-        if (shotsFired > 0)
-        {
-            GetComponent<AudioSource>().PlayOneShot(ShotSound, 1F);
-        }
-
-        timeBetween %= fireRate;*/
     }
     void PrimaryShoot()
     {
-        if (shoot)
+        if (WorldMap == false)
         {
-            if (WorldMap == false)
+            if (p2)
             {
-                if (p2)
+                if (scores.pCount2 == 2)
                 {
-                    if (scores.pCount2 == 2)
-                    {
-                        Shoot(Bullet2P2, PrimaryOffsetX, PrimaryOffsetY, false, holdTimeP2, transform.rotation.z);
-                    }
-                    if(scores.pCount2 == 1)
-                    {
-                        Shoot(BulletP2, PrimaryOffsetX, PrimaryOffsetY, false, holdTimeP2, transform.rotation.z);
-                    }
-                    if (scores.pCount2 == 3)
-                    {
-                        Shoot(Bullet3P2, PrimaryOffsetX, PrimaryOffsetY, false, holdTimeP2, transform.rotation.z);
-                    }
-                    if (scores.pCount2 >= 4)
-                    {
-                        Shoot(Bullet4P2, PrimaryOffsetX, PrimaryOffsetY, false, holdTime, 0.1f);
-                        Shoot(Bullet4P2, PrimaryOffsetX, PrimaryOffsetY, false, holdTime, transform.rotation.z);
-                        Shoot(Bullet4P2, PrimaryOffsetX, PrimaryOffsetY, false, holdTime, -0.1f);
-                    }
+                    Shoot(Bullet2P2, PrimaryOffsetX, PrimaryOffsetY, false, holdTimeP2, transform.rotation.z);
                 }
-                else
+                if(scores.pCount2 == 1)
                 {
-                    if (scores.pCount == 2)
-                    {
-                        Shoot(Bullet2, PrimaryOffsetX, PrimaryOffsetY, false, holdTime, transform.rotation.z);
-                    }
-                    if (scores.pCount == 1)
-                    {
-                        Shoot(Bullet, PrimaryOffsetX, PrimaryOffsetY, false, holdTime, transform.rotation.z);
-                    }
-                    if (scores.pCount == 3)
-                    {
-                        Shoot(Bullet3, PrimaryOffsetX, PrimaryOffsetY, false, holdTime, transform.rotation.z);
-                    }
-                    if (scores.pCount >= 4)
-                    {
-                        Shoot(Bullet4, PrimaryOffsetX, PrimaryOffsetY, false, holdTime, 0.1f);
-                        Shoot(Bullet4, PrimaryOffsetX, PrimaryOffsetY, false, holdTime, transform.rotation.z);
-                        Shoot(Bullet4, PrimaryOffsetX, PrimaryOffsetY, false, holdTime, -0.1f);
-                    }
+                    Shoot(BulletP2, PrimaryOffsetX, PrimaryOffsetY, false, holdTimeP2, transform.rotation.z);
+                }
+                if (scores.pCount2 == 3)
+                {
+                    Shoot(Bullet3P2, PrimaryOffsetX, PrimaryOffsetY, false, holdTimeP2, transform.rotation.z);
+                }
+                if (scores.pCount2 >= 4)
+                {
+                    Shoot(Bullet4P2, PrimaryOffsetX, PrimaryOffsetY, false, holdTime, 0.1f);
+                    Shoot(Bullet4P2, PrimaryOffsetX, PrimaryOffsetY, false, holdTime, transform.rotation.z);
+                    Shoot(Bullet4P2, PrimaryOffsetX, PrimaryOffsetY, false, holdTime, -0.1f);
+                    fireRate = 0.35f;
+                    fireRateFirst = 0.3f;
+                }
+                if (scores.pCount2 < 4)
+                {
+                    fireRate1 = fireRate;
+                    fireRateFirst1 = fireRateFirst;
                 }
             }
+            else
+            {
+                if (scores.pCount == 2)
+                {
+                    Shoot(Bullet2, PrimaryOffsetX, PrimaryOffsetY, false, holdTime, transform.rotation.z);
+                }
+                if (scores.pCount == 1)
+                {
+                     Shoot(Bullet, PrimaryOffsetX, PrimaryOffsetY, false, holdTime, transform.rotation.z);
+                }
+                if (scores.pCount == 3)
+                {
+                     Shoot(Bullet3, PrimaryOffsetX, PrimaryOffsetY, false, holdTime, transform.rotation.z);
+                }
+                if (scores.pCount >= 4)
+                {
+                     Shoot(Bullet4, PrimaryOffsetX, PrimaryOffsetY, false, holdTime, 0.1f);
+                     Shoot(Bullet4, PrimaryOffsetX, PrimaryOffsetY, false, holdTime, transform.rotation.z);
+                     Shoot(Bullet4, PrimaryOffsetX, PrimaryOffsetY, false, holdTime, -0.1f);
+                     fireRate = 0.35f;
+                     fireRateFirst = 0.3f;
+                }
+                if (scores.pCount < 4)
+                {
+                    fireRate1 = fireRate;
+                    fireRateFirst1 = fireRateFirst;
+                }
+            }
+        }
 
-            else if (WorldMap == true)
-            {
-                Shoot(Bullet, PrimaryOffsetX, PrimaryOffsetY, false, holdTime, transform.rotation.z);
-            }
+        else if (WorldMap == true)
+        {
+            Shoot(Bullet, PrimaryOffsetX, PrimaryOffsetY, false, holdTime, transform.rotation.z);
         }
     }
     void SecondaryShoot()

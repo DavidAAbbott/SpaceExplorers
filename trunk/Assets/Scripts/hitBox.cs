@@ -76,7 +76,6 @@ public class hitBox : MonoBehaviour
         {
             PlayerMov.canMove = false;
             PlayerShoot.canShoot = false;
-            PlayerShoot.shoot = false;
         }
         else if(playerN == 2)
         {
