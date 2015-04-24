@@ -5,8 +5,8 @@ public class EnemyAI : MonoBehaviour
 {
     public GameObject explosion;
     public GameObject EnemyToSpawn;
-    public int SpawnRange, EnemySpawn;
-    public float PatrolSpeed, AttackSpeed, RotationSpeed, ShipHealth, MothershipHealth;
+    public int SpawnRange, EnemySpawnCount;
+    public float PatrolSpeed, AttackSpeed, RotationSpeed, MothershipHealth;
     public bool randSpawn, IsMothership;
     private bool patrol = true;
 
@@ -23,55 +23,48 @@ public class EnemyAI : MonoBehaviour
         myTransform = transform;
     }
 
-    // Use this for initialization
     void Start()
     {
         target = GameObject.FindWithTag("Player").transform;
 
+        //Spawn code for motherships
         if (randSpawn == true)
         {
             transform.position = Random.insideUnitCircle * SpawnRange;
         }
 
+        //Used for fighter ship patrol movement
         if (IsMothership == false)
         {
             Rotation360();
         }
 
-        TransformDirection = new int[] {0,1,-1};
-
-        DirectionIndex = Random.Range(0, TransformDirection.Length);
-        RandomDirectionX = TransformDirection[DirectionIndex];
-        RandomDirectionY = TransformDirection[DirectionIndex];
+        //Used for mothership patrol movement
+        GenerateDirection();
     }
 
-    void Update()
-    {
-        if (ShipHealth <= 0 && IsMothership == false)
-        {
-            Destroy(gameObject);
-            Instantiate(explosion, transform.position, new Quaternion());
-        }
-
-        if (MothershipHealth <= 0 && IsMothership == true)
-        {
-            Destroy(gameObject);
-            Instantiate(explosion, transform.position, new Quaternion());
-        }
-    }
- 
     void FixedUpdate()
     {
+        //Fighter ship patrol movement
         if (patrol == true && IsMothership == false)
         {
             transform.position -= -transform.up * PatrolSpeed * Time.deltaTime;
         }
 
+        //Mothership patrol movement
         else if (patrol == true && IsMothership == true)
         {
-            transform.position -= new Vector3(RandomDirectionX, RandomDirectionY, 0) * PatrolSpeed * Time.deltaTime;
+            if(RandomDirectionX == 0 && RandomDirectionY == 0)
+            {
+                GenerateDirection();
+            }
+            else
+            {
+                transform.position -= new Vector3(RandomDirectionX, RandomDirectionY, 0) * PatrolSpeed * Time.deltaTime;
+            }
         }
 
+        //Enemy attacks player
         else if (patrol == false)
         {
             Quaternion rot;
@@ -91,18 +84,33 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
+    //Check for bullet collision and death
     void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.tag == "Bullet" && IsMothership == false)
-        {
-            ShipHealth = ShipHealth - 10;
-        }
-
         if (collider.tag == "Bullet" && IsMothership == true)
         {
-            MothershipHealth = MothershipHealth - 10;
+            MothershipHealth = MothershipHealth - 1;
+
+            if (MothershipHealth <= 0 && IsMothership == true)
+            {
+                Destroy(gameObject);
+                Instantiate(explosion, transform.position, new Quaternion());
+            }
         }
 
+        if (collider.tag == "Bullet" && IsMothership == false)
+        {
+            Destroy(gameObject);
+            Instantiate(explosion, transform.position, new Quaternion());
+
+            if (IsMothership == false)
+            {
+                Instantiate(EnemyToSpawn, transform.position, new Quaternion());
+            }
+
+        }
+
+        //Detect if enemy enters the aggro range of the player
         if (collider.tag == "DetectRadius" && IsMothership == false)
         {
             patrol = false;
@@ -112,19 +120,26 @@ public class EnemyAI : MonoBehaviour
         {
             patrol = false;
 
-            for (int i = 0; i < EnemySpawn; i++)
+            for (int i = 0; i < EnemySpawnCount; i++)
             {
                 Instantiate(EnemyToSpawn, transform.position, new Quaternion());
             }
         }
 
+        //If fighter ship hits player destroy it
         if (collider.gameObject.tag == "Player" && IsMothership == false)
         {
             Destroy(gameObject);
             Instantiate(explosion, transform.position, new Quaternion());
+
+            if (IsMothership == true)
+            {
+                Instantiate(EnemyToSpawn, transform.position, new Quaternion());
+            }
         }
     }
 
+    //When enemy leaves aggro range, return to patrolling
     void OnTriggerExit2D(Collider2D collider)
     {
         if (collider.tag == "DetectRadius")
@@ -134,18 +149,36 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
+    //When enemy hits the border of the map, randomize rotation in different direction
     void OnCollisionStay2D(Collision2D collider)
     {
-        if (collider.gameObject.tag == "WorldBoundary")
+        if (collider.gameObject.tag == "WorldBoundary" && IsMothership == true)
+        {
+            GenerateDirection();
+        }
+
+        if (collider.gameObject.tag == "WorldBoundary" && IsMothership == false)
         {
             Rotation360();
         }
     }
 
+    //Randomizes rotation of enemy fighters
     void Rotation360()
     {
         Vector3 euler = transform.eulerAngles;
         euler.z = 360f;
         transform.eulerAngles = euler;
+    }
+
+    //Used to generate direction for mothership patrol movement
+    void GenerateDirection()
+    {
+        TransformDirection = new int[] { 0, 1, -1 };
+        DirectionIndex = Random.Range(0, TransformDirection.Length);
+        RandomDirectionX = TransformDirection[DirectionIndex];
+
+        DirectionIndex = Random.Range(0, TransformDirection.Length);
+        RandomDirectionY = TransformDirection[DirectionIndex];
     }
 }

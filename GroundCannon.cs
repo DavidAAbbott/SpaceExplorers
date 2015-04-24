@@ -3,7 +3,7 @@ using System.Collections;
 
 public class GroundCannon : MonoBehaviour {
     public GameObject cannonBullet, BulletSpawnPoint;
-    public GameObject player1, player2;
+    private GameObject player1, player2;
     public float speed = 10f;
     private int rng = 0;
     private bool inrange = false;
@@ -13,6 +13,8 @@ public class GroundCannon : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        player1 = GameObject.Find("Player");
+        player2 = GameObject.Find("Player2");
         InvokeRepeating("Shoot", 0, shootInterval);
 	}
 	

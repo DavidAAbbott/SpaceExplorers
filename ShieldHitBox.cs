@@ -14,6 +14,14 @@ public class ShieldHitBox : MonoBehaviour {
 	    if(shieldHP <= 0)
         {
             Destroy(gameObject);
+            if (scores.cmb == true)
+            {
+                scores.score += points * scores.combo;
+            }
+            if (scores.cmb2 == true)
+            {
+                scores.score2 += points * scores.combo2;
+            }
         }
 	}
 
@@ -25,11 +33,7 @@ public class ShieldHitBox : MonoBehaviour {
             scores.timer += 0.5f;
             scores.combo++;
 
-            if (scores.cmb == true)
-            {
-                scores.score += points * scores.combo;
-            }
-            else
+            if (!scores.cmb)
             {
                 scores.combo = 0;
                 scores.score += points;
@@ -41,11 +45,7 @@ public class ShieldHitBox : MonoBehaviour {
             scores.timer2 += 0.5f;
             scores.combo2++;
 
-            if (scores.cmb2 == true)
-            {
-                scores.score2 += points * scores.combo2;
-            }
-            else
+            if (!scores.cmb2)
             {
                 scores.combo2 = 0;
                 scores.score2 += points;
@@ -55,7 +55,7 @@ public class ShieldHitBox : MonoBehaviour {
         {
             shieldHP -= Projectile.bullet1Dmg;
         }
-        if (collider.tag == "p1Bullet3" || collider.tag == "p2Bullet2")
+        if (collider.tag == "p1Bullet2" || collider.tag == "p2Bullet2")
         {
             shieldHP -= Projectile.bullet2Dmg;
         }
