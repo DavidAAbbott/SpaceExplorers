@@ -54,7 +54,7 @@ public class EnemyAI : MonoBehaviour
         //Mothership patrol movement
         else if (patrol == true && IsMothership == true)
         {
-            if(RandomDirectionX == 0 && RandomDirectionY == 0)
+            if (RandomDirectionX == 0 && RandomDirectionY == 0)
             {
                 GenerateDirection();
             }
@@ -102,12 +102,6 @@ public class EnemyAI : MonoBehaviour
         {
             Destroy(gameObject);
             Instantiate(explosion, transform.position, new Quaternion());
-
-            if (IsMothership == false)
-            {
-                Instantiate(EnemyToSpawn, transform.position, new Quaternion());
-            }
-
         }
 
         //Detect if enemy enters the aggro range of the player
@@ -131,11 +125,6 @@ public class EnemyAI : MonoBehaviour
         {
             Destroy(gameObject);
             Instantiate(explosion, transform.position, new Quaternion());
-
-            if (IsMothership == true)
-            {
-                Instantiate(EnemyToSpawn, transform.position, new Quaternion());
-            }
         }
     }
 
