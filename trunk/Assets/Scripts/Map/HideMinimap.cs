@@ -3,7 +3,7 @@ using System.Collections;
 
 public class HideMinimap : MonoBehaviour {
 
-    private bool onoff = true;
+    private bool onoff = false;
 
     void Update()
     {

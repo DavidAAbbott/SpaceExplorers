@@ -10,18 +10,33 @@ public class PlayerTurretShot : MonoBehaviour
     public float fireRate = 0.2f;
     private float timeBetween = 0.0f;
 
-    public static bool KBcontrols = false;
-    public static bool KBcontrols2 = false;
+    public static bool KBControls = false;
+    public static bool KBControls2 = false;
+    public bool KBControlsEditor = false;
+
     public float smooth = 2.0f;
 
     public AudioClip ShotSound;
     public GameObject Bullet;
     Vector2 direction2D = Vector2.zero;
 
-    // Update is called once per frame
+    void Start()
+    {
+        if (KBControlsEditor == false)
+        {
+            KBControls = false;
+            KBControls2 = false;
+        }
+        else
+        {
+            KBControls = true;
+            KBControls2 = true;
+        }
+    }
+
     void Update()
     {
-        if (KBcontrols == false)
+        if (KBControls == false)
         {
             if (MainMenu.player2 == false)
             {
@@ -51,7 +66,7 @@ public class PlayerTurretShot : MonoBehaviour
             }
         }
 
-        else if (KBcontrols == true)
+        else if (KBControls == true)
         {
             Vector2 inputs = Vector2.zero;
 

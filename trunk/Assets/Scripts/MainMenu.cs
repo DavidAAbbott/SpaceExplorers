@@ -41,10 +41,10 @@ public class MainMenu : MonoBehaviour
     {
         if (isOn)
         {
-            PlayerMovement.KBcontrols = true;
+            PlayerMovement.KBControls = true;
             PlayerMov.KBcontrols = true;
-            PlayerTurret.KBcontrols = true;
-            PlayerTurretShot.KBcontrols = true;
+            PlayerTurret.KBControls = true;
+            PlayerTurretShot.KBControls = true;
         }
     }
 
@@ -52,18 +52,18 @@ public class MainMenu : MonoBehaviour
     {
         if (isOn)
         {
-            PlayerMovement.KBcontrols = false;
+            PlayerMovement.KBControls = false;
             PlayerMov.KBcontrols = false;
-            PlayerTurret.KBcontrols = false;
-            PlayerTurretShot.KBcontrols = false;
+            PlayerTurret.KBControls = false;
+            PlayerTurretShot.KBControls = false;
         }
     }
     public void Keyboard2(bool isOn)
     {
         if (isOn)
         {
-            PlayerTurret.KBcontrols2 = true;
-            PlayerTurretShot.KBcontrols2 = true;
+            PlayerTurret.KBControls2 = true;
+            PlayerTurretShot.KBControls2 = true;
         }
     }
 
@@ -71,8 +71,8 @@ public class MainMenu : MonoBehaviour
     {
         if (isOn)
         {
-            PlayerTurret.KBcontrols2 = false;
-            PlayerTurretShot.KBcontrols = false;
+            PlayerTurret.KBControls2 = false;
+            PlayerTurretShot.KBControls = false;
         }
     }
 }

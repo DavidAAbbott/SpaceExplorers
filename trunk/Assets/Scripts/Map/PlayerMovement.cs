@@ -7,18 +7,31 @@ public class PlayerMovement : MonoBehaviour
     public Vector2 leftStick = new Vector2(0, 0);
     public float ThrustForce, ThrustMax, BoostForce, RotationSpeed;
     public float radialDeadZone = 0.25f;
-    private float horizontal, ThrustMin, vertical, KBvertical;
+    private float horizontal, ThrustMin;
+    private float vertical = 0f;
+    private float KBvertical = 0f;
+
     public int health = 100;
-    public static bool KBcontrols = false;
+    public static bool KBControls = false;
+    public bool KBControlsEditor = false;
 
     void Start()
     {
         ThrustMin = ThrustForce;
+
+        if (KBControlsEditor == false)
+        {
+            KBControls = false;
+        }
+        else
+        {
+            KBControls = true;
+        }
     }
 
     void Update()
     {
-        if (KBcontrols == false)
+        if (KBControls == false)
         {
             leftStick = new Vector2(Input.GetAxis("L_XAxis_1"), Input.GetAxis("L_YAxis_1"));
         }
@@ -28,7 +41,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //Boost
-        if (KBcontrols == false)
+        if (KBControls == false)
         {
             if (Input.GetButtonDown("X_1") && ThrustForce < ThrustMax)
             {
@@ -73,12 +86,12 @@ public class PlayerMovement : MonoBehaviour
             Quaternion currentRotation = Quaternion.LookRotation(Vector3.forward, direction);
             transform.rotation = Quaternion.Slerp(transform.rotation, currentRotation, Time.deltaTime * RotationSpeed);
 
-            if (KBcontrols == false)
+            if (KBControls == false)
             {
                 vertical = Input.GetAxis("L_YAxis_1");
                 GetComponent<Rigidbody2D>().AddForce(direction2D * ThrustForce * Time.deltaTime);
             }
-            else if (KBcontrols == true)
+            else if (KBControls == true)
             {
                 KBvertical = Input.GetAxis("MapMovement");
                 GetComponent<Rigidbody2D>().AddForce(direction2D * ThrustForce * Time.deltaTime);
