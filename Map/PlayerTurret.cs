@@ -7,13 +7,29 @@ public class PlayerTurret : MonoBehaviour {
     public float angularVelocity = 12.0f;
     public float radialDeadZone = 0.25f;
 
-    public static bool KBcontrols = false;
-    public static bool KBcontrols2 = false;
+    public static bool KBControls = false;
+    public static bool KBControls2 = false;
+    public bool KBControlsEditor = false;
+
     public float smooth = 2.0f;
+
+    void Start()
+    {
+        if (KBControlsEditor == false)
+        {
+            KBControls = false;
+            KBControls2 = false;
+        }
+        else
+        {
+            KBControls = true;
+            KBControls2 = true;
+        }
+    }
 
     void Update()
     {
-        if (KBcontrols == false)
+        if (KBControls == false)
         {
             if (MainMenu.player2 == false)
             {
@@ -29,7 +45,7 @@ public class PlayerTurret : MonoBehaviour {
             }
         }
 
-        else if (KBcontrols == true)
+        else if (KBControls == true)
         {
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Quaternion shiprotate = Quaternion.LookRotation(Vector3.forward, mousePos - transform.position);
