@@ -11,7 +11,7 @@ public class Spawner : MonoBehaviour
     {
         for (int i = 0; i < Max; i++)
         {
-            int prefabIndex = UnityEngine.Random.Range(0, prefabList.Count - 1);
+            int prefabIndex = Random.Range(0, prefabList.Count - 1);
             Instantiate(prefabList[prefabIndex]);
         }
     }

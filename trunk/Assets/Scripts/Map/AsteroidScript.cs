@@ -26,7 +26,7 @@ public class AsteroidScript : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.tag == "Bullet" || collider.tag == "pBullet" && Health > 0)
+        if (collider.tag == "Bullet" || collider.tag == "p1Bullet" && Health > 0)
         {
             Destroy(gameObject);
             Instantiate(explosion, transform.position, new Quaternion());

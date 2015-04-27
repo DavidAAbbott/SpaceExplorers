@@ -4,6 +4,7 @@ using System.Collections.Generic;
 public class EnemyAI : MonoBehaviour
 {
     public GameObject explosion;
+    public GameObject EnemyBullet;
     public GameObject EnemyToSpawn;
     public int SpawnRange, EnemySpawnCount;
     public float PatrolSpeed, AttackSpeed, RotationSpeed, MothershipHealth;
@@ -69,6 +70,7 @@ public class EnemyAI : MonoBehaviour
         {
             Quaternion rot;
 
+            //Movement towards player
             if (IsMothership == true)
             {
                 rot = Quaternion.LookRotation(target.position - myTransform.position, Vector3.up * RotationSpeed);
@@ -79,15 +81,20 @@ public class EnemyAI : MonoBehaviour
             }
 
             myTransform.rotation = rot;
-
             transform.position = Vector2.MoveTowards(transform.position, target.position, AttackSpeed * Time.deltaTime);
+
+            //Enemy fighters shoot at player
+            if (IsMothership == false)
+            {
+                Instantiate(EnemyBullet, myTransform.position + (target.position - myTransform.position).normalized, rot);
+            }
         }
     }
 
     //Check for bullet collision and death
     void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.tag == "Bullet" && IsMothership == true)
+        if (collider.tag == "p1Bullet" && IsMothership == true)
         {
             MothershipHealth = MothershipHealth - 1;
 
@@ -98,7 +105,7 @@ public class EnemyAI : MonoBehaviour
             }
         }
 
-        if (collider.tag == "Bullet" && IsMothership == false)
+        if (collider.tag == "p1Bullet" && IsMothership == false)
         {
             Destroy(gameObject);
             Instantiate(explosion, transform.position, new Quaternion());

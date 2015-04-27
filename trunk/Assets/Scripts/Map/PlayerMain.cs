@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMain : MonoBehaviour
 {
     public GameObject explosion;
     public Vector2 leftStick = new Vector2(0, 0);
@@ -66,7 +66,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        PlayerDeath();
+        //PlayerDeath();
     }
 
     void FixedUpdate()
@@ -115,6 +115,11 @@ public class PlayerMovement : MonoBehaviour
         if (collider.gameObject.tag == "Enemy")
         {
             health = health - 10;
+        }
+
+        if (collider.gameObject.tag == "Bullet")
+        {
+            health = health - 5;
         }
     }
 }
