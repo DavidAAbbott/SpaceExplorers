@@ -19,6 +19,8 @@ public class ShmupEnemy : MonoBehaviour
     public int HP = 5;
     public float waveHeight = 5f;
     public float waveSpeed = 2f;
+    public bool reverse = false;
+    public bool movingTurret = false;
 
     void Start()
     {
@@ -46,10 +48,35 @@ public class ShmupEnemy : MonoBehaviour
     {
         if(zigzag)
         {
-            float xPos = 0f;
-            float yPos = Mathf.Sin(Time.time * waveSpeed) * waveHeight / 6;
-            xPos -= Time.deltaTime * speed * 10f;
-            transform.Translate(new Vector3(xPos, yPos, 0) * Time.deltaTime);
+            if (movingTurret)
+            {
+                float xPos = 0f;
+                float yPos = 0f;
+                if (reverse)
+                {
+                    xPos = -Mathf.Sin(Time.time * waveSpeed) * waveHeight / 6;
+                }
+                else
+                {
+                    xPos = Mathf.Sin(Time.time * waveSpeed) * waveHeight / 6;
+                }
+                transform.Translate(new Vector3(xPos, 0, 0) * Time.deltaTime);
+            }
+            else
+            {
+                float xPos = 0f;
+                float yPos = 0f;
+                if (reverse)
+                {
+                    yPos = -Mathf.Sin(Time.time * waveSpeed) * waveHeight / 6;
+                }
+                else
+                {
+                    yPos = Mathf.Sin(Time.time * waveSpeed) * waveHeight / 6;
+                }
+                xPos -= Time.deltaTime * speed * 10f;
+                transform.Translate(new Vector3(xPos, yPos, 0) * Time.deltaTime);
+            }
         }
         else
         {

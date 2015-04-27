@@ -59,7 +59,6 @@ public class EnemyWaypoints : MonoBehaviour
             /*if (currentWaypoint >= waypoints.Length)
             {
                 currentWaypoint = 0;
-                blastoff = true;
             }*/
         }
     }

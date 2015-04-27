@@ -10,12 +10,22 @@ public class GroundCannon : MonoBehaviour {
     public float range = 10f;
     public float bulletRotation = 0f;
     public float shootInterval = 2f;
+    public int numberOfShots = 1;
+    public float waitTime = 0f;
+    public bool groundCannon = false;
 
 	// Use this for initialization
 	void Start () {
         player1 = GameObject.Find("Player");
         player2 = GameObject.Find("Player2");
-        InvokeRepeating("Shoot", 0, shootInterval);
+        if (groundCannon)
+        {
+            InvokeRepeating("ShootCannon", 0, shootInterval);
+        }
+        else
+        {
+            StartCoroutine(Shoot());
+        }
 	}
 	
 	// Update is called once per frame
@@ -36,7 +46,34 @@ public class GroundCannon : MonoBehaviour {
         }
 	}
 
-    void Shoot()
+    IEnumerator Shoot()
+    {
+        yield return new WaitForSeconds(waitTime);
+        if (inrange)
+        {
+            if (MainMenu.player2)
+            {
+                rng = Random.Range(0, 2);
+            }
+            if (rng > 0)
+            {
+                for (int i = 0; i < numberOfShots; i++)
+                {
+                    Shot(player2);
+                    yield return new WaitForSeconds(shootInterval);
+                }
+            }
+            else
+            {
+                for (int i = 0; i < numberOfShots; i++)
+                {
+                    Shot(player1);
+                    yield return new WaitForSeconds(shootInterval);
+                }
+            }
+        }
+    }
+    void ShootCannon()
     {
         if (inrange)
         {
