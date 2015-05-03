@@ -33,6 +33,12 @@ public class ShmupEnemyBullet : MonoBehaviour
     {
         if (collider.tag == "Player" || collider.tag == "pBoundary" || collider.tag == "Ground")
         {
+            if (bossbomb)
+            {
+                GameObject pNewObject;
+                pNewObject = Instantiate(explosion, transform.position, new Quaternion()) as GameObject;
+                pNewObject.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+            }
             Destroy(gameObject);
         }
     }
