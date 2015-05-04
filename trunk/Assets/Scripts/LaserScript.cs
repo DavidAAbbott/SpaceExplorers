@@ -28,7 +28,7 @@ public class LaserScript : MonoBehaviour {
         if (shake > 0f)
         {
             Vector2 rndShake = Random.insideUnitCircle * shakeAmount;
-            Camera.transform.localPosition = new Vector3(rndShake.x, rndShake.y, camOrigPos.z);
+            Camera.transform.localPosition = new Vector3(rndShake.x, rndShake.y - 0.3f, camOrigPos.z);
             shake -= Time.deltaTime * decrease;
         }
         else

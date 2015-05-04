@@ -4,7 +4,7 @@ using System.Collections;
 public class PlayerShoot : MonoBehaviour
 {
     public float fireRate = 0.2f;
-    public AudioClip ShotSound;
+    public AudioClip ShotSound, triShotSound;
     public GameObject Bullet, BulletP2, Bullet2, Bullet2P2, Bullet3, Bullet3P2, Bullet4, Bullet4P2, Bomb, BombP2;
     public float PrimaryOffsetX, PrimaryOffsetY;
     public float SecondaryOffsetX, SecondaryOffsetY;
@@ -198,14 +198,17 @@ public class PlayerShoot : MonoBehaviour
                 if (scores.pCount == 2)
                 {
                     Shoot(Bullet2, PrimaryOffsetX, PrimaryOffsetY, false, holdTime, transform.rotation.z);
+                    GetComponent<AudioSource>().PlayOneShot(ShotSound);
                 }
                 if (scores.pCount == 1)
                 {
                      Shoot(Bullet, PrimaryOffsetX, PrimaryOffsetY, false, holdTime, transform.rotation.z);
+                     GetComponent<AudioSource>().PlayOneShot(ShotSound);
                 }
                 if (scores.pCount == 3)
                 {
                      Shoot(Bullet3, PrimaryOffsetX, PrimaryOffsetY, false, holdTime, transform.rotation.z);
+                     GetComponent<AudioSource>().PlayOneShot(ShotSound);
                 }
                 if (scores.pCount >= 4)
                 {
@@ -214,6 +217,7 @@ public class PlayerShoot : MonoBehaviour
                      Shoot(Bullet4, PrimaryOffsetX, PrimaryOffsetY, false, holdTime, -0.1f);
                      fireRate = 0.35f;
                      fireRateFirst = 0.3f;
+                     GetComponent<AudioSource>().PlayOneShot(triShotSound);
                 }
                 if (scores.pCount < 4)
                 {

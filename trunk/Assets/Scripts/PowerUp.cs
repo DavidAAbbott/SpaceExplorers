@@ -4,7 +4,15 @@ using System.Collections;
 public class PowerUp : MonoBehaviour {
 
     public AudioClip PickUp;
+    public float waveHeight = 5f;
+    public float waveSpeed = 2f;
 
+    void Update()
+    {
+        float yPos = 0f;
+        yPos = Mathf.Sin(Time.time * waveSpeed) * waveHeight / 6;
+        transform.Translate(new Vector3(0, yPos, 0) * Time.deltaTime);
+    }
     void OnTriggerEnter2D(Collider2D collider)
     {
         if(collider.tag == "Player")
