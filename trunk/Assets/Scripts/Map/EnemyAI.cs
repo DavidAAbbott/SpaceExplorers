@@ -6,8 +6,9 @@ public class EnemyAI : MonoBehaviour
     public GameObject explosion;
     public GameObject EnemyBullet;
     public GameObject EnemyToSpawn;
-    public int SpawnRange, EnemySpawnCount;
-    public float PatrolSpeed, AttackSpeed, RotationSpeed, MothershipHealth;
+    public int spawnRange, enemySpawnCount;
+    public float patrolSpeed, attackSpeed, rotationSpeed, fireRate, waitTime, mothershipHealth;
+
     public bool randSpawn, IsMothership;
     private bool patrol = true;
 
@@ -18,20 +19,20 @@ public class EnemyAI : MonoBehaviour
 
     Transform target;
     Transform myTransform;
+    Quaternion rot;
 
     void Awake()
     {
         myTransform = transform;
+        target = GameObject.FindWithTag("Player").transform;
     }
 
     void Start()
     {
-        target = GameObject.FindWithTag("Player").transform;
-
         //Spawn code for motherships
         if (randSpawn == true)
         {
-            transform.position = Random.insideUnitCircle * SpawnRange;
+            transform.position = Random.insideUnitCircle * spawnRange;
         }
 
         //Used for fighter ship patrol movement
@@ -49,7 +50,7 @@ public class EnemyAI : MonoBehaviour
         //Fighter ship patrol movement
         if (patrol == true && IsMothership == false)
         {
-            transform.position -= -transform.up * PatrolSpeed * Time.deltaTime;
+            transform.position -= -transform.up * patrolSpeed * Time.deltaTime;
         }
 
         //Mothership patrol movement
@@ -61,34 +62,31 @@ public class EnemyAI : MonoBehaviour
             }
             else
             {
-                transform.position -= new Vector3(RandomDirectionX, RandomDirectionY, 0) * PatrolSpeed * Time.deltaTime;
+                transform.position -= new Vector3(RandomDirectionX, RandomDirectionY, 0) * patrolSpeed * Time.deltaTime;
             }
         }
 
-        //Enemy attacks player
+        //Enemy moves to attack player
         else if (patrol == false)
         {
-            Quaternion rot;
-
-            //Movement towards player
             if (IsMothership == true)
             {
-                rot = Quaternion.LookRotation(target.position - myTransform.position, Vector3.up * RotationSpeed);
+                rot = Quaternion.LookRotation(target.position - myTransform.position, Vector3.up * rotationSpeed);
             }
             else
             {
-                rot = Quaternion.LookRotation(target.position - myTransform.position, Vector3.forward * RotationSpeed);
+                rot = Quaternion.LookRotation(target.position - myTransform.position, Vector3.forward * rotationSpeed);
             }
 
             myTransform.rotation = rot;
-            transform.position = Vector2.MoveTowards(transform.position, target.position, AttackSpeed * Time.deltaTime);
-
-            //Enemy fighters shoot at player
-            if (IsMothership == false)
-            {
-                Instantiate(EnemyBullet, myTransform.position + (target.position - myTransform.position).normalized, rot);
-            }
+            transform.position = Vector2.MoveTowards(transform.position, target.position, attackSpeed * Time.deltaTime);
         }
+    }
+
+    //Fire at player
+    void Fire()
+    {
+        Instantiate(EnemyBullet, myTransform.position + (target.position - myTransform.position).normalized, rot);
     }
 
     //Check for bullet collision and death
@@ -96,9 +94,9 @@ public class EnemyAI : MonoBehaviour
     {
         if (collider.tag == "p1Bullet" && IsMothership == true)
         {
-            MothershipHealth = MothershipHealth - 1;
+            mothershipHealth = mothershipHealth - 1;
 
-            if (MothershipHealth <= 0 && IsMothership == true)
+            if (mothershipHealth <= 0 && IsMothership == true)
             {
                 Destroy(gameObject);
                 Instantiate(explosion, transform.position, new Quaternion());
@@ -111,17 +109,18 @@ public class EnemyAI : MonoBehaviour
             Instantiate(explosion, transform.position, new Quaternion());
         }
 
-        //Detect if enemy enters the aggro range of the player
+        //If enemy enters the aggro range of the player: end patrol and start firing
         if (collider.tag == "DetectRadius" && IsMothership == false)
         {
             patrol = false;
+            StartCoroutine(Firing());
         }
 
         if (collider.tag == "DetectRadius" && IsMothership == true)
         {
             patrol = false;
 
-            for (int i = 0; i < EnemySpawnCount; i++)
+            for (int i = 0; i < enemySpawnCount; i++)
             {
                 Instantiate(EnemyToSpawn, transform.position, new Quaternion());
             }
@@ -176,5 +175,16 @@ public class EnemyAI : MonoBehaviour
 
         DirectionIndex = Random.Range(0, TransformDirection.Length);
         RandomDirectionY = TransformDirection[DirectionIndex];
+    }
+
+    //Coroutine for firerate
+    IEnumerator Firing()
+    {
+        yield return new WaitForSeconds(waitTime);
+        while (patrol == false)
+        {
+            Fire();
+            yield return new WaitForSeconds(fireRate);
+        }
     }
 }
