@@ -88,7 +88,7 @@ public class BossScript : MonoBehaviour {
         if (collider.tag == "p1Bullet" || collider.tag == "p1Bullet2" || collider.tag == "p1Bullet3" || collider.tag == "p1Bomb")
         {
             scores.hit++;
-            scores.timer += 0.5f;
+            scores.timer = scores.cTime;
             scores.combo++;
 
             if(scores.cmb == false)
@@ -100,7 +100,7 @@ public class BossScript : MonoBehaviour {
         if (collider.tag == "p2Bullet" || collider.tag == "p2Bullet2" || collider.tag == "p2Bullet3" || collider.tag == "p2Bomb")
         {
             scores.hit2++;
-            scores.timer2 += 0.5f;
+            scores.timer2 = scores.cTime;
             scores.combo2++;
 
             if (scores.cmb2 == false)

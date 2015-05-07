@@ -21,6 +21,7 @@ public class ShmupEnemy : MonoBehaviour
     public float waveSpeed = 2f;
     public bool reverse = false;
     public bool movingTurret = false;
+    public GameObject pickup;
 
     void Start()
     {
@@ -39,6 +40,10 @@ public class ShmupEnemy : MonoBehaviour
         }
         if(HP <= 0)
         {
+            if (dropping)
+            {
+                Instantiate(pickup, transform.position, new Quaternion());
+            }
             Instantiate(explosion, transform.position, new Quaternion());
             Destroy(gameObject);
         }
@@ -101,7 +106,7 @@ public class ShmupEnemy : MonoBehaviour
         if (collider.tag == "p1Bullet" || collider.tag == "p1Bullet2" || collider.tag == "p1Bullet3" || collider.tag == "p1Bomb")
         {
             scores.hit++;
-            scores.timer += 0.5f;
+            scores.timer = scores.cTime;
             scores.combo++;
 
             if (scores.cmb == true)
@@ -117,7 +122,7 @@ public class ShmupEnemy : MonoBehaviour
         if (collider.tag == "p2Bullet" || collider.tag == "p2Bullet2" || collider.tag == "p2Bullet3" || collider.tag == "p2Bomb")
         {
             scores.hit2++;
-            scores.timer2 += 0.5f;
+            scores.timer2 = scores.cTime;
             scores.combo2++;
 
             if (scores.cmb2 == true)

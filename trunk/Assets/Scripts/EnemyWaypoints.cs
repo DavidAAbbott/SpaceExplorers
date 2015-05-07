@@ -19,6 +19,7 @@ public class EnemyWaypoints : MonoBehaviour
         enemyAnim = this.GetComponent<Animator>();
         liekkiAnim.SetBool("x-", true);
         enemyAnim.SetBool("blastoff", false);
+        lieska.SetActive(false);
     }
     void Update()
     {
@@ -55,6 +56,7 @@ public class EnemyWaypoints : MonoBehaviour
         {
             liekkiAnim.SetBool("x-", false);
             blastoff = true;
+            lieska.SetActive(true);
 
             /*if (currentWaypoint >= waypoints.Length)
             {

@@ -122,6 +122,10 @@ public class PlayerShoot : MonoBehaviour
             {
                 inputs = new Vector2(Input.GetAxis("TriggersR_1"), Input.GetAxis("TriggersR_1"));
 
+                if (Input.GetButton("X_1"))
+                {
+                    inputs = new Vector2(Input.GetAxis("X_1"), Input.GetAxis("X_1"));
+                }
                 if (Input.GetButtonDown("X_1"))
                 {
                     if (timer2 >= fireRateFirst1)
@@ -184,8 +188,8 @@ public class PlayerShoot : MonoBehaviour
                     Shoot(Bullet4P2, PrimaryOffsetX, PrimaryOffsetY, false, holdTime, 0.1f);
                     Shoot(Bullet4P2, PrimaryOffsetX, PrimaryOffsetY, false, holdTime, transform.rotation.z);
                     Shoot(Bullet4P2, PrimaryOffsetX, PrimaryOffsetY, false, holdTime, -0.1f);
-                    fireRate = 0.35f;
-                    fireRateFirst = 0.3f;
+                    fireRate1 = 0.3f;
+                    fireRateFirst1 = 0.25f;
                 }
                 if (scores.pCount2 < 4)
                 {
@@ -215,8 +219,8 @@ public class PlayerShoot : MonoBehaviour
                      Shoot(Bullet4, PrimaryOffsetX, PrimaryOffsetY, false, holdTime, 0.1f);
                      Shoot(Bullet4, PrimaryOffsetX, PrimaryOffsetY, false, holdTime, transform.rotation.z);
                      Shoot(Bullet4, PrimaryOffsetX, PrimaryOffsetY, false, holdTime, -0.1f);
-                     fireRate = 0.35f;
-                     fireRateFirst = 0.3f;
+                     fireRate1 = 0.3f;
+                     fireRateFirst1 = 0.25f;
                      GetComponent<AudioSource>().PlayOneShot(triShotSound);
                 }
                 if (scores.pCount < 4)
