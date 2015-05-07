@@ -3,10 +3,10 @@ using System.Collections;
 
 public class AsteroidScript : MonoBehaviour
 {
-    public float ForceMin, ForceMax, TorqueMin, TorqueMax, xvalue, yvalue;
+    public float ForceMin, ForceMax, TorqueMin, TorqueMax, PiecesMin, PiecesMax, xLow, xHigh, yLow, yHigh;
     public GameObject explosion, asteroidbits1, asteroidbits2;
     public AudioClip HitSound;
-    public int NumberOfPieces, SpawnRange, Health;
+    public int SpawnRange, Health;
     public bool randSpawn, isBig;
 
     void Start()
@@ -17,11 +17,12 @@ public class AsteroidScript : MonoBehaviour
         }
 
         float force = Random.Range(ForceMin, ForceMax);
-        float x = Random.Range(xvalue, yvalue);
-        float y = Random.Range(xvalue, yvalue);
-        GetComponent<Rigidbody2D>().AddForce(force * new Vector2(x, y));
-
         float torque = Random.Range(TorqueMin, TorqueMax);
+
+        float x = Random.Range(xLow, xHigh);
+        float y = Random.Range(yLow, yHigh);
+
+        GetComponent<Rigidbody2D>().AddForce(force * new Vector2(x, y));
         GetComponent<Rigidbody2D>().AddTorque(torque);
     }
     void OnTriggerEnter2D(Collider2D collider)
@@ -33,6 +34,8 @@ public class AsteroidScript : MonoBehaviour
 
             if (isBig == true)
             {
+                float NumberOfPieces = Random.Range(PiecesMin, PiecesMax);
+
                 for (int i = 0; i < NumberOfPieces; i++)
                 {
                     Instantiate(asteroidbits1, transform.position, Quaternion.identity);
