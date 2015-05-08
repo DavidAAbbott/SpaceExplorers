@@ -18,6 +18,7 @@ public class BossScript : MonoBehaviour {
     private Score scores;
     public int points = 250;
     public GameObject stopTrigger;
+    public static float bTime = 0f;
 
 	void Start () {
         StartCoroutine("Pattern");
@@ -74,13 +75,25 @@ public class BossScript : MonoBehaviour {
         yield return null;
         while (true)
         {
-            yield return new WaitForSeconds(2f);
-            Shoot(1.1f);
-            yield return new WaitForSeconds(0.7f);
-            Shoot(0.8f);
+            //yield return new WaitForSeconds(2f);
+            Shoot(0.5f);
+            bTime = 1.8f;
+            yield return new WaitForSeconds(0.5f);
+            Shoot(0.61f);
+            bTime = 1.5f;
+            yield return new WaitForSeconds(0.5f);
+            Shoot(0.9f);
+            bTime = 1.2f;
             yield return new WaitForSeconds(0.7f);
             Shoot(0.7f);
-            yield return new WaitForSeconds(1f);
+            bTime = 1.2f;
+            yield return new WaitForSeconds(0.5f);
+            Shoot(0.56f);
+            bTime = 1.4f;
+            yield return new WaitForSeconds(0.5f);
+            Shoot(0.48f);
+            bTime = 1.7f;
+            yield return new WaitForSeconds(0.9f);
         }
     }
     void OnTriggerEnter2D(Collider2D collider)

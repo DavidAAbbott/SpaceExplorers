@@ -8,6 +8,7 @@ public class ShmupEnemyBullet : MonoBehaviour
     public float turnspeed = 10f;
     public float bulletspeed = 8f;
     public GameObject explosion;
+    public bool laserBoss = false;
 
     void Start()
     {
@@ -44,8 +45,15 @@ public class ShmupEnemyBullet : MonoBehaviour
     }
     IEnumerator timer()
     {
-        float time = Random.Range(0.8f, 1.3f);
-        yield return new WaitForSeconds(time);
+        if (laserBoss)
+        {
+            yield return new WaitForSeconds(BossScript.bTime);
+        }
+        else
+        {
+            float time = Random.Range(0.8f, 1.3f);
+            yield return new WaitForSeconds(time);
+        }
         GameObject pNewObject;
         pNewObject = Instantiate(explosion, transform.position, new Quaternion()) as GameObject;
         pNewObject.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);

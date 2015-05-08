@@ -55,7 +55,7 @@ public class GroundCannon : MonoBehaviour {
             {
                 rng = Random.Range(0, 2);
             }
-            if (rng > 0)
+            if (rng > 0 && player2 != null)
             {
                 for (int i = 0; i < numberOfShots; i++)
                 {
@@ -81,7 +81,7 @@ public class GroundCannon : MonoBehaviour {
             {
                 rng = Random.Range(0, 2);
             }
-            if (rng > 0)
+            if (rng > 0 && player2 != null)
             {
                 Shot(player2);
             }

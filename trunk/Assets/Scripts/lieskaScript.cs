@@ -5,73 +5,137 @@ public class lieskaScript : MonoBehaviour
 {
     private Animator anim;
     public bool middle = false;
+    public bool p2 = false;
 
-    // Use this for initialization
     void Start()
     {
         anim = GetComponent<Animator>();
     }
-
-    // Update is called once per frame
     void Update()
     {
-        if (PlayerMov.KBcontrols)
+        if (p2)
         {
-            if (!middle)
+            if (PlayerMov.KBcontrols2)
             {
-                if (Input.GetAxis("Horizontal") < 0)
+                if (!middle)
                 {
-                    anim.SetBool("x-", true);
+                    if (Input.GetAxis("Horizontal2") < 0)
+                    {
+                        anim.SetBool("x-", true);
+                    }
+                    else
+                    {
+                        anim.SetBool("x-", false);
+                    }
                 }
                 else
                 {
-                    anim.SetBool("x-", false);
+                    if (Input.GetAxis("Horizontal2") > 0)
+                    {
+                        anim.SetBool("x+", true);
+                    }
+                    else if (Input.GetAxis("Horizontal2") < 0)
+                    {
+                        anim.SetBool("x-", true);
+                    }
+                    else
+                    {
+                        anim.SetBool("x+", false);
+                        anim.SetBool("x-", false);
+                    }
                 }
             }
             else
             {
-                if (Input.GetAxis("Horizontal") > 0)
+                if (!middle)
                 {
-                    anim.SetBool("x+", true);
-                }
-                else if (Input.GetAxis("Horizontal") < 0)
-                {
-                    anim.SetBool("x-", true);
+                    if (Input.GetAxis("L_XAxis_2") < 0)
+                    {
+                        anim.SetBool("x-", true);
+                    }
+                    else
+                    {
+                        anim.SetBool("x-", false);
+                    }
                 }
                 else
                 {
-                    anim.SetBool("x+", false);
-                    anim.SetBool("x-", false);
+                    if (Input.GetAxis("L_XAxis_2") > 0)
+                    {
+                        anim.SetBool("x+", true);
+                    }
+                    else if (Input.GetAxis("L_XAxis_2") < 0)
+                    {
+                        anim.SetBool("x-", true);
+                    }
+                    else
+                    {
+                        anim.SetBool("x+", false);
+                        anim.SetBool("x-", false);
+                    }
                 }
             }
         }
         else
         {
-            if (!middle)
+            if (PlayerMov.KBcontrols)
             {
-                if (Input.GetAxis("L_XAxis_1") < 0)
+                if (!middle)
                 {
-                    anim.SetBool("x-", true);
+                    if (Input.GetAxis("Horizontal") < 0)
+                    {
+                        anim.SetBool("x-", true);
+                    }
+                    else
+                    {
+                        anim.SetBool("x-", false);
+                    }
                 }
                 else
                 {
-                    anim.SetBool("x-", false);
+                    if (Input.GetAxis("Horizontal") > 0)
+                    {
+                        anim.SetBool("x+", true);
+                    }
+                    else if (Input.GetAxis("Horizontal") < 0)
+                    {
+                        anim.SetBool("x-", true);
+                    }
+                    else
+                    {
+                        anim.SetBool("x+", false);
+                        anim.SetBool("x-", false);
+                    }
                 }
             }
             else
             {
-                if (Input.GetAxis("L_XAxis_1") > 0)
+                if (!middle)
                 {
-                    anim.SetBool("x+", true);
-                }
-                else if (Input.GetAxis("L_XAxis_1") < 0)
-                {
-                    anim.SetBool("x-", true);
+                    if (Input.GetAxis("L_XAxis_1") < 0)
+                    {
+                        anim.SetBool("x-", true);
+                    }
+                    else
+                    {
+                        anim.SetBool("x-", false);
+                    }
                 }
                 else
                 {
-                    anim.SetBool("x+", false);
-                    anim.SetBool("x-", false);
+                    if (Input.GetAxis("L_XAxis_1") > 0)
+                    {
+                        anim.SetBool("x+", true);
+                    }
+                    else if (Input.GetAxis("L_XAxis_1") < 0)
+                    {
+                        anim.SetBool("x-", true);
+                    }
+                    else
+                    {
+                        anim.SetBool("x+", false);
+                        anim.SetBool("x-", false);
+                    }
                 }
             }
         }

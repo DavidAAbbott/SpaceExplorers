@@ -10,6 +10,7 @@ public class PlayerMov : MonoBehaviour
     public static bool canMove = true;
     public static bool canMove2 = true;
     public static bool KBcontrols = false;
+    public static bool KBcontrols2 = false;
     public bool p2 = false;
     private float inputX, inputY, tilt;
 
@@ -26,7 +27,7 @@ public class PlayerMov : MonoBehaviour
 
         if (p2)
         {
-            if (KBcontrols)
+            if (KBcontrols2)
             {
                 inputX = (speed * 4 * Input.GetAxis("Horizontal2")) * Time.deltaTime;
                 inputY = (speed * 4 * Input.GetAxis("Vertical2")) * Time.deltaTime;

@@ -48,7 +48,7 @@ public class hitBox : MonoBehaviour
             }
             if (collider.tag == "sPickup")
             {
-                scores.sCount2++;
+                scores.sCount2 += 10;
             }
         }
         else
@@ -80,7 +80,7 @@ public class hitBox : MonoBehaviour
         else if(playerN == 2)
         {
             PlayerMov.canMove2 = false;
-            PlayerShoot.canShoot2 = false;
+            PlayerShoot2.canShoot2 = false;
         }
         box.enabled = false;
         sprite.enabled = false;
@@ -95,7 +95,7 @@ public class hitBox : MonoBehaviour
         else if (playerN == 2)
         {
             PlayerMov.canMove2 = true;
-            PlayerShoot.canShoot2 = true;
+            PlayerShoot2.canShoot2 = true;
         }
         sprite.enabled = true;
         yield return new WaitForSeconds(0.1f);
