@@ -3,8 +3,8 @@ using System.Collections;
 using UnityEngine.UI;
 
 public class Score : MonoBehaviour {
-    public int playerlives = 3;
-    public int playerlives2 = 3;
+    public int playerlives = 5;
+    public int playerlives2 = 5;
     public int pCount = 1;
     public int pCount2 = 1;
     public int sCount, sCount2;

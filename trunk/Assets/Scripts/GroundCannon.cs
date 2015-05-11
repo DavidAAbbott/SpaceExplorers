@@ -30,7 +30,8 @@ public class GroundCannon : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        float distance = Vector2.Distance(player1.transform.position, transform.position);
+        float distance;
+        distance = Vector2.Distance(player1.transform.position, transform.position);
         if(distance < range)
         {
             inrange = true;
@@ -63,6 +64,14 @@ public class GroundCannon : MonoBehaviour {
                     yield return new WaitForSeconds(shootInterval);
                 }
             }
+            /*if (player1 = null)
+            {
+                for (int i = 0; i < numberOfShots; i++)
+                {
+                    Shot(player2);
+                    yield return new WaitForSeconds(shootInterval);
+                }
+            }*/
             else
             {
                 for (int i = 0; i < numberOfShots; i++)
