@@ -39,10 +39,32 @@ public class LaserScript : MonoBehaviour {
 	}
     IEnumerator timer()
     {
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(3f);
         while (true)
         {
             float rng = Random.Range(0.5f, 2f);
+            laserStartCast.SetActive(true);
+            yield return new WaitForSeconds(0.9f);
+            laser.SetActive(true);
+            shake = 0.5f;
+            yield return new WaitForSeconds(rng);
+            shake = 0.0f;
+            laser.SetActive(false);
+            laserStartCast.SetActive(false);
+            yield return new WaitForSeconds(0.7f);
+
+            rng = Random.Range(0.5f, 2f);
+            laserStartCast2.SetActive(true);
+            yield return new WaitForSeconds(0.9f);
+            laser2.SetActive(true);
+            shake = 0.5f;
+            yield return new WaitForSeconds(rng);
+            shake = 0.0f;
+            laser2.SetActive(false);
+            laserStartCast2.SetActive(false);
+            yield return new WaitForSeconds(0.7f);
+
+            rng = Random.Range(0.5f, 2f);
             laserStartCast.SetActive(true);
             laserStartCast2.SetActive(true);
             yield return new WaitForSeconds(0.9f);
@@ -55,6 +77,7 @@ public class LaserScript : MonoBehaviour {
             laser2.SetActive(false);
             laserStartCast.SetActive(false);
             laserStartCast2.SetActive(false);
+            yield return new WaitForSeconds(0.7f);
         }
     }
 }

@@ -15,6 +15,7 @@ public class Score : MonoBehaviour {
     public Text guiScore2, guiCombo2, guiLives2, guiSecondary2;
     public GameObject p2UI;
     public GameObject player2;
+    public float cTime = 1f;
 
     void Start()
     {

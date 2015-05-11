@@ -14,7 +14,7 @@ public class Pause : MonoBehaviour {
     }
     void Update()
     {
-        if(Input.GetKeyUp(KeyCode.P) || Input.GetButton("Start_1"))
+        if (Input.GetKeyUp(KeyCode.P) || Input.GetButton("Start_1"))
         {
             paused = true;
             pause.SetActive(true);

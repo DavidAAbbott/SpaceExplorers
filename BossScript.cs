@@ -18,6 +18,7 @@ public class BossScript : MonoBehaviour {
     private Score scores;
     public int points = 250;
     public GameObject stopTrigger;
+    public static float bTime = 0f;
 
 	void Start () {
         StartCoroutine("Pattern");
@@ -74,13 +75,25 @@ public class BossScript : MonoBehaviour {
         yield return null;
         while (true)
         {
-            yield return new WaitForSeconds(2f);
-            Shoot(1.1f);
-            yield return new WaitForSeconds(0.7f);
-            Shoot(0.8f);
+            //yield return new WaitForSeconds(2f);
+            Shoot(0.5f);
+            bTime = 1.8f;
+            yield return new WaitForSeconds(0.5f);
+            Shoot(0.61f);
+            bTime = 1.5f;
+            yield return new WaitForSeconds(0.5f);
+            Shoot(0.9f);
+            bTime = 1.2f;
             yield return new WaitForSeconds(0.7f);
             Shoot(0.7f);
-            yield return new WaitForSeconds(1f);
+            bTime = 1.2f;
+            yield return new WaitForSeconds(0.5f);
+            Shoot(0.56f);
+            bTime = 1.4f;
+            yield return new WaitForSeconds(0.5f);
+            Shoot(0.48f);
+            bTime = 1.7f;
+            yield return new WaitForSeconds(0.9f);
         }
     }
     void OnTriggerEnter2D(Collider2D collider)
@@ -88,7 +101,7 @@ public class BossScript : MonoBehaviour {
         if (collider.tag == "p1Bullet" || collider.tag == "p1Bullet2" || collider.tag == "p1Bullet3" || collider.tag == "p1Bomb")
         {
             scores.hit++;
-            scores.timer += 0.5f;
+            scores.timer = scores.cTime;
             scores.combo++;
 
             if(scores.cmb == false)
@@ -100,7 +113,7 @@ public class BossScript : MonoBehaviour {
         if (collider.tag == "p2Bullet" || collider.tag == "p2Bullet2" || collider.tag == "p2Bullet3" || collider.tag == "p2Bomb")
         {
             scores.hit2++;
-            scores.timer2 += 0.5f;
+            scores.timer2 = scores.cTime;
             scores.combo2++;
 
             if (scores.cmb2 == false)
