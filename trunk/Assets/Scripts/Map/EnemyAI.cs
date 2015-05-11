@@ -6,7 +6,9 @@ public class EnemyAI : MonoBehaviour
     public GameObject explosion;
     public GameObject EnemyBullet;
     public GameObject EnemyToSpawn;
-    public int spawnRange, enemySpawnCount;
+    public GameObject EnemyToSpawn2;
+
+    public int spawnRange, enemySpawnCount, enemySpawnCount2;
     public float patrolSpeed, attackSpeed, rotationSpeed, fireRate, waitTime, mothershipHealth;
 
     public bool randSpawn, IsMothership;
@@ -123,6 +125,11 @@ public class EnemyAI : MonoBehaviour
             for (int i = 0; i < enemySpawnCount; i++)
             {
                 Instantiate(EnemyToSpawn, transform.position, new Quaternion());
+            }
+
+            for (int i = 0; i < enemySpawnCount2; i++)
+            {
+                Instantiate(EnemyToSpawn2, transform.position, new Quaternion());
             }
         }
 
