@@ -19,6 +19,9 @@ public class BossScript : MonoBehaviour {
     public int points = 250;
     public GameObject stopTrigger;
     public static float bTime = 0f;
+    public bool miniBoss = false;
+    private SpriteRenderer rend;
+    private Color32 origcolor;
 
 	void Start () {
         StartCoroutine("Pattern");
@@ -27,6 +30,12 @@ public class BossScript : MonoBehaviour {
         box = GetComponent<BoxCollider2D>();
         box.enabled = false;
         scores = GameObject.Find("Canvas").GetComponent<Score>();
+        rend = GetComponent<SpriteRenderer>();
+        origcolor = rend.color;
+        if(MainMenu.player2)
+        {
+            bossHP = bossHP * 2;
+        }
 	}
 	
 	void Update () {
@@ -73,27 +82,73 @@ public class BossScript : MonoBehaviour {
     IEnumerator Pattern()
     {
         yield return null;
+
         while (true)
         {
-            //yield return new WaitForSeconds(2f);
-            Shoot(0.5f);
-            bTime = 1.8f;
-            yield return new WaitForSeconds(0.5f);
-            Shoot(0.61f);
-            bTime = 1.5f;
-            yield return new WaitForSeconds(0.5f);
-            Shoot(0.9f);
-            bTime = 1.2f;
-            yield return new WaitForSeconds(0.7f);
-            Shoot(0.7f);
-            bTime = 1.2f;
-            yield return new WaitForSeconds(0.5f);
-            Shoot(0.56f);
-            bTime = 1.4f;
-            yield return new WaitForSeconds(0.5f);
-            Shoot(0.48f);
-            bTime = 1.7f;
-            yield return new WaitForSeconds(0.9f);
+            if (!miniBoss)
+            {
+                //yield return new WaitForSeconds(2f);
+                Shoot(0.5f);
+                bTime = 1.8f;
+                yield return new WaitForSeconds(0.5f);
+                Shoot(0.61f);
+                bTime = 1.5f;
+                yield return new WaitForSeconds(0.5f);
+                Shoot(0.9f);
+                bTime = 1.2f;
+                yield return new WaitForSeconds(0.5f);
+                Shoot(0.3f);
+                bTime = 1.7f;
+                yield return new WaitForSeconds(0.5f);
+                Shoot(0.42f);
+                bTime = 1.7f;
+                yield return new WaitForSeconds(0.7f);
+
+                Shoot(0.7f);
+                bTime = 1.2f;
+                yield return new WaitForSeconds(0.5f);
+                Shoot(0.56f);
+                bTime = 1.4f;
+                yield return new WaitForSeconds(0.5f);
+                Shoot(0.48f);
+                bTime = 1.7f;
+                yield return new WaitForSeconds(0.5f);
+                Shoot(0.3f);
+                bTime = 1.7f;
+                yield return new WaitForSeconds(0.5f);
+                Shoot(0.42f);
+                bTime = 1.7f;
+                yield return new WaitForSeconds(0.9f);
+            }
+
+            if (miniBoss)
+            {
+                Shoot(0.5f);
+                bTime = 1.8f;
+                yield return new WaitForSeconds(0.5f);
+                Shoot(0.61f);
+                bTime = 1.5f;
+                yield return new WaitForSeconds(0.5f);
+                Shoot(0.9f);
+                bTime = 1.2f;
+                yield return new WaitForSeconds(0.5f);
+                Shoot(0.42f);
+                bTime = 1.7f;
+                yield return new WaitForSeconds(0.7f);
+
+                Shoot(0.7f);
+                bTime = 1.2f;
+                yield return new WaitForSeconds(0.5f);
+                Shoot(0.56f);
+                bTime = 1.4f;
+                yield return new WaitForSeconds(0.5f);
+                Shoot(0.48f);
+                bTime = 1.7f;
+                yield return new WaitForSeconds(0.5f);
+                Shoot(0.42f);
+                bTime = 1.7f;
+                yield return new WaitForSeconds(0.9f);
+            }
         }
     }
     void OnTriggerEnter2D(Collider2D collider)
@@ -125,18 +180,29 @@ public class BossScript : MonoBehaviour {
         if (collider.tag == "p1Bullet" || collider.tag == "p2Bullet")
         {
             bossHP -= Projectile.bullet1Dmg;
+            StartCoroutine("flash", 0);
+            //rend.color = new Color32(255, 117, 152, 255);
         }
         if (collider.tag == "p1Bullet2" || collider.tag == "p2Bullet2")
         {
             bossHP -= Projectile.bullet2Dmg;
+            StartCoroutine("flash", 0);
         }
         if (collider.tag == "p1Bullet3" || collider.tag == "p2Bullet3")
         {
             bossHP -= Projectile.bullet3Dmg;
+            StartCoroutine("flash", 0);
         }
         if (collider.tag == "p1Bomb" || collider.tag == "p2Bomb")
         {
             bossHP -= Projectile.bombDmg;
+            StartCoroutine("flash", 0);
         }
+    }
+    IEnumerator flash()
+    {
+        rend.color = new Color32(255, 117, 152, 255);
+        yield return new WaitForSeconds(0.1f);
+        rend.color = origcolor;
     }
 }

@@ -4,6 +4,7 @@ using System.Collections;
 public class PowerUp : MonoBehaviour {
 
     public AudioClip PickUp;
+    public GameObject pickupFlash;
     public float waveHeight = 5f;
     public float waveSpeed = 2f;
 
@@ -20,6 +21,9 @@ public class PowerUp : MonoBehaviour {
             GetComponent<AudioSource>().PlayOneShot(PickUp);
             gameObject.GetComponent<Renderer>().enabled = false;
             gameObject.GetComponent<Collider2D>().enabled = false;
+            GameObject pNewObject;
+            pNewObject = Instantiate(pickupFlash, transform.position, new Quaternion()) as GameObject;
+            Destroy(pNewObject, 1f);
             Destroy(gameObject, 1f);
         }
     }

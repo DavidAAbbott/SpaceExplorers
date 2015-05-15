@@ -42,6 +42,26 @@ public class ShmupEnemyBullet : MonoBehaviour
             }
             Destroy(gameObject);
         }
+        if (collider.tag == "p1Bullet" || collider.tag == "p1Bullet2" || collider.tag == "p1Bullet3" || collider.tag == "p1Bomb")
+        {
+            if (bossbomb)
+            {
+                Destroy(gameObject);
+                GameObject pNewObject;
+                pNewObject = Instantiate(explosion, transform.position, new Quaternion()) as GameObject;
+                pNewObject.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+            }
+        }
+        if (collider.tag == "p2Bullet" || collider.tag == "p2Bullet2" || collider.tag == "p2Bullet3" || collider.tag == "p2Bomb")
+        {
+            if (bossbomb)
+            {
+                Destroy(gameObject);
+                GameObject pNewObject;
+                pNewObject = Instantiate(explosion, transform.position, new Quaternion()) as GameObject;
+                pNewObject.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+            }
+        }
     }
     IEnumerator timer()
     {

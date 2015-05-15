@@ -74,14 +74,14 @@ public class PlayerShoot : MonoBehaviour
                     }
                 }
 
-                if (Input.GetButton("LB_1") || Input.GetButton("B_1"))
+                if (Input.GetButton("LB_1") || Input.GetButton("A_1"))
                 {
                     if (holdTime <= 15f)
                     {
                         holdTime += Time.deltaTime * holdTimeModifier;
                     }
                 }
-                else if (Input.GetButtonUp("LB_1") && holdTime > 0 || Input.GetButtonUp("B_1") && holdTime > 0)
+                else if (Input.GetButtonUp("LB_1") && holdTime > 0 || Input.GetButtonUp("A_1") && holdTime > 0)
                 {
                     SecondaryShoot();
                 }

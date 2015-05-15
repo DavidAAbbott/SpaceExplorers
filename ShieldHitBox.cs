@@ -8,6 +8,10 @@ public class ShieldHitBox : MonoBehaviour {
 
 	void Start () {
         scores = GameObject.Find("Canvas").GetComponent<Score>();
+        if (MainMenu.player2)
+        {
+            shieldHP *= 2;
+        }
 	}
 	
 	void Update () {
