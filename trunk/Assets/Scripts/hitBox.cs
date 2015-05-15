@@ -31,6 +31,10 @@ public class hitBox : MonoBehaviour
         {
             player.SetActive(false);
         }
+        if(scores.playerlives2 <= 0 && scores.playerlives <= 0)
+        {
+            Pause.GameEnd = true;
+        }
     }
     void OnTriggerEnter2D(Collider2D collider)
     {
@@ -44,7 +48,14 @@ public class hitBox : MonoBehaviour
             }
             if (collider.tag == "pPickup")
             {
-                scores.pCount2++;
+                if(scores.pCount2 >= 4)
+                {
+                    scores.score2 += 200;
+                }
+                else
+                {
+                    scores.pCount2++;
+                }
             }
             if (collider.tag == "sPickup")
             {
@@ -61,7 +72,14 @@ public class hitBox : MonoBehaviour
             }
             if (collider.tag == "pPickup")
             {
-                scores.pCount++;
+                if (scores.pCount >= 4)
+                {
+                    scores.score += 200;
+                }
+                else
+                {
+                    scores.pCount++;
+                }
             }
             if (collider.tag == "sPickup")
             {

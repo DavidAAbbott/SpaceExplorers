@@ -11,7 +11,6 @@ public class PlayerTurretShot : MonoBehaviour
     private float timeBetween = 0.0f;
 
     public static bool KBControls = false;
-    public static bool KBControls2 = false;
     public bool KBControlsEditor = false;
 
     public float smooth = 2.0f;
@@ -22,16 +21,15 @@ public class PlayerTurretShot : MonoBehaviour
 
     void Start()
     {
+        /*
         if (KBControlsEditor == false)
         {
             KBControls = false;
-            KBControls2 = false;
         }
         else
         {
             KBControls = true;
-            KBControls2 = true;
-        }
+        }*/
     }
 
     void Update()
@@ -51,7 +49,7 @@ public class PlayerTurretShot : MonoBehaviour
                     return;
                 }
             }
-            else if (MainMenu.player2 == true)
+            else// if (MainMenu.player2 == true)
             {
                 rightStick = new Vector2(Input.GetAxis("R_XAxis_2"), Input.GetAxis("R_YAxis_2"));
 
@@ -66,7 +64,7 @@ public class PlayerTurretShot : MonoBehaviour
             }
         }
 
-        else if (KBControls == true)
+        else //if (KBControls == true)
         {
             Vector2 inputs = Vector2.zero;
 

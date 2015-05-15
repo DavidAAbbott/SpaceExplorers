@@ -22,8 +22,11 @@ public class BossScript : MonoBehaviour {
     public bool miniBoss = false;
     private SpriteRenderer rend;
     private Color32 origcolor;
+    public static float explodeTime = 10f;
+    public float explodeTime1 = 10f;
 
 	void Start () {
+        explodeTime = explodeTime1;
         StartCoroutine("Pattern");
         origpos = transform.position;
         speed = (2 * Mathf.PI) / seconds;
@@ -47,9 +50,11 @@ public class BossScript : MonoBehaviour {
 
         if (bossHP <= 0)
         {
-            Destroy(gameObject);
             Instantiate(explosion, transform.position, new Quaternion());
-            MoveForward.stop = false;
+            if (miniBoss)
+            {
+                MoveForward.stop = false;
+            }
             MoveForward.slow = false;
             BackgroundScroll.moving = true;
             Destroy(stopTrigger);
@@ -61,6 +66,11 @@ public class BossScript : MonoBehaviour {
             {
                 scores.score2 += points * scores.combo2;
             }
+            if(!miniBoss)
+            {
+                Pause.explode = true;
+            }
+            Destroy(gameObject, explodeTime);
         }
 
         if(ShieldHitBox.shieldHP <= 0)
@@ -90,35 +100,35 @@ public class BossScript : MonoBehaviour {
                 //yield return new WaitForSeconds(2f);
                 Shoot(0.5f);
                 bTime = 1.8f;
-                yield return new WaitForSeconds(0.5f);
+                yield return new WaitForSeconds(0.7f);
                 Shoot(0.61f);
                 bTime = 1.5f;
-                yield return new WaitForSeconds(0.5f);
+                yield return new WaitForSeconds(0.7f);
                 Shoot(0.9f);
                 bTime = 1.2f;
-                yield return new WaitForSeconds(0.5f);
+                yield return new WaitForSeconds(0.7f);
                 Shoot(0.3f);
-                bTime = 1.7f;
-                yield return new WaitForSeconds(0.5f);
-                Shoot(0.42f);
                 bTime = 1.7f;
                 yield return new WaitForSeconds(0.7f);
-
-                Shoot(0.7f);
-                bTime = 1.2f;
-                yield return new WaitForSeconds(0.5f);
-                Shoot(0.56f);
-                bTime = 1.4f;
-                yield return new WaitForSeconds(0.5f);
-                Shoot(0.48f);
-                bTime = 1.7f;
-                yield return new WaitForSeconds(0.5f);
-                Shoot(0.3f);
-                bTime = 1.7f;
-                yield return new WaitForSeconds(0.5f);
                 Shoot(0.42f);
                 bTime = 1.7f;
                 yield return new WaitForSeconds(0.9f);
+
+                Shoot(0.7f);
+                bTime = 1.2f;
+                yield return new WaitForSeconds(0.7f);
+                Shoot(0.56f);
+                bTime = 1.4f;
+                yield return new WaitForSeconds(0.7f);
+                Shoot(0.48f);
+                bTime = 1.7f;
+                yield return new WaitForSeconds(0.7f);
+                Shoot(0.3f);
+                bTime = 1.7f;
+                yield return new WaitForSeconds(0.7f);
+                Shoot(0.42f);
+                bTime = 1.7f;
+                yield return new WaitForSeconds(1.1f);
             }
 
             if (miniBoss)

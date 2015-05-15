@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class Score : MonoBehaviour {
     public int playerlives = 5;
-    public int playerlives2 = 5;
+    public int playerlives2 = 0;
     public int pCount = 1;
     public int pCount2 = 1;
     public int sCount, sCount2;
@@ -25,6 +25,7 @@ public class Score : MonoBehaviour {
         guiSecondary.text = sCount.ToString();
         if(MainMenu.player2)
         {
+            playerlives2 = playerlives;
             player2.SetActive(true);
             p2UI.SetActive(true);
             guiScore2.text = "Score: " + score2.ToString();

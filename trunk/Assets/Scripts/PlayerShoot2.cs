@@ -70,14 +70,14 @@ public class PlayerShoot2 : MonoBehaviour
                     }
                 }
 
-                if (Input.GetButton("LB_2") || Input.GetButton("A_2"))
+                if (Input.GetButton("LB_2") || Input.GetButton("A_2") || Input.GetButton("B_2"))
                 {
                     if (holdTimeP2 <= 15f)
                     {
                         holdTimeP2 += Time.deltaTime * holdTimeModifier;
                     }
                 }
-                else if (Input.GetButtonUp("LB_2") && holdTimeP2 > 0 || Input.GetButtonUp("A_2") && holdTimeP2 > 0)
+                else if (Input.GetButtonUp("LB_2") && holdTimeP2 > 0 || Input.GetButtonUp("A_2") && holdTimeP2 > 0 || Input.GetButtonUp("B_2") && holdTimeP2 > 0)
                 {
                     SecondaryShoot();
                 }

@@ -18,7 +18,7 @@ public class EnemyWaypoints : MonoBehaviour
 
     void Start(){
         liekkiAnim = lieska.GetComponent<Animator>();
-        enemyAnim = this.GetComponent<Animator>();
+        enemyAnim = gameObject.GetComponent<Animator>();
         liekkiAnim.SetBool("x-", true);
         enemyAnim.SetBool("blastoff", false);
         lieska.SetActive(false);

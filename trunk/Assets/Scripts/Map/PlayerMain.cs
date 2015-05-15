@@ -55,12 +55,12 @@ public class PlayerMain : MonoBehaviour
         }
         else
         {
-            if (Input.GetButtonDown("X_1") && ThrustForce < ThrustMax)
+            if (Input.GetKey(KeyCode.LeftShift) && ThrustForce < ThrustMax)
             {
                 ThrustForce += BoostForce;
             }
 
-            else if (Input.GetButtonUp("X_1") && ThrustForce > ThrustMin)
+            else if (Input.GetKey(KeyCode.LeftShift) && ThrustForce > ThrustMin)
             {
                 ThrustForce -= BoostForce;
             }
