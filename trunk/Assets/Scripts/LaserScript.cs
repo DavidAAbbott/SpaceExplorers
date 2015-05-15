@@ -1,15 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class LaserScript : MonoBehaviour {
+public class LaserScript : MonoBehaviour
+{
     private GameObject laser, laserStartCast, laser2, laserStartCast2, camPos;
     public Camera Camera;
     public float shake = 0f;
     public float shakeAmount = 0.7f;
     public float decrease = 1f;
     Vector3 camOrigPos = Vector3.zero;
+    public AudioClip bosslaser;
 
-	void Start () {
+    void Start()
+    {
         camPos = GameObject.Find("Cameraposition");
         laser = GameObject.Find("Laser");
         laserStartCast = GameObject.Find("LaserStartCast");
@@ -21,9 +24,10 @@ public class LaserScript : MonoBehaviour {
         laserStartCast2.SetActive(false);
 
         StartCoroutine("timer");
-	}
-	
-	void Update () {
+    }
+
+    void Update()
+    {
         camOrigPos = camPos.transform.position;
         if (shake > 0f)
         {
@@ -36,7 +40,7 @@ public class LaserScript : MonoBehaviour {
             shake = 0.0f;
             Camera.transform.position = camOrigPos;
         }
-	}
+    }
     IEnumerator timer()
     {
         yield return new WaitForSeconds(3f);
@@ -44,6 +48,7 @@ public class LaserScript : MonoBehaviour {
         {
             float rng = Random.Range(0.5f, 2f);
             laserStartCast.SetActive(true);
+            GetComponent<AudioSource>().PlayOneShot(bosslaser);
             yield return new WaitForSeconds(0.9f);
             laser.SetActive(true);
             shake = 0.5f;
@@ -55,6 +60,7 @@ public class LaserScript : MonoBehaviour {
 
             rng = Random.Range(0.5f, 2f);
             laserStartCast2.SetActive(true);
+            GetComponent<AudioSource>().PlayOneShot(bosslaser);
             yield return new WaitForSeconds(0.9f);
             laser2.SetActive(true);
             shake = 0.5f;
@@ -67,6 +73,7 @@ public class LaserScript : MonoBehaviour {
             rng = Random.Range(0.5f, 2f);
             laserStartCast.SetActive(true);
             laserStartCast2.SetActive(true);
+            GetComponent<AudioSource>().PlayOneShot(bosslaser);
             yield return new WaitForSeconds(0.9f);
             laser.SetActive(true);
             laser2.SetActive(true);
