@@ -7,9 +7,11 @@ public class EnemyWaypoints : MonoBehaviour
     private int currentWaypoint;
     private Transform waypoint;
     private bool blastoff = false;
+    private bool hasPlayed = false;
     private Animator liekkiAnim, enemyAnim;
     public GameObject lieska;
-
+    public AudioClip whoosh;
+   
     public float speed = 1f;
     public float speedIncrease = 4f;
     private float timer = 0f;
@@ -45,6 +47,12 @@ public class EnemyWaypoints : MonoBehaviour
             enemyAnim.SetBool("blastoff", true);
             liekkiAnim.SetBool("x+", true);
             transform.Translate(-Vector2.right * (speed * speedIncrease) * Time.deltaTime);
+
+            if(hasPlayed == false)
+            {
+                GetComponent<AudioSource>().PlayOneShot(whoosh);
+                hasPlayed = true;
+            }  
         }
         //currentSpeed = speed * Time.deltaTime;
         //transform.Translate(0, 0, Time.deltaTime * currentSpeed);
