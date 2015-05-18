@@ -13,20 +13,10 @@ public class PlayerMain : MonoBehaviour
 
     public int health = 100;
     public static bool KBControls = false;
-    public bool KBControlsEditor = false;
 
     void Start()
     {
         ThrustMin = ThrustForce;
-
-        if (KBControlsEditor == false)
-        {
-            KBControls = false;
-        }
-        else
-        {
-            KBControls = true;
-        }
     }
 
     void Update()
@@ -41,8 +31,6 @@ public class PlayerMain : MonoBehaviour
         }
 
         //Boost
-        if (KBControls == false)
-        {
             if (Input.GetButtonDown("X_1") && ThrustForce < ThrustMax)
             {
                 ThrustForce += BoostForce;
@@ -52,19 +40,6 @@ public class PlayerMain : MonoBehaviour
             {
                 ThrustForce -= BoostForce;
             }
-        }
-        else
-        {
-            if (Input.GetKey(KeyCode.LeftShift) && ThrustForce < ThrustMax)
-            {
-                ThrustForce += BoostForce;
-            }
-
-            else if (Input.GetKey(KeyCode.LeftShift) && ThrustForce > ThrustMin)
-            {
-                ThrustForce -= BoostForce;
-            }
-        }
 
         //PlayerDeath();
     }

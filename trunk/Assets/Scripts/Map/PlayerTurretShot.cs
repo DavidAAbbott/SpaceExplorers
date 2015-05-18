@@ -19,19 +19,6 @@ public class PlayerTurretShot : MonoBehaviour
     public GameObject Bullet;
     Vector2 direction2D = Vector2.zero;
 
-    void Start()
-    {
-        /*
-        if (KBControlsEditor == false)
-        {
-            KBControls = false;
-        }
-        else
-        {
-            KBControls = true;
-        }*/
-    }
-
     void Update()
     {
         if (KBControls == false)

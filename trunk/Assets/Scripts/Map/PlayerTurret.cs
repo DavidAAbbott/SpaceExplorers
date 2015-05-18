@@ -12,19 +12,6 @@ public class PlayerTurret : MonoBehaviour {
 
     public float smooth = 2.0f;
 
-    void Start()
-    {
-        /*
-        if (KBControlsEditor == false)
-        {
-            KBControls = false;
-        }
-        else
-        {
-            KBControls = true;
-        }*/
-    }
-
     void Update()
     {
         if (KBControls == false)

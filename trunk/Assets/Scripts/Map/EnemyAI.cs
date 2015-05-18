@@ -3,21 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 public class EnemyAI : MonoBehaviour
 {
-    public GameObject explosion;
-    public GameObject EnemyBullet;
-    public GameObject EnemyToSpawn;
-    public GameObject EnemyToSpawn2;
+    public GameObject explosion, EnemyBullet, EnemyToSpawn, EnemyToSpawn2;
 
     public int spawnRange, enemySpawnCount, enemySpawnCount2;
-    public float patrolSpeed, attackSpeed, rotationSpeed, fireRate, waitTime, mothershipHealth;
+    public float enemySpawnInterval, enemySpawnInterval2, patrolSpeed, attackSpeed, rotationSpeed, fireRate, waitTime, mothershipHealth;
 
     public bool randSpawn, IsMothership;
     private bool patrol = true;
+    private bool JustSpawned = true;
+    private bool started, started2;
 
     private int[] TransformDirection;
-    private int RandomDirectionX;
-    private int RandomDirectionY;
-    private int DirectionIndex;
+    private int RandomDirectionX, RandomDirectionY, DirectionIndex;
 
     Transform target;
     Transform myTransform;
@@ -35,6 +32,7 @@ public class EnemyAI : MonoBehaviour
         if (randSpawn == true)
         {
             transform.position = Random.insideUnitCircle * spawnRange;
+            StartCoroutine(Counter());
         }
 
         //Used for fighter ship patrol movement
@@ -118,19 +116,25 @@ public class EnemyAI : MonoBehaviour
             StartCoroutine(Firing());
         }
 
-        if (collider.tag == "DetectRadius" && IsMothership == true)
+        if (collider.tag == "DetectRadius" && IsMothership == true && JustSpawned == false)
         {
             patrol = false;
 
-            for (int i = 0; i < enemySpawnCount; i++)
+            if (started == false)
             {
-                Instantiate(EnemyToSpawn, transform.position, new Quaternion());
+                StartCoroutine(EnemySpawn());
             }
 
-            for (int i = 0; i < enemySpawnCount2; i++)
+            if (started2 == false)
             {
-                Instantiate(EnemyToSpawn2, transform.position, new Quaternion());
+                StartCoroutine(EnemySpawn2());
             }
+        }
+
+        // If mothership has just spawned next to player destroy it
+        if (collider.tag == "DetectRadius" && IsMothership == true && JustSpawned == true)
+        {
+            Destroy(gameObject);
         }
 
         //If fighter ship hits player destroy it
@@ -193,5 +197,42 @@ public class EnemyAI : MonoBehaviour
             Fire();
             yield return new WaitForSeconds(fireRate);
         }
+    }
+
+    IEnumerator Counter()
+    {
+        yield return new WaitForSeconds(1);
+        JustSpawned = false;
+    }
+
+    IEnumerator EnemySpawn()
+    {
+        started = true;
+        int i = 0;
+
+        while (enemySpawnCount > i)
+        {
+            yield return new WaitForSeconds(enemySpawnInterval);
+            Instantiate(EnemyToSpawn, transform.position, new Quaternion());
+            i++;
+        }
+
+        started = false;
+    }
+
+    IEnumerator EnemySpawn2()
+    {
+        started2 = true;
+        int i = 0;
+
+        while (enemySpawnCount2 > i)
+        {
+            yield return new WaitForSeconds(enemySpawnInterval2);
+
+            Instantiate(EnemyToSpawn2, transform.position, new Quaternion());
+            i++;
+        }
+
+        started2 = false;
     }
 }
