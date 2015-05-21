@@ -24,6 +24,7 @@ public class BossScript : MonoBehaviour {
     private Color32 origcolor;
     public static float explodeTime = 10f;
     public float explodeTime1 = 10f;
+    public bool boss2 = false;
 
 	void Start () {
         explodeTime = explodeTime1;
@@ -42,11 +43,14 @@ public class BossScript : MonoBehaviour {
 	}
 	
 	void Update () {
-	    angle += speed*Time.deltaTime;
-        pos.x = Mathf.Cos(angle)*radius + origpos.x;
-        pos.y = Mathf.Sin(angle)*radius + origpos.y;
+        if (!boss2)
+        {
+            angle += speed * Time.deltaTime;
+            pos.x = Mathf.Cos(angle) * radius + origpos.x;
+            pos.y = Mathf.Sin(angle) * radius + origpos.y;
 
-        transform.position = pos;
+            transform.position = pos;
+        }
 
         if (bossHP <= 0)
         {
