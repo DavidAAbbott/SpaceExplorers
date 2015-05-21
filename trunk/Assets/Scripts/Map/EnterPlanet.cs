@@ -10,6 +10,7 @@ public class EnterPlanet : MonoBehaviour
     public Text enter;
     public Text exit;
     public Image menuBG;
+    public int levelNumber;
     private bool intrigger = false;
     private bool menushowing = false;
 
@@ -39,7 +40,7 @@ public class EnterPlanet : MonoBehaviour
 
         if (Input.GetButton("A_1") && menushowing == true)
         {
-            Application.LoadLevel(2);
+            Application.LoadLevel(levelNumber);
             Time.timeScale = 1f;
         }
 
