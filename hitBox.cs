@@ -40,7 +40,7 @@ public class hitBox : MonoBehaviour
     {
         if (p2)
         {
-            if (collider.tag == "Bullet" || collider.tag == "Ground" || collider.tag == "Asteroid" || collider.tag == "Enemy")
+            if (collider.tag == "Bullet" || collider.tag == "Ground" || collider.tag == "Asteroid" || collider.tag == "Enemy" || collider.tag =="Worm")
             {
                 StartCoroutine("invul", 2);
                 scores.playerlives2--;
@@ -59,12 +59,12 @@ public class hitBox : MonoBehaviour
             }
             if (collider.tag == "sPickup")
             {
-                scores.sCount2 += 10;
+                scores.sCount2 += 5;
             }
         }
         else
         {
-            if (collider.tag == "Bullet" || collider.tag == "Ground" || collider.tag == "Asteroid" || collider.tag == "Enemy")
+            if (collider.tag == "Bullet" || collider.tag == "Ground" || collider.tag == "Asteroid" || collider.tag == "Enemy" || collider.tag =="Worm")
             {
                 StartCoroutine("invul", 1);
                 scores.playerlives--;
@@ -83,7 +83,7 @@ public class hitBox : MonoBehaviour
             }
             if (collider.tag == "sPickup")
             {
-                scores.sCount += 10;
+                scores.sCount += 5;
             }
         }
     }

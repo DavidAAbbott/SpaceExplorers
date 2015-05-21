@@ -39,7 +39,7 @@ public class Projectile : MonoBehaviour
             Destroy(gameObject, 0.01f);
         }
 
-        if (collider.tag == "Enemy")
+        if (collider.tag == "Enemy" || collider.tag == "Worm")
         {
             Destroy(gameObject);
             Instantiate(hitExplosion, transform.position, new Quaternion());

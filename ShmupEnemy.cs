@@ -99,9 +99,9 @@ public class ShmupEnemy : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        if(collider.tag == "Player")
+        if(collider.tag == "Player" || collider.tag =="Worm")
         {
-            Destroy(gameObject);
+            HP = 0;
         }
         if (collider.tag == "p1Bullet" || collider.tag == "p1Bullet2" || collider.tag == "p1Bullet3" || collider.tag == "p1Bomb")
         {
