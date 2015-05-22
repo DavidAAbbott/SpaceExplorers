@@ -13,6 +13,12 @@ public class MainMenu : MonoBehaviour
         Application.LoadLevel(sceneToChangeTo);
     }
 
+    //Exit Game
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+
     //Mute audio
     public void MuteAudio(bool isOn)
     {

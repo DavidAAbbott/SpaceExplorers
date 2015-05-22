@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class Pause : MonoBehaviour {
     public static bool GameEnd = false;
-    public GameObject pause, gameEnd, stageEnd;
+    public GameObject pause, gameEnd, stageEnd, exit;
     public static bool paused = false;
     public static bool stageClear = false;
     public static bool explode = false;
@@ -17,6 +17,7 @@ public class Pause : MonoBehaviour {
         pause.SetActive(false);
         gameEnd.SetActive(false);
         stageEnd.SetActive(false);
+        exit.SetActive(false);
         paused = false;
         explode = false;
         GameEnd = false;
@@ -24,7 +25,7 @@ public class Pause : MonoBehaviour {
     }
     void Update()
     {
-        if (Input.GetKeyUp(KeyCode.P) || Input.GetButtonUp("Start_1") || Input.GetButtonUp("Back_1"))
+        if (Input.GetKeyUp(KeyCode.P) || Input.GetButtonUp("Back_1"))
         {
             paused = true;
             pause.SetActive(true);
@@ -35,6 +36,7 @@ public class Pause : MonoBehaviour {
             paused = false;
             Time.timeScale = 1;
             pause.SetActive(false);
+            exit.SetActive(false);
         }
         if (GameEnd)
         {
@@ -76,6 +78,13 @@ public class Pause : MonoBehaviour {
                 Destroy(gameObject,0.1f);
                 MoveForward.stop = false;
             }
+        }
+        if (Input.GetKeyUp(KeyCode.Escape) || Input.GetButtonUp("Start_1"))
+        {
+            paused = true;
+            Time.timeScale = 0;
+
+            exit.SetActive(true);
         }
     }
     void Dim()
