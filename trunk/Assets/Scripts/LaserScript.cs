@@ -53,6 +53,10 @@ public class LaserScript : MonoBehaviour
             Vector2 rndShake = Random.insideUnitCircle * shakeAmount;
             Camera.transform.localPosition = new Vector3(rndShake.x, rndShake.y - 0.3f, camOrigPos.z);
             shake -= Time.deltaTime * decrease;
+            if(shake <= 0.1)
+            {
+                shake += 0.1f;
+            }
         }
         else
         {
@@ -118,8 +122,8 @@ public class LaserScript : MonoBehaviour
         while (true)
         {
             bAnim.SetInteger("animState", 1);
-            yield return new WaitForSeconds(0.6f);
-            float rng = Random.Range(2f, 4f);
+            yield return new WaitForSeconds(0.3f);
+            float rng = Random.Range(1.2f, 2f);
             laser.SetActive(true);
             anim.SetBool("laserStart", true);
             GetComponent<AudioSource>().PlayOneShot(bosslaser);
@@ -130,7 +134,7 @@ public class LaserScript : MonoBehaviour
             shake = 0.5f;
             yield return new WaitForSeconds(rng);
             bAnim.SetInteger("animState", 2);
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.2f);
             shake = 0.0f;
             laser.SetActive(false);
             box.enabled = false;

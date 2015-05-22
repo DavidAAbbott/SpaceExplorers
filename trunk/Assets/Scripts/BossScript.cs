@@ -20,6 +20,7 @@ public class BossScript : MonoBehaviour {
     public GameObject stopTrigger;
     public static float bTime = 0f;
     public bool miniBoss = false;
+    public bool laserBoss = false;
     private SpriteRenderer rend;
     private Color32 origcolor;
     public static float explodeTime = 10f;
@@ -134,6 +135,40 @@ public class BossScript : MonoBehaviour {
                 bTime = 1.7f;
                 yield return new WaitForSeconds(1.1f);
             }
+            if (laserBoss)
+            {
+                Shoot(0.5f);
+                bTime = 2f;
+                yield return new WaitForSeconds(0.7f);
+                Shoot(0.61f);
+                bTime = 1.7f;
+                yield return new WaitForSeconds(0.7f);
+                Shoot(0.9f);
+                bTime = 1.4f;
+                yield return new WaitForSeconds(0.7f);
+                Shoot(0.3f);
+                bTime = 1.9f;
+                yield return new WaitForSeconds(0.7f);
+                Shoot(0.42f);
+                bTime = 1.9f;
+                yield return new WaitForSeconds(0.9f);
+
+                Shoot(0.7f);
+                bTime = 1.4f;
+                yield return new WaitForSeconds(0.7f);
+                Shoot(0.56f);
+                bTime = 1.6f;
+                yield return new WaitForSeconds(0.7f);
+                Shoot(0.48f);
+                bTime = 1.9f;
+                yield return new WaitForSeconds(0.7f);
+                Shoot(0.3f);
+                bTime = 1.9f;
+                yield return new WaitForSeconds(0.7f);
+                Shoot(0.42f);
+                bTime = 1.9f;
+                yield return new WaitForSeconds(1.1f);
+            }
 
             if (miniBoss)
             {
@@ -195,7 +230,6 @@ public class BossScript : MonoBehaviour {
         {
             bossHP -= Projectile.bullet1Dmg;
             StartCoroutine("flash", 0);
-            //rend.color = new Color32(255, 117, 152, 255);
         }
         if (collider.tag == "p1Bullet2" || collider.tag == "p2Bullet2")
         {
