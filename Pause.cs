@@ -10,7 +10,9 @@ public class Pause : MonoBehaviour {
     public static bool explode = false;
     public Image black;
     private bool first = true;
+    private bool firstP = true;
     Color color = new Color32(0, 0, 0, 0);
+    private bool timer = true;
 
     void Start()
     {
@@ -25,18 +27,33 @@ public class Pause : MonoBehaviour {
     }
     void Update()
     {
-        if (Input.GetKeyUp(KeyCode.P) || Input.GetButtonUp("Back_1"))
+        if (paused && Input.GetKeyDown(KeyCode.P) && !firstP || paused && Input.GetButtonDown("Back_1") && !firstP || paused && Input.GetKeyDown(KeyCode.Escape) && !firstP || paused && Input.GetButtonDown("Start_1") && !firstP)
         {
-            paused = true;
-            pause.SetActive(true);
-            Time.timeScale = 0;
-        }
-        if (paused && Input.anyKey)
-        {
+            firstPress();
             paused = false;
             Time.timeScale = 1;
             pause.SetActive(false);
             exit.SetActive(false);
+            print(firstP);
+            StartCoroutine("wTime");
+        }
+        if (!paused && Input.GetKeyDown(KeyCode.P) && firstP && timer || !paused && Input.GetButtonDown("Back_1") && firstP && timer)
+        {
+            firstPress();
+            paused = true;
+            pause.SetActive(true);
+            Time.timeScale = 0;
+            print(firstP);
+            timer = false;
+        }
+        if (!paused && Input.GetKeyDown(KeyCode.Escape) && firstP && timer || !paused && Input.GetButtonDown("Start_1") && firstP && timer)
+        {
+            firstPress();
+            paused = true;
+            Time.timeScale = 0;
+            exit.SetActive(true);
+            print(firstP);
+            timer = false;
         }
         if (GameEnd)
         {
@@ -79,13 +96,6 @@ public class Pause : MonoBehaviour {
                 MoveForward.stop = false;
             }
         }
-        if (Input.GetKeyUp(KeyCode.Escape) || Input.GetButtonUp("Start_1"))
-        {
-            paused = true;
-            Time.timeScale = 0;
-
-            exit.SetActive(true);
-        }
     }
     void Dim()
     {
@@ -96,5 +106,21 @@ public class Pause : MonoBehaviour {
     {
         yield return new WaitForSeconds(BossScript.explodeTime);
         stageClear = true;
+    }
+    void firstPress()
+    {
+        if(!firstP)
+        {
+            firstP = true;
+        }
+        else
+        {
+            firstP = false;
+        }
+    }
+    IEnumerator wTime()
+    {
+        yield return new WaitForSeconds(0.1f);
+        timer = true;
     }
 }
