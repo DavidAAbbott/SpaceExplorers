@@ -11,6 +11,7 @@ public class MainMenu : MonoBehaviour
     public void ChangeToScene(int sceneToChangeTo)
     {
         Application.LoadLevel(sceneToChangeTo);
+        Time.timeScale = 1;
     }
 
     //Exit Game
