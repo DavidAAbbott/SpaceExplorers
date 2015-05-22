@@ -34,7 +34,6 @@ public class Pause : MonoBehaviour {
             Time.timeScale = 1;
             pause.SetActive(false);
             exit.SetActive(false);
-            print(firstP);
             StartCoroutine("wTime");
         }
         if (!paused && Input.GetKeyDown(KeyCode.P) && firstP && timer || !paused && Input.GetButtonDown("Back_1") && firstP && timer)
@@ -43,7 +42,6 @@ public class Pause : MonoBehaviour {
             paused = true;
             pause.SetActive(true);
             Time.timeScale = 0;
-            print(firstP);
             timer = false;
         }
         if (!paused && Input.GetKeyDown(KeyCode.Escape) && firstP && timer || !paused && Input.GetButtonDown("Start_1") && firstP && timer)
@@ -52,7 +50,6 @@ public class Pause : MonoBehaviour {
             paused = true;
             Time.timeScale = 0;
             exit.SetActive(true);
-            print(firstP);
             timer = false;
         }
         if (GameEnd)
