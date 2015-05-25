@@ -15,6 +15,7 @@ public class EnemyAI : MonoBehaviour
 
     private int[] TransformDirection;
     private int RandomDirectionX, RandomDirectionY, DirectionIndex;
+    private GameObject player;
 
     Transform target;
     Transform myTransform;
@@ -23,7 +24,8 @@ public class EnemyAI : MonoBehaviour
     void Awake()
     {
         myTransform = transform;
-        target = GameObject.FindWithTag("Player").transform;
+        player = GameObject.Find("Player");
+        target = player.transform;
     }
 
     void Start()
@@ -67,7 +69,7 @@ public class EnemyAI : MonoBehaviour
         }
 
         //Enemy moves to attack player
-        else if (patrol == false)
+        else if (patrol == false && target != null)
         {
             if (IsMothership == true)
             {
@@ -264,5 +266,12 @@ public class EnemyAI : MonoBehaviour
         }
 
         started2 = false;
+    }
+    void Update()
+    {
+        if(target == null)
+        {
+            patrol = true;
+        }
     }
 }

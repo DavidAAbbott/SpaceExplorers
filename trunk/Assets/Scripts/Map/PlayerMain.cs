@@ -114,7 +114,7 @@ public class PlayerMain : MonoBehaviour
         Application.LoadLevel(1);
     }
 
-    void OnCollisionEnter2D(Collision2D collider)
+    void OnTriggerEnter2D(Collider2D collider)
     {
         if (collider.gameObject.tag == "Enemy")
         {

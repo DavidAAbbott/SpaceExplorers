@@ -30,6 +30,18 @@ public class MainMenu : MonoBehaviour
         }
     }
 
+    public void Info(bool Press)
+    {
+        if (Press == true)
+        {
+            Application.LoadLevel(1);
+        }
+        else
+        {
+            Application.LoadLevel(0);
+        }
+    }
+
     //Adjust volume
     public void ChangeVolume(float newVolume)
     {

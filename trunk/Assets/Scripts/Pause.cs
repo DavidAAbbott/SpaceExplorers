@@ -60,7 +60,7 @@ public class Pause : MonoBehaviour {
             {
                 Time.timeScale = 1;
                 GameEnd = false;
-                Application.LoadLevel(1);
+                Application.LoadLevel(2);
                 Destroy(gameObject);
                 PlayerMov.canMove = true;
                 PlayerShoot.canShoot = true;
