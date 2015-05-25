@@ -3,24 +3,56 @@ using System.Collections;
 
 public class PlayerMain : MonoBehaviour
 {
-    public GameObject explosion;
+    public GameObject explosion, healthPoint;
     public Vector2 leftStick = new Vector2(0, 0);
     public float ThrustForce, ThrustMax, BoostForce, RotationSpeed;
     public float radialDeadZone = 0.25f;
     private float horizontal, ThrustMin;
     private float vertical = 0f;
     private float KBvertical = 0f;
+    private SpriteRenderer spr;
+    public Color32 green, yellow, orange, red;
 
     public int health = 100;
     public static bool KBControls = false;
+    public static bool first = true;
 
     void Start()
     {
+        spr = healthPoint.GetComponent<SpriteRenderer>();
         ThrustMin = ThrustForce;
+        if (!first)
+        {
+            gameObject.transform.position = EnterPlanet.prevLoc;
+        }
     }
 
     void Update()
     {
+        if (health > 70)
+        {
+            spr.color = green;
+        }
+        else if (health <= 70 && health > 30)
+        {
+            spr.color = yellow;
+        }
+        else if (health <= 30 && health > 10)
+        {
+            spr.color = orange;
+        }
+        else if (health <= 10 && health > 0)
+        {
+            spr.color = red;
+        }
+        else
+        {
+            StartCoroutine("PlayerDeath");
+        }
+        if(Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            KBControls = !KBControls;
+        }
         if (KBControls == false)
         {
             leftStick = new Vector2(Input.GetAxis("L_XAxis_1"), Input.GetAxis("L_YAxis_1"));
@@ -76,13 +108,10 @@ public class PlayerMain : MonoBehaviour
 
     IEnumerator PlayerDeath()
     {
-        if (health <= 0)
-        {
-            gameObject.SetActive(false);
-            Instantiate(explosion, transform.position, new Quaternion());
-            yield return new WaitForSeconds(3);
-            Application.LoadLevel(1);
-        }
+        gameObject.SetActive(false);
+        Instantiate(explosion, transform.position, new Quaternion());
+        yield return new WaitForSeconds(3);
+        Application.LoadLevel(1);
     }
 
     void OnCollisionEnter2D(Collision2D collider)

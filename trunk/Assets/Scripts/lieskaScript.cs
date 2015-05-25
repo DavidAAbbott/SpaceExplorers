@@ -6,6 +6,7 @@ public class lieskaScript : MonoBehaviour
     private Animator anim;
     public bool middle = false;
     public bool p2 = false;
+    public bool op = false;
 
     void Start()
     {
@@ -13,6 +14,46 @@ public class lieskaScript : MonoBehaviour
     }
     void Update()
     {
+        if(op)
+        {
+            if (PlayerMov.KBcontrols)
+            {
+                if (Input.GetKey(KeyCode.LeftShift) && Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0 && Input.GetKey(KeyCode.LeftShift))
+                {
+                    anim.SetBool("x+", false);
+                    anim.SetBool("x-", false);
+                }
+                else if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
+                {
+                    anim.SetBool("x+", true);
+                    anim.SetBool("x-", false);
+                }
+                else
+                {
+                    anim.SetBool("x+", false);
+                    anim.SetBool("x-", true);
+                }
+            }
+            else
+            {
+
+                if (Input.GetButton("X_1") && Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0 && Input.GetButton("X_1"))
+                {
+                    anim.SetBool("x+", false);
+                    anim.SetBool("x-", false);
+                }
+                else if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
+                {
+                    anim.SetBool("x+", true);
+                    anim.SetBool("x-", false);
+                }
+                else
+                {
+                    anim.SetBool("x+", false);
+                    anim.SetBool("x-", true);
+                }
+            }
+        }
         if (p2)
         {
             if (PlayerMov.KBcontrols2)
@@ -76,7 +117,7 @@ public class lieskaScript : MonoBehaviour
                 }
             }
         }
-        else
+        else if(!op)
         {
             if (PlayerMov.KBcontrols)
             {

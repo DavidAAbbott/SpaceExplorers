@@ -4,6 +4,7 @@ using System.Collections;
 
 public class EnterPlanet : MonoBehaviour
 {
+    private GameObject player;
     public Text openMenu;
     public Text planet;
     public Text planetDesc;
@@ -13,9 +14,11 @@ public class EnterPlanet : MonoBehaviour
     public int levelNumber;
     private bool intrigger = false;
     private bool menushowing = false;
+    public static Vector3 prevLoc;
 
     void Start()
     {
+        player = GameObject.Find("Player");
         openMenu.enabled = false;
         planet.enabled = false;
         planetDesc.enabled = false;
@@ -42,6 +45,8 @@ public class EnterPlanet : MonoBehaviour
         {
             Application.LoadLevel(levelNumber);
             Time.timeScale = 1f;
+            prevLoc = player.transform.position;
+            PlayerMain.first = false;
         }
 
         if (Input.GetButton("B_1") && menushowing == true)

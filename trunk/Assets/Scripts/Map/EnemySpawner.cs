@@ -20,12 +20,12 @@ public class EnemySpawner : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
     {
-	if(Time.time > spawnTime + SpawnRate)
-    {
-        float positionY = Random.Range(-spawnRangeY, spawnRangeY);
-        Vector3 position = new Vector3(spawnPositionX, positionY, 0.0f);
-        Instantiate(Spawnee, position, Quaternion.Euler(0, 0, 0));
-        spawnTime = Time.time;
-    }
+	    if(Time.time > spawnTime + SpawnRate)
+        {
+            float positionY = Random.Range(-spawnRangeY, spawnRangeY);
+            Vector3 position = new Vector3(spawnPositionX, positionY, 0.0f);
+            Instantiate(Spawnee, position, Quaternion.Euler(0, 0, 0));
+            spawnTime = Time.time;
+        }
 	}
 }

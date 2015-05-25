@@ -86,7 +86,37 @@ public class EnemyAI : MonoBehaviour
     //Fire at player
     void Fire()
     {
-        Instantiate(EnemyBullet, myTransform.position + (target.position - myTransform.position).normalized, rot);
+        int rng = Random.Range(0,8);
+        float rng2 = Random.Range(0.5f, 1f);
+        if(rng == 1)
+        {
+            Instantiate(EnemyBullet, myTransform.position + (new Vector3(target.position.x - rng2, target.position.y, target.position.z) - myTransform.position).normalized, rot);
+        }
+        if (rng == 2)
+        {
+            Instantiate(EnemyBullet, myTransform.position + (new Vector3(target.position.x + rng2, target.position.y, target.position.z) - myTransform.position).normalized, rot);
+        }
+        if (rng == 3)
+        {
+            Instantiate(EnemyBullet, myTransform.position + (new Vector3(target.position.x + rng2, target.position.y - rng2, target.position.z) - myTransform.position).normalized, rot);
+        }
+        if (rng == 4)
+        {
+            Instantiate(EnemyBullet, myTransform.position + (new Vector3(target.position.x - rng2, target.position.y + rng2, target.position.z) - myTransform.position).normalized, rot);
+        }
+        if (rng == 5)
+        {
+            Instantiate(EnemyBullet, myTransform.position + (new Vector3(target.position.x, target.position.y - rng2, target.position.z) - myTransform.position).normalized, rot);
+        }
+        if (rng == 6)
+        {
+            Instantiate(EnemyBullet, myTransform.position + (new Vector3(target.position.x, target.position.y + rng2, target.position.z) - myTransform.position).normalized, rot);
+        }
+        
+        if (rng == 7)
+        {
+            Instantiate(EnemyBullet, myTransform.position + (target.position - myTransform.position).normalized, rot);
+        }
     }
 
     //Check for bullet collision and death
@@ -138,7 +168,7 @@ public class EnemyAI : MonoBehaviour
         }
 
         //If fighter ship hits player destroy it
-        if (collider.gameObject.tag == "Player" && IsMothership == false)
+        if (collider.gameObject.tag == "Player" && IsMothership == false || collider.tag == "Asteroid" && !IsMothership)
         {
             Destroy(gameObject);
             Instantiate(explosion, transform.position, new Quaternion());

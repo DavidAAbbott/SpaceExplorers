@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-
 public class PlayerMov : MonoBehaviour
 {
     public float speed = 2f;

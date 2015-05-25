@@ -20,11 +20,12 @@ public class ProjectileEnemy : MonoBehaviour
     {
         if (collider.tag == "Asteroid")
         {
-            Destroy(gameObject, 0.01f);
+            Destroy(gameObject);
         }
 
         if (collider.tag == "Player")
         {
+            Destroy(gameObject);
             Instantiate(hitExplosion, transform.position, new Quaternion());
         }
     }
