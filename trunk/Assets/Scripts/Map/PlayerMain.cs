@@ -108,10 +108,10 @@ public class PlayerMain : MonoBehaviour
 
     IEnumerator PlayerDeath()
     {
-        gameObject.SetActive(false);
+        healthPoint.SetActive(false);
         Instantiate(explosion, transform.position, new Quaternion());
-        yield return new WaitForSeconds(3);
-        Application.LoadLevel(1);
+        yield return new WaitForSeconds(0.1f);
+        Application.LoadLevel(2);
     }
 
     void OnTriggerEnter2D(Collider2D collider)

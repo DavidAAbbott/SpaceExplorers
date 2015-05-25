@@ -21,7 +21,7 @@ public class CameraScr : MonoBehaviour
     {
         target = player.transform;
 
-        //TODO: FIX CAMERA ZOOM
+        /*TODO: FIX CAMERA ZOOM
         if (Input.GetButtonDown("RS_1"))
         {
             onoff = !onoff;
@@ -34,7 +34,7 @@ public class CameraScr : MonoBehaviour
             {
                 Camera.main.orthographicSize = Mathf.Lerp(GetComponent<Camera>().orthographicSize, NormalSize, Time.deltaTime * ZoomTime);
             }
-        }
+        }*/
     }
 
     void FixedUpdate()

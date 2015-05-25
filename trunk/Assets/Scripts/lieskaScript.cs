@@ -18,12 +18,12 @@ public class lieskaScript : MonoBehaviour
         {
             if (PlayerMov.KBcontrols)
             {
-                if (Input.GetKey(KeyCode.LeftShift) && Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0 && Input.GetKey(KeyCode.LeftShift))
+                if (Input.GetKey(KeyCode.LeftShift) && Input.GetAxis("MapHorizontal") != 0 || Input.GetAxis("MapVertical") != 0 && Input.GetKey(KeyCode.LeftShift))
                 {
                     anim.SetBool("x+", false);
                     anim.SetBool("x-", false);
                 }
-                else if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
+                else if (Input.GetAxis("MapHorizontal") != 0 || Input.GetAxis("MapVertical") != 0)
                 {
                     anim.SetBool("x+", true);
                     anim.SetBool("x-", false);
@@ -37,12 +37,12 @@ public class lieskaScript : MonoBehaviour
             else
             {
 
-                if (Input.GetButton("X_1") && Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0 && Input.GetButton("X_1"))
+                if (Input.GetButton("X_1") && Input.GetAxis("L_XAxis_1") != 0 || Input.GetAxis("L_YAxis_1") != 0 && Input.GetButton("X_1"))
                 {
                     anim.SetBool("x+", false);
                     anim.SetBool("x-", false);
                 }
-                else if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
+                else if (Input.GetAxis("L_XAxis_1") != 0 || Input.GetAxis("L_YAxis_1") != 0)
                 {
                     anim.SetBool("x+", true);
                     anim.SetBool("x-", false);
